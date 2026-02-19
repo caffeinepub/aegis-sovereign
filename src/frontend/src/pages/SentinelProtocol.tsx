@@ -2,12 +2,20 @@ import BentoCard from '../components/layout/BentoCard';
 import EnvironmentSpoofing from '../components/sentinel/EnvironmentSpoofing';
 import PacketJitterSimulator from '../components/sentinel/PacketJitterSimulator';
 import HardwareMimicry from '../components/sentinel/HardwareMimicry';
+import EnvironmentMixer from '../components/sentinel/EnvironmentMixer';
 import { AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
 import PanicProtocol from '../components/sentinel/PanicProtocol';
+import { useTriggerPanic } from '../hooks/useQueries';
 
 export default function SentinelProtocol() {
   const [panicActive, setPanicActive] = useState(false);
+  const triggerPanic = useTriggerPanic();
+
+  const handlePanicActivation = () => {
+    triggerPanic.mutate('Windows Update');
+    setPanicActive(true);
+  };
 
   return (
     <div
@@ -31,27 +39,33 @@ export default function SentinelProtocol() {
             <AlertTriangle className="mx-auto mb-4 h-16 w-16 text-red-400" />
             <h2 className="mb-4 text-2xl font-bold text-red-400">EMERGENCY PROTOCOL</h2>
             <button
-              onClick={() => setPanicActive(true)}
-              className="h-32 w-full max-w-2xl rounded-lg bg-gradient-to-r from-red-600 to-red-800 text-2xl font-bold uppercase tracking-wider shadow-lg shadow-red-500/50 transition-all hover:shadow-xl hover:shadow-red-500/70"
+              onClick={handlePanicActivation}
+              disabled={triggerPanic.isPending}
+              className="h-32 w-full max-w-2xl rounded-lg bg-gradient-to-r from-red-600 to-red-800 text-2xl font-bold uppercase tracking-wider shadow-lg shadow-red-500/50 transition-all hover:shadow-xl hover:shadow-red-500/70 disabled:opacity-50"
             >
-              Activate Panic Mode
+              {triggerPanic.isPending ? 'Activating...' : 'Activate Panic Mode'}
             </button>
             <p className="mt-4 text-sm text-gray-400">Hotkey: Ctrl+Shift+P</p>
           </div>
         </BentoCard>
 
+        {/* Environment Mixer */}
+        <BentoCard className="border-green-500/30 bg-green-500/5">
+          <EnvironmentMixer />
+        </BentoCard>
+
         {/* Environment Spoofing */}
-        <BentoCard>
+        <BentoCard className="border-blue-500/30 bg-blue-500/5">
           <EnvironmentSpoofing />
         </BentoCard>
 
-        {/* Packet Jitter */}
-        <BentoCard>
+        {/* Packet Jitter Simulator */}
+        <BentoCard className="border-yellow-500/30 bg-yellow-500/5">
           <PacketJitterSimulator />
         </BentoCard>
 
         {/* Hardware Mimicry */}
-        <BentoCard>
+        <BentoCard className="border-purple-500/30 bg-purple-500/5">
           <HardwareMimicry />
         </BentoCard>
       </div>

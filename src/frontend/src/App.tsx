@@ -10,13 +10,17 @@ import SentinelProtocol from './pages/SentinelProtocol';
 import DeviceSync from './pages/DeviceSync';
 import AnalyticsVault from './pages/AnalyticsVault';
 import TacticalRemote from './pages/TacticalRemote';
+import AdminPanel from './pages/AdminPanel';
 import DashboardLayout from './components/layout/DashboardLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import PageTransition from './components/transitions/PageTransition';
 import PanicProtocol from './components/sentinel/PanicProtocol';
 import ErrorBoundary from './components/errors/ErrorBoundary';
+import { GhostModeProvider } from './contexts/GhostModeContext';
 import { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
 import { useState } from 'react';
+import { useTriggerPanic } from './hooks/useQueries';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -103,9 +107,11 @@ const sentinelRoute = createRoute({
   getParentRoute: () => dashboardRoute,
   path: '/sentinel',
   component: () => (
-    <PageTransition>
-      <SentinelProtocol />
-    </PageTransition>
+    <RoleProtectedRoute requiredRole="admin">
+      <PageTransition>
+        <SentinelProtocol />
+      </PageTransition>
+    </RoleProtectedRoute>
   ),
 });
 
@@ -129,6 +135,18 @@ const analyticsRoute = createRoute({
   ),
 });
 
+const adminPanelRoute = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/admin-panel',
+  component: () => (
+    <RoleProtectedRoute requiredRole="admin">
+      <PageTransition>
+        <AdminPanel />
+      </PageTransition>
+    </RoleProtectedRoute>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   loginRoute,
@@ -140,6 +158,7 @@ const routeTree = rootRoute.addChildren([
     sentinelRoute,
     deviceSyncRoute,
     analyticsRoute,
+    adminPanelRoute,
   ]),
 ]);
 
@@ -153,8 +172,10 @@ declare module '@tanstack/react-router' {
 
 function AppContent() {
   const [panicActive, setPanicActive] = useState(false);
+  const triggerPanic = useTriggerPanic();
 
   useKeyboardShortcut(['Control', 'Shift', 'P'], () => {
+    triggerPanic.mutate('Windows Update');
     setPanicActive(true);
   });
 
@@ -170,7 +191,9 @@ export default function App() {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <ErrorBoundary>
-        <AppContent />
+        <GhostModeProvider>
+          <AppContent />
+        </GhostModeProvider>
       </ErrorBoundary>
     </ThemeProvider>
   );

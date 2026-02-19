@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import ActiveStatusIndicator from '../common/ActiveStatusIndicator';
 
 export default function NeuralFrequencyVisualizer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -90,6 +91,9 @@ export default function NeuralFrequencyVisualizer() {
       <div className="absolute left-4 top-4">
         <h3 className="text-lg font-semibold text-white">Neural Frequency Visualizer</h3>
         <p className="text-sm text-gray-400">Real-time audio wave analysis</p>
+      </div>
+      <div className="absolute right-4 top-4">
+        <ActiveStatusIndicator />
       </div>
     </div>
   );

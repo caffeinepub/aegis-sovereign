@@ -10,24 +10,42 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface MeetingSession {
-  'id' : string,
-  'startTime' : Time,
-  'participants' : Array<Participant>,
-  'sentimentScore' : number,
-  'endTime' : [] | [Time],
+export interface MeetingLog {
+  'title' : string,
+  'participants' : Array<User>,
+  'duration' : bigint,
+  'owner' : User,
   'cost' : number,
+  'sentiment' : number,
+  'summary' : string,
 }
-export type Participant = Principal;
+export interface PanicEvent {
+  'user' : User,
+  'triggerType' : string,
+  'timestamp' : Time,
+}
 export type Time = bigint;
+export type User = Principal;
+export interface UserProfile { 'name' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
-  'endMeeting' : ActorMethod<[string], bigint>,
-  'getAllMeetings' : ActorMethod<[], Array<MeetingSession>>,
-  'getMeeting' : ActorMethod<[string], MeetingSession>,
-  'signUp' : ActorMethod<[string], undefined>,
-  'startMeeting' : ActorMethod<[string, Array<Participant>], Time>,
-  'updateCost' : ActorMethod<[string, number], undefined>,
-  'updateSentiment' : ActorMethod<[string, number], undefined>,
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addMeetingLog' : ActorMethod<[MeetingLog], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'clearPanicHistory' : ActorMethod<[], undefined>,
+  'deleteMeetingLog' : ActorMethod<[string], undefined>,
+  'getAllMeetingLogs' : ActorMethod<[], Array<MeetingLog>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getMeetingLog' : ActorMethod<[string], [] | [MeetingLog]>,
+  'getPanicHistory' : ActorMethod<[], Array<PanicEvent>>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'triggerPanic' : ActorMethod<[string], undefined>,
+  'updateMeetingLog' : ActorMethod<[string, MeetingLog], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

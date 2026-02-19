@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { useSignUp } from '../hooks/useQueries';
+import { useSaveCallerUserProfile } from '../hooks/useQueries';
+import { useActor } from '../hooks/useActor';
 import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
@@ -13,7 +14,8 @@ export default function SignupPage() {
   const [username, setUsername] = useState('');
   const [hasAttemptedSignup, setHasAttemptedSignup] = useState(false);
   const { login, isLoggingIn, identity, loginStatus } = useInternetIdentity();
-  const signUpMutation = useSignUp();
+  const { actor, isFetching: actorFetching } = useActor();
+  const saveProfileMutation = useSaveCallerUserProfile();
   const navigate = useNavigate();
 
   const handleSignup = async () => {
@@ -24,23 +26,36 @@ export default function SignupPage() {
 
     try {
       setHasAttemptedSignup(true);
-      login();
-      toast.info('Redirecting to Internet Identity...');
+      await login();
+      toast.info('Authentication successful, creating profile...');
     } catch (error) {
-      toast.error('Failed to sign up');
+      console.error('Login error:', error);
+      toast.error('Failed to authenticate');
       setHasAttemptedSignup(false);
     }
   };
 
-  // Handle signup after successful authentication
+  // Handle profile creation after successful authentication and actor initialization
   useEffect(() => {
-    if (identity && hasAttemptedSignup && loginStatus === 'success' && !signUpMutation.isPending) {
+    if (
+      identity &&
+      hasAttemptedSignup &&
+      loginStatus === 'success' &&
+      actor &&
+      !actorFetching &&
+      !saveProfileMutation.isPending &&
+      !saveProfileMutation.isSuccess
+    ) {
       const performSignup = async () => {
         try {
-          await signUpMutation.mutateAsync(username || 'User');
+          await saveProfileMutation.mutateAsync({ name: username || 'User' });
           toast.success('Account created successfully!');
-          navigate({ to: '/dashboard' });
+          // Small delay to ensure backend state is consistent
+          setTimeout(() => {
+            navigate({ to: '/dashboard' });
+          }, 100);
         } catch (error) {
+          console.error('Profile creation error:', error);
           toast.error('Failed to create account');
           setHasAttemptedSignup(false);
         }
@@ -48,9 +63,9 @@ export default function SignupPage() {
 
       performSignup();
     }
-  }, [identity, hasAttemptedSignup, loginStatus, signUpMutation, username, navigate]);
+  }, [identity, hasAttemptedSignup, loginStatus, actor, actorFetching, saveProfileMutation, username, navigate]);
 
-  const isProcessing = isLoggingIn || (hasAttemptedSignup && signUpMutation.isPending);
+  const isProcessing = isLoggingIn || actorFetching || (hasAttemptedSignup && saveProfileMutation.isPending);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-black p-4">
@@ -76,7 +91,11 @@ export default function SignupPage() {
             {isProcessing ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {isLoggingIn ? 'Authenticating...' : 'Creating Account...'}
+                {isLoggingIn
+                  ? 'Authenticating...'
+                  : actorFetching
+                    ? 'Initializing...'
+                    : 'Creating Account...'}
               </>
             ) : (
               'Sign Up with Internet Identity'

@@ -1,11 +1,11 @@
-import { useGetAllMeetings } from '../hooks/useQueries';
+import { useGetAllMeetingLogs } from '../hooks/useQueries';
 import BentoCard from '../components/layout/BentoCard';
 import MeetingLogCard from '../components/analytics/MeetingLogCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Lock } from 'lucide-react';
 
 export default function AnalyticsVault() {
-  const { data: meetings, isLoading } = useGetAllMeetings();
+  const { data: meetings, isLoading } = useGetAllMeetingLogs();
 
   return (
     <div className="min-h-screen bg-black p-6">
@@ -23,7 +23,7 @@ export default function AnalyticsVault() {
       ) : meetings && meetings.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {meetings.map((meeting) => (
-            <MeetingLogCard key={meeting.id} meeting={meeting} />
+            <MeetingLogCard key={meeting.title} meeting={meeting} />
           ))}
         </div>
       ) : (

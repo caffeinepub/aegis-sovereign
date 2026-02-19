@@ -8,49 +8,97 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const Time = IDL.Int;
-export const Participant = IDL.Principal;
-export const MeetingSession = IDL.Record({
-  'id' : IDL.Text,
-  'startTime' : Time,
-  'participants' : IDL.Vec(Participant),
-  'sentimentScore' : IDL.Float64,
-  'endTime' : IDL.Opt(Time),
+export const User = IDL.Principal;
+export const MeetingLog = IDL.Record({
+  'title' : IDL.Text,
+  'participants' : IDL.Vec(User),
+  'duration' : IDL.Int,
+  'owner' : User,
   'cost' : IDL.Float64,
+  'sentiment' : IDL.Float64,
+  'summary' : IDL.Text,
+});
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const Time = IDL.Int;
+export const PanicEvent = IDL.Record({
+  'user' : User,
+  'triggerType' : IDL.Text,
+  'timestamp' : Time,
 });
 
 export const idlService = IDL.Service({
-  'endMeeting' : IDL.Func([IDL.Text], [IDL.Int], []),
-  'getAllMeetings' : IDL.Func([], [IDL.Vec(MeetingSession)], ['query']),
-  'getMeeting' : IDL.Func([IDL.Text], [MeetingSession], ['query']),
-  'signUp' : IDL.Func([IDL.Text], [], []),
-  'startMeeting' : IDL.Func([IDL.Text, IDL.Vec(Participant)], [Time], []),
-  'updateCost' : IDL.Func([IDL.Text, IDL.Float64], [], []),
-  'updateSentiment' : IDL.Func([IDL.Text, IDL.Float64], [], []),
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addMeetingLog' : IDL.Func([MeetingLog], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'clearPanicHistory' : IDL.Func([], [], []),
+  'deleteMeetingLog' : IDL.Func([IDL.Text], [], []),
+  'getAllMeetingLogs' : IDL.Func([], [IDL.Vec(MeetingLog)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getMeetingLog' : IDL.Func([IDL.Text], [IDL.Opt(MeetingLog)], ['query']),
+  'getPanicHistory' : IDL.Func([], [IDL.Vec(PanicEvent)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'triggerPanic' : IDL.Func([IDL.Text], [], []),
+  'updateMeetingLog' : IDL.Func([IDL.Text, MeetingLog], [], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
-  const Time = IDL.Int;
-  const Participant = IDL.Principal;
-  const MeetingSession = IDL.Record({
-    'id' : IDL.Text,
-    'startTime' : Time,
-    'participants' : IDL.Vec(Participant),
-    'sentimentScore' : IDL.Float64,
-    'endTime' : IDL.Opt(Time),
+  const User = IDL.Principal;
+  const MeetingLog = IDL.Record({
+    'title' : IDL.Text,
+    'participants' : IDL.Vec(User),
+    'duration' : IDL.Int,
+    'owner' : User,
     'cost' : IDL.Float64,
+    'sentiment' : IDL.Float64,
+    'summary' : IDL.Text,
+  });
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const Time = IDL.Int;
+  const PanicEvent = IDL.Record({
+    'user' : User,
+    'triggerType' : IDL.Text,
+    'timestamp' : Time,
   });
   
   return IDL.Service({
-    'endMeeting' : IDL.Func([IDL.Text], [IDL.Int], []),
-    'getAllMeetings' : IDL.Func([], [IDL.Vec(MeetingSession)], ['query']),
-    'getMeeting' : IDL.Func([IDL.Text], [MeetingSession], ['query']),
-    'signUp' : IDL.Func([IDL.Text], [], []),
-    'startMeeting' : IDL.Func([IDL.Text, IDL.Vec(Participant)], [Time], []),
-    'updateCost' : IDL.Func([IDL.Text, IDL.Float64], [], []),
-    'updateSentiment' : IDL.Func([IDL.Text, IDL.Float64], [], []),
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addMeetingLog' : IDL.Func([MeetingLog], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'clearPanicHistory' : IDL.Func([], [], []),
+    'deleteMeetingLog' : IDL.Func([IDL.Text], [], []),
+    'getAllMeetingLogs' : IDL.Func([], [IDL.Vec(MeetingLog)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getMeetingLog' : IDL.Func([IDL.Text], [IDL.Opt(MeetingLog)], ['query']),
+    'getPanicHistory' : IDL.Func([], [IDL.Vec(PanicEvent)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'triggerPanic' : IDL.Func([IDL.Text], [], []),
+    'updateMeetingLog' : IDL.Func([IDL.Text, MeetingLog], [], []),
   });
 };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { TrendingUp } from 'lucide-react';
+import ActiveStatusIndicator from '../common/ActiveStatusIndicator';
 
 export default function MeetingROITicker() {
   const [cost, setCost] = useState(0);
@@ -9,7 +10,7 @@ export default function MeetingROITicker() {
     if (!isActive) return;
 
     const interval = setInterval(() => {
-      setCost((prev) => prev + 12.5); // ₹12.5 per second
+      setCost((prev) => prev + 12.5);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -17,9 +18,12 @@ export default function MeetingROITicker() {
 
   return (
     <div className="flex h-full flex-col justify-between p-6">
-      <div>
-        <h3 className="text-lg font-semibold">Meeting ROI Tracker</h3>
-        <p className="text-sm text-gray-400">Live cost calculation</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold">Meeting ROI Tracker</h3>
+          <p className="text-sm text-gray-400">Live cost calculation</p>
+        </div>
+        <ActiveStatusIndicator />
       </div>
 
       <div className="my-6">

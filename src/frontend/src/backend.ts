@@ -89,159 +89,296 @@ export class ExternalBlob {
         return this;
     }
 }
-export type Participant = Principal;
-export interface MeetingSession {
-    id: string;
-    startTime: Time;
-    participants: Array<Participant>;
-    sentimentScore: number;
-    endTime?: Time;
+export interface PanicEvent {
+    user: User;
+    triggerType: string;
+    timestamp: Time;
+}
+export interface MeetingLog {
+    title: string;
+    participants: Array<User>;
+    duration: bigint;
+    owner: User;
     cost: number;
+    sentiment: number;
+    summary: string;
 }
 export type Time = bigint;
-export interface backendInterface {
-    endMeeting(id: string): Promise<bigint>;
-    getAllMeetings(): Promise<Array<MeetingSession>>;
-    getMeeting(id: string): Promise<MeetingSession>;
-    signUp(arg0: string): Promise<void>;
-    startMeeting(id: string, participants: Array<Participant>): Promise<Time>;
-    updateCost(id: string, cost: number): Promise<void>;
-    updateSentiment(id: string, score: number): Promise<void>;
+export interface UserProfile {
+    name: string;
 }
-import type { MeetingSession as _MeetingSession, Participant as _Participant, Time as _Time } from "./declarations/backend.did.d.ts";
+export type User = Principal;
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
+export interface backendInterface {
+    _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
+    addMeetingLog(log: MeetingLog): Promise<void>;
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    clearPanicHistory(): Promise<void>;
+    deleteMeetingLog(title: string): Promise<void>;
+    getAllMeetingLogs(): Promise<Array<MeetingLog>>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
+    getCallerUserRole(): Promise<UserRole>;
+    getMeetingLog(title: string): Promise<MeetingLog | null>;
+    getPanicHistory(): Promise<Array<PanicEvent>>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
+    isCallerAdmin(): Promise<boolean>;
+    saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    triggerPanic(triggerType: string): Promise<void>;
+    updateMeetingLog(title: string, updatedLog: MeetingLog): Promise<void>;
+}
+import type { MeetingLog as _MeetingLog, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async endMeeting(arg0: string): Promise<bigint> {
+    async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.endMeeting(arg0);
+                const result = await this.actor._initializeAccessControlWithSecret(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.endMeeting(arg0);
+            const result = await this.actor._initializeAccessControlWithSecret(arg0);
             return result;
         }
     }
-    async getAllMeetings(): Promise<Array<MeetingSession>> {
+    async addMeetingLog(arg0: MeetingLog): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.getAllMeetings();
-                return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getAllMeetings();
-            return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async getMeeting(arg0: string): Promise<MeetingSession> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getMeeting(arg0);
-                return from_candid_MeetingSession_n2(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getMeeting(arg0);
-            return from_candid_MeetingSession_n2(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async signUp(arg0: string): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.signUp(arg0);
+                const result = await this.actor.addMeetingLog(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.signUp(arg0);
+            const result = await this.actor.addMeetingLog(arg0);
             return result;
         }
     }
-    async startMeeting(arg0: string, arg1: Array<Participant>): Promise<Time> {
+    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.startMeeting(arg0, arg1);
+                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.startMeeting(arg0, arg1);
+            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
             return result;
         }
     }
-    async updateCost(arg0: string, arg1: number): Promise<void> {
+    async clearPanicHistory(): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.updateCost(arg0, arg1);
+                const result = await this.actor.clearPanicHistory();
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.updateCost(arg0, arg1);
+            const result = await this.actor.clearPanicHistory();
             return result;
         }
     }
-    async updateSentiment(arg0: string, arg1: number): Promise<void> {
+    async deleteMeetingLog(arg0: string): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.updateSentiment(arg0, arg1);
+                const result = await this.actor.deleteMeetingLog(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.updateSentiment(arg0, arg1);
+            const result = await this.actor.deleteMeetingLog(arg0);
+            return result;
+        }
+    }
+    async getAllMeetingLogs(): Promise<Array<MeetingLog>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllMeetingLogs();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllMeetingLogs();
+            return result;
+        }
+    }
+    async getCallerUserProfile(): Promise<UserProfile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserProfile();
+                return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserProfile();
+            return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCallerUserRole(): Promise<UserRole> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserRole();
+                return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserRole();
+            return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getMeetingLog(arg0: string): Promise<MeetingLog | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMeetingLog(arg0);
+                return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMeetingLog(arg0);
+            return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getPanicHistory(): Promise<Array<PanicEvent>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getPanicHistory();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getPanicHistory();
+            return result;
+        }
+    }
+    async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getUserProfile(arg0);
+                return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getUserProfile(arg0);
+            return from_candid_opt_n3(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async isCallerAdmin(): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.isCallerAdmin();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveCallerUserProfile(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveCallerUserProfile(arg0);
+            return result;
+        }
+    }
+    async triggerPanic(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.triggerPanic(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.triggerPanic(arg0);
+            return result;
+        }
+    }
+    async updateMeetingLog(arg0: string, arg1: MeetingLog): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateMeetingLog(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateMeetingLog(arg0, arg1);
             return result;
         }
     }
 }
-function from_candid_MeetingSession_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _MeetingSession): MeetingSession {
-    return from_candid_record_n3(_uploadFile, _downloadFile, value);
+function from_candid_UserRole_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n5(_uploadFile, _downloadFile, value);
 }
-function from_candid_opt_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Time]): Time | null {
+function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    id: string;
-    startTime: _Time;
-    participants: Array<_Participant>;
-    sentimentScore: number;
-    endTime: [] | [_Time];
-    cost: number;
-}): {
-    id: string;
-    startTime: Time;
-    participants: Array<Participant>;
-    sentimentScore: number;
-    endTime?: Time;
-    cost: number;
-} {
-    return {
-        id: value.id,
-        startTime: value.startTime,
-        participants: value.participants,
-        sentimentScore: value.sentimentScore,
-        endTime: record_opt_to_undefined(from_candid_opt_n4(_uploadFile, _downloadFile, value.endTime)),
-        cost: value.cost
-    };
+function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_MeetingLog]): MeetingLog | null {
+    return value.length === 0 ? null : value[0];
 }
-function from_candid_vec_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_MeetingSession>): Array<MeetingSession> {
-    return value.map((x)=>from_candid_MeetingSession_n2(_uploadFile, _downloadFile, x));
+function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+}): UserRole {
+    return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
+}
+function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
+    return to_candid_variant_n2(_uploadFile, _downloadFile, value);
+}
+function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+} {
+    return value == UserRole.admin ? {
+        admin: null
+    } : value == UserRole.user ? {
+        user: null
+    } : value == UserRole.guest ? {
+        guest: null
+    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

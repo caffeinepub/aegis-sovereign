@@ -2,78 +2,24 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-investigate-and-fix-react-error-185-hydration-rendering-mismatch-that-occurs-immediately-after-user-signup-when-navigating-to-the-dashboard",
-      "featureTitle": "Investigate and fix React error #185 (hydration/rendering mismatch) that occurs immediately after user signup when navigating to the dashboard",
+      "featureId": "feature-replace-the-existing-aegis-sovereign-logo-with-a-new-logo-design-across-all-instances-in-the-application-including-the-landing-page-header-dashboard-sidebar-pwa-manifest-icons-and-favicon",
+      "featureTitle": "Replace the existing Aegis Sovereign logo with a new logo design across all instances in the application including the landing page header, dashboard sidebar, PWA manifest icons, and favicon",
       "files": [
-        "frontend/src/components/auth/ProtectedRoute.tsx",
-        "frontend/src/pages/SignupPage.tsx"
+        "frontend/index.html",
+        "frontend/public/manifest.json",
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-26"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-signuppage-tsx-properly-handles-the-signup-flow-and-redirects-to-dashboard-only-after-internet-identity-authentication-and-backend-user-creation-are-both-complete",
-      "featureTitle": "Ensure SignupPage.tsx properly handles the signup flow and redirects to dashboard only after Internet Identity authentication and backend user creation are both complete",
-      "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/SignupPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-27"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-verify-that-protectedroute-tsx-correctly-handles-the-authenticated-state-during-initial-navigation-after-signup-without-triggering-rendering-errors",
-      "featureTitle": "Verify that ProtectedRoute.tsx correctly handles the authenticated state during initial navigation after signup without triggering rendering errors",
-      "files": [
-        "frontend/src/components/auth/ProtectedRoute.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-28"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-error-boundary-components-to-gracefully-catch-and-display-react-errors-instead-of-showing-minified-error-messages-to-users",
-      "featureTitle": "Add error boundary components to gracefully catch and display React errors instead of showing minified error messages to users",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/auth/ProtectedRoute.tsx",
-        "frontend/src/components/errors/ErrorBoundary.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-29"
+        "REQ-53"
       ],
       "confidence": "high"
     }

@@ -1,49 +1,66 @@
 import { useEffect, useState } from 'react';
-import { AlertTriangle, X } from 'lucide-react';
+import { useKeyboardShortcut } from '../../hooks/useKeyboardShortcut';
 
 interface PanicProtocolProps {
   onClose: () => void;
 }
 
 export default function PanicProtocol({ onClose }: PanicProtocolProps) {
-  const [glitch, setGlitch] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGlitch((prev) => !prev);
-    }, 200);
+    // Store panic state in sessionStorage
+    sessionStorage.setItem('panicActive', 'true');
 
-    return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) return 0;
+        return prev + 1;
+      });
+    }, 300);
+
+    return () => {
+      clearInterval(interval);
+      sessionStorage.removeItem('panicActive');
+    };
   }, []);
 
+  // Hidden keyboard shortcut to dismiss
+  useKeyboardShortcut(['Control', 'Shift', 'Q'], () => {
+    onClose();
+  });
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
-      <div className={`text-center ${glitch ? 'animate-pulse' : ''}`}>
-        <AlertTriangle className="mx-auto mb-8 h-32 w-32 text-red-500" />
-        <h1 className="mb-4 text-6xl font-bold text-red-500">SYSTEM UPDATE</h1>
-        <p className="mb-8 text-2xl text-gray-400">Critical security patch in progress...</p>
-        <div className="mx-auto mb-8 h-4 w-96 overflow-hidden rounded-full bg-white/10">
-          <div className="h-full w-1/3 animate-pulse bg-red-500" />
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
+      style={{
+        backgroundImage: 'url(/assets/generated/fake-win11-update.dim_1920x1080.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="absolute inset-0 bg-blue-600/90" />
+      <div className="relative z-10 text-center text-white">
+        <div className="mb-8">
+          <div className="mb-4 text-6xl">⚙️</div>
+          <h1 className="mb-4 text-4xl font-light">Working on updates</h1>
+          <p className="text-xl font-light">
+            {progress}% complete
+          </p>
         </div>
-        <p className="text-sm text-gray-500">Please do not turn off your computer</p>
+
+        <div className="mx-auto mb-8 h-2 w-96 overflow-hidden rounded-full bg-white/30">
+          <div
+            className="h-full bg-white transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        <p className="text-sm font-light opacity-80">
+          Your PC will restart several times. This might take a while.
+        </p>
+        <p className="mt-2 text-sm font-light opacity-80">Don't turn off your PC.</p>
       </div>
-
-      <button
-        onClick={onClose}
-        className="fixed right-8 top-8 rounded-full bg-white/10 p-3 transition-colors hover:bg-white/20"
-      >
-        <X className="h-6 w-6" />
-      </button>
-
-      <style>{`
-        @keyframes glitch {
-          0%, 100% { transform: translate(0); }
-          20% { transform: translate(-2px, 2px); }
-          40% { transform: translate(-2px, -2px); }
-          60% { transform: translate(2px, 2px); }
-          80% { transform: translate(2px, -2px); }
-        }
-      `}</style>
     </div>
   );
 }

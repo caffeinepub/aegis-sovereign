@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import ActiveStatusIndicator from '../common/ActiveStatusIndicator';
 
 interface SentimentData {
   time: string;
@@ -43,9 +44,12 @@ export default function SentimentRadar() {
 
   return (
     <div className="h-full p-6">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold">Sentiment Pulse</h3>
-        <p className="text-sm text-gray-400">Live emotional analysis tracking</p>
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold">Sentiment Pulse</h3>
+          <p className="text-sm text-gray-400">Live emotional analysis tracking</p>
+        </div>
+        <ActiveStatusIndicator />
       </div>
       <ChartContainer
         config={{
