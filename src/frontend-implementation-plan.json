@@ -1,0 +1,105 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix React error #185 occurring after signup",
+  "requirements": [
+    {
+      "id": "REQ-26",
+      "summary": "Investigate and fix React error #185 (hydration/rendering mismatch) that occurs immediately after user signup when navigating to the dashboard",
+      "acceptanceCriteria": [
+        "No React error #185 appears after signup completion",
+        "User can successfully navigate from signup to dashboard without errors",
+        "Application renders correctly after authentication",
+        "All dashboard components load without hydration mismatches"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SignupPage.tsx",
+          "operation": "modify",
+          "description": "Fix race condition by ensuring navigation to dashboard occurs only after both Internet Identity authentication completes and the signup mutation successfully creates the user in the backend. Add proper loading state management and error handling to prevent premature navigation that causes hydration mismatches."
+        },
+        {
+          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
+          "operation": "modify",
+          "description": "Add proper initialization checks to ensure authentication state is fully resolved before rendering protected content. Implement a loading state that displays while checking authentication to prevent hydration errors from race conditions between server and client rendering."
+        },
+        {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Ensure the actor instance is properly synchronized with authentication state changes. Add safeguards to prevent queries from executing before the actor is fully initialized after signup, which can cause rendering mismatches."
+        }
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "summary": "Ensure SignupPage.tsx properly handles the signup flow and redirects to dashboard only after Internet Identity authentication and backend user creation are both complete",
+      "acceptanceCriteria": [
+        "Signup mutation completes successfully before navigation",
+        "Internet Identity authentication state is properly synchronized",
+        "React Query cache is properly invalidated after signup",
+        "No race conditions between authentication and user creation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SignupPage.tsx",
+          "operation": "modify",
+          "description": "Refactor the signup submission handler to use async/await pattern ensuring the signup mutation completes and React Query cache invalidation finishes before triggering navigation. Add explicit checks for both authentication state and mutation success before redirecting to the dashboard."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update the signup mutation to properly handle cache invalidation and ensure dependent queries are refetched after user creation. Add onSuccess callback that confirms cache is cleared before resolving the mutation promise."
+        }
+      ]
+    },
+    {
+      "id": "REQ-28",
+      "summary": "Verify that ProtectedRoute.tsx correctly handles the authenticated state during initial navigation after signup without triggering rendering errors",
+      "acceptanceCriteria": [
+        "ProtectedRoute renders without hydration errors",
+        "Authentication state is properly initialized before protected routes render",
+        "Loading states are handled correctly during authentication checks",
+        "No mismatches between server and client rendering states"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
+          "operation": "modify",
+          "description": "Implement a three-state rendering pattern (initializing, authenticated, unauthenticated) instead of the current two-state check. During the initializing state, render a consistent loading component to prevent hydration mismatches. Ensure the component waits for both authentication check and actor initialization before rendering children or redirecting."
+        },
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Add an explicit initialization state to the authentication context that tracks whether the AuthClient has completed its initial check. Export this state so ProtectedRoute can wait for full initialization before making routing decisions, preventing premature renders that cause hydration errors."
+        }
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "summary": "Add error boundary components to gracefully catch and display React errors instead of showing minified error messages to users",
+      "acceptanceCriteria": [
+        "Error boundary component wraps critical application sections",
+        "User-friendly error messages are displayed instead of minified React errors",
+        "Error details are logged to console for debugging",
+        "Users have option to retry or return to a safe state when errors occur"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/errors/ErrorBoundary.tsx",
+          "operation": "create",
+          "description": "Create a class-based React error boundary component that catches rendering errors, logs detailed error information to the console for debugging, and displays a user-friendly error UI with options to retry (by resetting error state) or navigate to the landing page. Include visual styling consistent with the Aegis Sovereign theme."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap the TanStack Router component with the ErrorBoundary component to catch and handle any rendering errors throughout the application, preventing minified React error messages from being displayed to users."
+        },
+        {
+          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
+          "operation": "modify",
+          "description": "Wrap the children render with an ErrorBoundary component to catch errors specific to protected routes and authentication flows, providing a fallback UI that allows users to return to login if errors occur during authenticated sessions."
+        }
+      ]
+    }
+  ]
+}

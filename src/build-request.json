@@ -1,0 +1,89 @@
+{
+  "kind": "build_request",
+  "title": "Fix React error #185 occurring after signup",
+  "projectName": "Aegis Sovereign",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-26",
+      "text": "Investigate and fix React error #185 (hydration/rendering mismatch) that occurs immediately after user signup when navigating to the dashboard",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Something went wrong! Hide Error Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional helpful warnings. It's showing like this after signing up n coming to the app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No React error #185 appears after signup completion",
+        "User can successfully navigate from signup to dashboard without errors",
+        "Application renders correctly after authentication",
+        "All dashboard components load without hydration mismatches"
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "text": "Ensure SignupPage.tsx properly handles the signup flow and redirects to dashboard only after Internet Identity authentication and backend user creation are both complete",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Signup mutation completes successfully before navigation",
+        "Internet Identity authentication state is properly synchronized",
+        "React Query cache is properly invalidated after signup",
+        "No race conditions between authentication and user creation"
+      ]
+    },
+    {
+      "id": "REQ-28",
+      "text": "Verify that ProtectedRoute.tsx correctly handles the authenticated state during initial navigation after signup without triggering rendering errors",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "ProtectedRoute renders without hydration errors",
+        "Authentication state is properly initialized before protected routes render",
+        "Loading states are handled correctly during authentication checks",
+        "No mismatches between server and client rendering states"
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "text": "Add error boundary components to gracefully catch and display React errors instead of showing minified error messages to users",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Error boundary component wraps critical application sections",
+        "User-friendly error messages are displayed instead of minified React errors",
+        "Error details are logged to console for debugging",
+        "Users have option to retry or return to a safe state when errors occur"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify the Internet Identity authentication flow in useInternetIdentity.ts",
+    "Preserve existing signup and authentication logic while fixing the rendering error",
+    "Maintain backward compatibility with existing user sessions"
+  ],
+  "nonGoals": [
+    "Changing the overall authentication architecture",
+    "Modifying backend user creation logic",
+    "Redesigning the signup or login UI"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

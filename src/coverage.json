@@ -1,0 +1,85 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-19T14:25:23.642Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 4,
+    "items": [
+      {
+        "id": "REQ-26",
+        "summary": "Investigate and fix React error #185 (hydration/rendering mismatch) that occurs immediately after user signup when navigating to the dashboard",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/SignupPage.tsx",
+          "frontend/src/components/auth/ProtectedRoute.tsx",
+          "frontend/src/hooks/useActor.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/SignupPage.tsx",
+          "frontend/src/components/auth/ProtectedRoute.tsx"
+        ]
+      },
+      {
+        "id": "REQ-27",
+        "summary": "Ensure SignupPage.tsx properly handles the signup flow and redirects to dashboard only after Internet Identity authentication and backend user creation are both complete",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/SignupPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/SignupPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ]
+      },
+      {
+        "id": "REQ-28",
+        "summary": "Verify that ProtectedRoute.tsx correctly handles the authenticated state during initial navigation after signup without triggering rendering errors",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/ProtectedRoute.tsx",
+          "frontend/src/hooks/useInternetIdentity.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/auth/ProtectedRoute.tsx"
+        ]
+      },
+      {
+        "id": "REQ-29",
+        "summary": "Add error boundary components to gracefully catch and display React errors instead of showing minified error messages to users",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/errors/ErrorBoundary.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/auth/ProtectedRoute.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/errors/ErrorBoundary.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/auth/ProtectedRoute.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProtectedRoute.tsx",
+    "frontend/src/components/errors/ErrorBoundary.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/SignupPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

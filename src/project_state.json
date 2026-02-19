@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Aegis Sovereign - Enterprise Meeting Intelligence & Privacy Suite with multi-page architecture including Command Center dashboard, Neural Lab for vocal cloning, hidden Sentinel Protocol tactical features, Device Sync, Analytics Vault, public landing page, and mobile tactical remote",
+  "architectural_notes": [
+    "Tech stack: React, Node.js, Tailwind CSS, Framer Motion, Supabase Auth",
+    "UI components: Shadcn/UI with Tabs and Sheets for navigation",
+    "Glassmorphism design with Midnight (#000000) backgrounds and Border-Beam animations",
+    "All page transitions must use Framer Motion",
+    "Multi-page architecture with persistent sidebar navigation",
+    "60fps Canvas-based visualizations for neural frequency display",
+    "ApexCharts for sentiment tracking and analytics",
+    "PWA-ready mobile remote with 120Hz optimization",
+    "Global hotkeys: Ctrl+Shift+P (Panic), Ctrl+Shift+L (Lag), CMD+K (Tactical Layer toggle)",
+    "Skeleton loaders, Sonner toast notifications, and magnetic button hover effects"
+  ],
+  "known_issues": [
+    "React error #185 occurring after user sign-up when navigating to the app (minified React error, likely hydration or rendering issue)"
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-public-landing-page-with-hero-section-displaying-neural-meeting-intelligence-for-global-leaders-security-architecture-sections-for-quantum-resistant-encryption-soc2-type-ii-compliance-and-biometric-integrity-and-a-3-tier-pricing-table-showing-professional-free-enterprise-49-mo-and-sovereign-149-mo-tiers",
+      "title": "Create a public landing page with hero section displaying 'Neural Meeting Intelligence for Global Leaders', security architecture sections for Quantum-Resistant Encryption, SOC2 Type II Compliance, and Biometric Integrity, and a 3-tier pricing table showing Professional (Free), Enterprise ($49/mo), and Sovereign ($149/mo) tiers",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-authentication-system-allowing-users-to-sign-up-and-log-in-to-access-the-dashboard",
+      "title": "Implement authentication system allowing users to sign up and log in to access the dashboard",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-command-center-dashboard-page-with-bento-grid-layout-using-midnight-black-000000-backgrounds-and-glassmorphism-styling",
+      "title": "Create Command Center dashboard page with Bento Grid layout using midnight black (#000000) backgrounds and glassmorphism styling",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-neural-frequency-visualizer-component-that-renders-a-60fps-canvas-based-wave-animation-reacting-to-simulated-real-time-audio-data-in-the-top-card-of-the-command-center",
+      "title": "Implement Neural Frequency Visualizer component that renders a 60fps Canvas-based wave animation reacting to simulated real-time audio data in the top card of the Command Center",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-sentiment-radar-component-using-apexcharts-area-chart-that-displays-live-sentiment-pulse-tracking-vocal-stress-and-emotional-tension-metrics-with-interactive-chart-controls",
+      "title": "Create Sentiment Radar component using ApexCharts Area Chart that displays live sentiment pulse tracking Vocal Stress and Emotional Tension metrics with interactive chart controls",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-meeting-roi-ticker-that-displays-a-live-counter-tracking-meeting-costs-in-indian-rupees-per-second",
+      "title": "Implement Meeting ROI Ticker that displays a live counter tracking meeting costs in Indian Rupees (₹) per second",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-speaker-identity-matrix-component-as-a-scrolling-feed-that-tags-participants-by-vocal-frequency-characteristics",
+      "title": "Create Speaker Identity Matrix component as a scrolling feed that tags participants by vocal frequency characteristics",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-neural-lab-dedicated-page-featuring-vocal-cloning-interface-with-drag-and-drop-zones-for-vocal-sample-uploads-circular-neural-progress-animation-showing-synthesis-status-voice-health-dashboard-displaying-vocal-metrics-and-a-synthesize-button-that-triggers-a-high-end-loading-sequence",
+      "title": "Create Neural Lab dedicated page featuring vocal cloning interface with drag-and-drop zones for vocal sample uploads, circular neural progress animation showing synthesis status, Voice Health dashboard displaying vocal metrics, and a Synthesize button that triggers a high-end loading sequence",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-ai-mirror-status-indicator-displaying-neural-proxy-ready-when-vocal-synthesis-is-complete-and-auto-vocal-response-is-available",
+      "title": "Implement AI Mirror status indicator displaying 'Neural Proxy Ready' when vocal synthesis is complete and auto-vocal response is available",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-hidden-sentinel-protocol-page-accessible-via-cmd-k-toggle-styled-as-a-tactical-hud-with-dark-theme-and-military-grade-interface-aesthetics",
+      "title": "Create hidden Sentinel Protocol page accessible via CMD+K toggle, styled as a tactical HUD with dark theme and military-grade interface aesthetics",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-panic-protocol-feature-that-triggers-a-full-screen-overlay-displaying-either-system-update-or-critical-failure-message-with-screen-glitch-visual-effects-and-looping-audio-simulation-when-activated-via-ctrl-shift-p-hotkey",
+      "title": "Implement Panic Protocol feature that triggers a full-screen overlay displaying either 'System Update' or 'Critical Failure' message with screen-glitch visual effects and looping audio simulation when activated via Ctrl+Shift+P hotkey",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-environment-spoofing-feature-with-16-high-fidelity-audio-loop-cards-office-private-jet-cafe-airport-and-12-additional-environments-each-with-play-stop-toggle-controls-and-environment-specific-icons",
+      "title": "Create Environment Spoofing feature with 16 high-fidelity audio loop cards (Office, Private Jet, Cafe, Airport, and 12 additional environments) each with play/stop toggle controls and environment-specific icons",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-packet-jitter-simulator-with-slider-control-that-manually-degrades-audio-quality-to-simulate-robot-or-broken-voice-effects-activated-via-ctrl-shift-l-hotkey",
+      "title": "Implement Packet Jitter Simulator with slider control that manually degrades audio quality to simulate robot or broken voice effects, activated via Ctrl+Shift+L hotkey",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-hardware-mimicry-feature-with-selectable-fake-os-update-screens-for-windows-11-and-macos-that-can-be-displayed-during-screen-shares",
+      "title": "Create Hardware Mimicry feature with selectable fake OS update screens for Windows 11 and macOS that can be displayed during screen-shares",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-device-sync-page-featuring-a-large-qr-code-for-mobile-device-pairing-and-a-live-connection-log-that-displays-real-time-code-style-log-entries-when-devices-connect",
+      "title": "Create Device Sync page featuring a large QR code for mobile device pairing and a live connection log that displays real-time code-style log entries when devices connect",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-websocket-synchronization-using-socket-io-to-enable-real-time-communication-between-laptop-and-mobile-devices-with-sub-30ms-latency-for-tactical-protocol-triggers",
+      "title": "Implement WebSocket synchronization using Socket.io to enable real-time communication between laptop and mobile devices with sub-30ms latency for tactical protocol triggers",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-analytics-vault-page-displaying-a-list-of-past-meeting-logs-with-encrypted-lock-icons-and-detailed-post-meeting-reports-with-ai-generated-action-items",
+      "title": "Create Analytics & Vault page displaying a list of past meeting logs with encrypted lock icons and detailed post-meeting reports with AI-generated action items",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-mobile-tactical-remote-route-at-remote-optimized-for-pwa-with-full-screen-interface-large-haptic-feedback-tactical-buttons-for-panic-protocol-lag-simulation-and-environment-controls-at-120hz-refresh-rate",
+      "title": "Create mobile tactical remote route at /remote optimized for PWA with full-screen interface, large haptic-feedback tactical buttons for panic protocol, lag simulation, and environment controls at 120Hz refresh rate",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-pwa-manifest-and-service-worker-enabling-the-remote-route-to-be-added-to-mobile-home-screen-with-a-professional-aegis-icon",
+      "title": "Implement PWA manifest and service worker enabling the /remote route to be added to mobile home screen with a professional Aegis icon",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-persistent-sidebar-navigation-with-shadcn-ui-components-allowing-users-to-switch-between-command-center-neural-lab-sentinel-protocol-device-sync-and-analytics-vault-pages",
+      "title": "Implement persistent sidebar navigation with Shadcn/UI components allowing users to switch between Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Analytics & Vault pages",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-framer-motion-page-transitions-for-all-route-changes-with-smooth-animations-between-pages",
+      "title": "Implement Framer Motion page transitions for all route changes with smooth animations between pages",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-border-beam-light-trail-animations-on-bento-grid-cards-to-create-visual-interest-and-premium-feel",
+      "title": "Implement Border-Beam light-trail animations on Bento Grid cards to create visual interest and premium feel",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-sonner-toast-notifications-for-user-feedback-and-skeleton-loaders-for-async-content-loading-throughout-the-application",
+      "title": "Implement Sonner toast notifications for user feedback and skeleton loaders for async content loading throughout the application",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-magnetic-button-hover-effects-with-smooth-attraction-animations-throughout-the-interface",
+      "title": "Implement magnetic button hover effects with smooth attraction animations throughout the interface",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-investigate-and-fix-react-error-185-hydration-rendering-mismatch-that-occurs-immediately-after-user-signup-when-navigating-to-the-dashboard",
+      "title": "Investigate and fix React error #185 (hydration/rendering mismatch) that occurs immediately after user signup when navigating to the dashboard",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-signuppage-tsx-properly-handles-the-signup-flow-and-redirects-to-dashboard-only-after-internet-identity-authentication-and-backend-user-creation-are-both-complete",
+      "title": "Ensure SignupPage.tsx properly handles the signup flow and redirects to dashboard only after Internet Identity authentication and backend user creation are both complete",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-protectedroute-tsx-correctly-handles-the-authenticated-state-during-initial-navigation-after-signup-without-triggering-rendering-errors",
+      "title": "Verify that ProtectedRoute.tsx correctly handles the authenticated state during initial navigation after signup without triggering rendering errors",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-error-boundary-components-to-gracefully-catch-and-display-react-errors-instead-of-showing-minified-error-messages-to-users",
+      "title": "Add error boundary components to gracefully catch and display React errors instead of showing minified error messages to users",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Command Center dashboard with Bento Grid layout, sentiment pulse chart, neural frequency visualizer, meeting ROI ticker, and speaker identity matrix",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Neural Lab page for vocal cloning with drag-and-drop zones, neural progress animation, voice health dashboard, and synthesize functionality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Sentinel Protocol hidden page with tactical HUD, 16 environment spoof cards, emergency panic button, packet jitter slider, and fake OS update selectors",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Device Sync page with QR code for mobile pairing and live connection log",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Analytics & Vault page with encrypted meeting logs and AI-generated post-meeting reports",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Public landing page with hero video, security whitepaper section, and 3-tier pricing table (Professional Free, Enterprise $49/mo, Sovereign $149/mo)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Mobile tactical remote route (/remote) with full-screen interface and large haptic buttons optimized for PWA",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "WebSocket sync using Socket.io for <30ms latency between devices with global hotkeys support",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Store meeting session data including duration, participants, sentiment analysis results, and cost calculations in the backend for display in Analytics & Vault",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Aegis Sovereign",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
