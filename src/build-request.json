@@ -1,114 +1,269 @@
 {
   "kind": "build_request",
-  "title": "Remove landing page pricing and add dashboard Subscriptions page",
+  "title": "Build localStorage-based authentication system with sign-up and sign-in flow",
   "projectName": "Axon",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-91",
-      "text": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
+      "id": "REQ-108",
+      "text": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
         ],
         "quotes": [
-          "Remove the pricing from the 1st page"
+          "Create a 'User Registry' using localStorage. SIGN UP LOGIC: When a user registers, their data (Email, Password, Name) must be saved into an array in localStorage called 'AXON_USERS'."
         ]
       },
       "acceptanceCriteria": [
-        "The pricing section is completely removed from LandingPage.tsx",
-        "The landing page layout remains clean and cohesive after removal",
-        "All references to the pricing tiers in the landing page are eliminated"
+        "localStorage key 'AXON_USERS' exists and stores an array of user objects",
+        "Each user object contains Email, Password, and Name fields",
+        "Array persists across browser sessions"
       ]
     },
     {
-      "id": "REQ-92",
-      "text": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
+      "id": "REQ-109",
+      "text": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
         ],
         "quotes": [
-          "add new component under the vault component as 'Subscriptions'"
+          "VALIDATION: Prevent registration if the email already exists in the 'AXON_USERS' array."
         ]
       },
       "acceptanceCriteria": [
-        "New route created for /subscriptions page",
-        "Subscriptions link appears in DashboardLayout sidebar after Analytics & Vault",
-        "Page is accessible to all authenticated users",
-        "Navigation follows the existing sidebar patterns with icons and labels"
+        "System checks for duplicate emails before saving new user",
+        "Error message displays when attempting to register with existing email",
+        "Validation occurs before data is written to localStorage"
       ]
     },
     {
-      "id": "REQ-93",
-      "text": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
+      "id": "REQ-110",
+      "text": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
         ],
         "quotes": [
-          "with 300 Rs./month and 500 Rs./month"
+          "SIGN IN LOGIC: When logging in, the system must search the 'AXON_USERS' array. If the email and password match a registered user, grant access and set 'isLoggedIn' to true."
         ]
       },
       "acceptanceCriteria": [
-        "Two pricing cards displayed side-by-side in a responsive grid layout",
-        "Each card shows tier name, monthly price in Indian Rupees (₹), and feature list",
-        "Cards use glassmorphism effects matching the existing bento grid cards",
-        "Hover effects and BorderBeam animations are applied for premium feel"
+        "System validates credentials against 'AXON_USERS' array",
+        "Login succeeds only when both email and password match exactly",
+        "isLoggedIn state is set to true upon successful authentication",
+        "Error message displays for invalid credentials"
       ]
     },
     {
-      "id": "REQ-94",
-      "text": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
+      "id": "REQ-111",
+      "text": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
         ],
         "quotes": [
-          "differentiate the features into them properly according to their importance"
+          "Create a toggle state to switch between 'Sign In' and 'Create Account' without reloading the page."
         ]
       },
       "acceptanceCriteria": [
-        "Basic tier (₹300/month) includes: Neural Frequency Visualizer, Sentiment Analysis, Meeting ROI Tracking, Speaker Identity Matrix, Voice Pattern Recognition, up to 10 meeting recordings per month",
-        "Premium tier (₹500/month) includes: All Basic features plus Sentinel Protocol access, Panic Mode, Environment Spoofing, Packet Jitter Simulator, Dark Web Monitoring, Threat Detection Matrix, Executive Briefing Generator, unlimited meeting recordings, priority support",
-        "Each feature is clearly listed under its respective tier",
-        "Visual indicators (checkmarks/icons) show which features are included in each tier",
-        "Feature descriptions are concise and emphasize value/benefits"
+        "Single page displays either Sign In or Create Account form based on toggle state",
+        "Transition between forms happens instantly without page reload",
+        "User can easily switch between Sign In and Create Account modes",
+        "Split-screen layout is maintained with form on the right side"
       ]
     },
     {
-      "id": "REQ-95",
-      "text": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
+      "id": "REQ-112",
+      "text": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
+        ],
+        "quotes": [
+          "Fields for Sign Up: [Full Name, Work Email, Security Password, Confirm Password].",
+          "Visuals: Use the professional Indigo/White SaaS theme."
         ]
       },
       "acceptanceCriteria": [
-        "Each tier card has a prominent CTA button with Cyber Emerald glow effect matching landing page buttons",
-        "Button text reads 'Subscribe to Basic' or 'Subscribe to Premium' respectively",
-        "Clicking the button triggers a Sonner toast notification explaining this is a simulated subscription interface",
-        "Buttons are styled consistently with existing PrimaryCTA components"
+        "Form includes four input fields: Full Name, Work Email, Security Password, Confirm Password",
+        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
+        "Password fields include type='password' for security",
+        "Form validation ensures passwords match before submission"
+      ]
+    },
+    {
+      "id": "REQ-113",
+      "text": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "Fields for Sign In: [Work Email, Security Password].",
+          "Visuals: Use the professional Indigo/White SaaS theme."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form includes two input fields: Work Email and Security Password",
+        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
+        "Password field uses type='password' for security",
+        "Form includes submit button with action-oriented text"
+      ]
+    },
+    {
+      "id": "REQ-114",
+      "text": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "React (useState, useEffect)",
+          "Framer Motion for smooth 'Slide' transitions between Sign-In and Sign-Up forms."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Forms animate with slide effect when toggling between Sign In and Create Account",
+        "Transition is smooth and does not flicker",
+        "Animation duration is appropriate (300-500ms)",
+        "Only the form content animates while the layout remains stable"
+      ]
+    },
+    {
+      "id": "REQ-115",
+      "text": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "Add a 'Success' toast notification when a new account is created."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Toast notification appears immediately after successful account creation",
+        "Toast displays success message with appropriate styling",
+        "Toast auto-dismisses after a few seconds",
+        "Toast uses Sonner library consistent with existing implementation"
+      ]
+    },
+    {
+      "id": "REQ-116",
+      "text": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "When a user logs in, save their specific session data (Name and Role) to 'CURRENT_AXON_SESSION'."
+        ]
+      },
+      "acceptanceCriteria": [
+        "localStorage key 'CURRENT_AXON_SESSION' is created on successful login",
+        "Session data includes user's Name and Role fields",
+        "Session persists across page refreshes",
+        "Session data is cleared on logout"
+      ]
+    },
+    {
+      "id": "REQ-117",
+      "text": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "On Dashboard load, pull the Name from 'CURRENT_AXON_SESSION' to display a personalized greeting: 'Welcome back, [Name]'."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays 'Welcome back, [Name]' greeting on load",
+        "Name is retrieved from 'CURRENT_AXON_SESSION' in localStorage",
+        "Greeting displays correctly for any user name",
+        "Fallback text displays if session data is unavailable"
+      ]
+    },
+    {
+      "id": "REQ-118",
+      "text": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hardcoded email 'admin@axon.com' and password 'password123' are removed",
+        "Authentication validates against 'AXON_USERS' array in localStorage",
+        "No fallback to hardcoded credentials exists",
+        "All authentication flows through the localStorage system"
+      ]
+    },
+    {
+      "id": "REQ-119",
+      "text": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "When a user logs in, save their specific session data (Name and Role) to 'CURRENT_AXON_SESSION'."
+        ]
+      },
+      "acceptanceCriteria": [
+        "New users are automatically assigned 'USER' role on registration",
+        "Role is stored in 'AXON_USERS' array alongside email, password, and name",
+        "Role is transferred to 'CURRENT_AXON_SESSION' on login",
+        "Role-based access control continues to work with new authentication system"
+      ]
+    },
+    {
+      "id": "REQ-120",
+      "text": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ]
+      },
+      "acceptanceCriteria": [
+        "ProtectedRoute validates authentication using 'CURRENT_AXON_SESSION' from localStorage",
+        "Unauthenticated users are redirected to login page",
+        "Route protection works immediately after login without refresh",
+        "Internet Identity dependencies are removed or made optional"
       ]
     }
   ],
   "constraints": [
-    "Do not modify frontend/src/hooks/useInternetIdentity.ts or frontend/src/hooks/useActor.ts",
-    "Maintain glassmorphism styling and midnight black backgrounds consistent with existing dashboard design",
-    "Use existing Shadcn/UI components and Tailwind classes for consistency",
-    "Do not implement actual payment processing or Stripe integration"
+    "Do not modify the backend Motoko actor",
+    "Do not change the existing DashboardLayout.tsx sidebar structure beyond adding the greeting",
+    "Maintain the existing split-screen login page layout with left side Indigo background and right side white form",
+    "Do not modify Internet Identity integration files (useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts)",
+    "Keep all existing UI components (Shadcn/UI) unchanged",
+    "Preserve the Indigo-600 primary color and Emerald-500 success color palette"
   ],
   "nonGoals": [
-    "Implementing actual payment processing or Stripe integration",
-    "Adding subscription management backend logic or database schema",
-    "Creating user subscription status tracking or billing cycles",
-    "Modifying the backend Motoko actor to store subscription data",
-    "Adding email notifications or invoicing features"
+    "Backend user storage or persistence",
+    "Password encryption or hashing",
+    "Email verification or password reset functionality",
+    "OAuth or third-party authentication",
+    "Integration with Internet Identity system",
+    "Multi-factor authentication",
+    "Session timeout or auto-logout features",
+    "Password strength validation beyond confirm password matching"
   ],
   "imageRequirements": {
     "required": [],

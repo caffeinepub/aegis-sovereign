@@ -1,5 +1,4 @@
 import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } from '@tanstack/react-router';
-import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/sonner';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
@@ -17,16 +16,8 @@ import Settings from './pages/Settings';
 import MobileBiometric from './pages/MobileBiometric';
 import DashboardLayout from './components/layout/DashboardLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import PageTransition from './components/transitions/PageTransition';
-import PanicProtocol from './components/sentinel/PanicProtocol';
 import ErrorBoundary from './components/errors/ErrorBoundary';
-import HotkeysReferenceModal from './components/common/HotkeysReferenceModal';
-import PerformanceOverlay from './components/dev/PerformanceOverlay';
-import { GhostModeProvider } from './contexts/GhostModeContext';
-import { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
-import { useState } from 'react';
-import { useTriggerPanic } from './hooks/useQueries';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -81,11 +72,9 @@ const mobileBiometricRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/mobile-biometric',
   component: () => (
-    <ProtectedRoute>
-      <PageTransition>
-        <MobileBiometric />
-      </PageTransition>
-    </ProtectedRoute>
+    <PageTransition>
+      <MobileBiometric />
+    </PageTransition>
   ),
 });
 
@@ -125,11 +114,9 @@ const sentinelRoute = createRoute({
   getParentRoute: () => dashboardRoute,
   path: '/sentinel',
   component: () => (
-    <RoleProtectedRoute requiredRole="admin">
-      <PageTransition>
-        <SentinelProtocol />
-      </PageTransition>
-    </RoleProtectedRoute>
+    <PageTransition>
+      <SentinelProtocol />
+    </PageTransition>
   ),
 });
 
@@ -177,11 +164,9 @@ const adminPanelRoute = createRoute({
   getParentRoute: () => dashboardRoute,
   path: '/admin-panel',
   component: () => (
-    <RoleProtectedRoute requiredRole="admin">
-      <PageTransition>
-        <AdminPanel />
-      </PageTransition>
-    </RoleProtectedRoute>
+    <PageTransition>
+      <AdminPanel />
+    </PageTransition>
   ),
 });
 
@@ -189,11 +174,9 @@ const devMetricsRoute = createRoute({
   getParentRoute: () => dashboardRoute,
   path: '/dev-metrics',
   component: () => (
-    <RoleProtectedRoute requiredRole="admin">
-      <PageTransition>
-        <DevMetrics />
-      </PageTransition>
-    </RoleProtectedRoute>
+    <PageTransition>
+      <DevMetrics />
+    </PageTransition>
   ),
 });
 
@@ -224,40 +207,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-function App() {
-  const [showPanic, setShowPanic] = useState(() => {
-    return sessionStorage.getItem('panicActive') === 'true';
-  });
-  const [showPerformanceOverlay, setShowPerformanceOverlay] = useState(false);
-  const { mutate: triggerPanic } = useTriggerPanic();
-
-  const handleClosePanic = () => {
-    setShowPanic(false);
-    sessionStorage.removeItem('panicActive');
-  };
-
-  useKeyboardShortcut(['Control', 'Shift', 'P'], () => {
-    setShowPanic(true);
-    sessionStorage.setItem('panicActive', 'true');
-    triggerPanic('keyboard-shortcut');
-  });
-
-  useKeyboardShortcut(['Control', 'Shift', 'M'], () => {
-    setShowPerformanceOverlay((prev) => !prev);
-  });
-
-  return (
-    <ErrorBoundary>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-        <GhostModeProvider>
-          <RouterProvider router={router} />
-          {showPanic && <PanicProtocol onClose={handleClosePanic} />}
-          <HotkeysReferenceModal />
-          {showPerformanceOverlay && <PerformanceOverlay />}
-        </GhostModeProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
+export default function App() {
+  return <RouterProvider router={router} />;
 }
-
-export default App;

@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-existing-3-tier-pricing-table-section-professional-free-enterprise-49-mo-sovereign-149-mo-from-the-landing-page-landingpage-tsx",
-      "featureTitle": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
+      "featureId": "feature-create-localstorage-based-user-registry-system-that-stores-user-data-email-password-name-in-an-array-called-axon-users",
+      "featureTitle": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
       "files": [
-        "frontend/src/pages/LandingPage.tsx"
+        "frontend/src/utils/localStorageAuth.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,17 +16,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-91"
+        "REQ-108"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-new-subscriptions-page-component-accessible-from-the-dashboard-sidebar-positioned-in-the-navigation-menu-after-analytics-vault",
-      "featureTitle": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
+      "featureId": "feature-implement-sign-up-validation-logic-that-prevents-registration-if-the-email-already-exists-in-the-axon-users-array",
+      "featureTitle": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/layout/DashboardLayout.tsx",
-        "frontend/src/pages/Subscriptions.tsx"
+        "frontend/src/utils/localStorageAuth.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -37,15 +35,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-92"
+        "REQ-109"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-two-subscription-pricing-tiers-on-the-subscriptions-page-basic-tier-at-300-month-and-premium-tier-at-500-month-displayed-as-cards-with-glassmorphism-styling-consistent-with-the-existing-dashboard-design",
-      "featureTitle": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
+      "featureId": "feature-implement-sign-in-authentication-logic-that-searches-the-axon-users-array-and-grants-access-when-email-and-password-match-a-registered-user",
+      "featureTitle": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
       "files": [
-        "frontend/src/pages/Subscriptions.tsx"
+        "frontend/src/utils/localStorageAuth.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -56,15 +54,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-93"
+        "REQ-110"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-differentiate-features-between-basic-300-month-and-premium-500-month-tiers-based-on-importance-with-basic-tier-including-essential-meeting-intelligence-features-and-premium-tier-adding-advanced-security-tactical-controls-and-priority-features",
-      "featureTitle": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
+      "featureId": "feature-replace-the-existing-loginpage-tsx-with-a-toggle-based-authentication-ui-that-switches-between-sign-in-and-create-account-forms-without-page-reload",
+      "featureTitle": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
       "files": [
-        "frontend/src/pages/Subscriptions.tsx"
+        "frontend/src/pages/LoginPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -75,15 +73,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-94"
+        "REQ-111"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-subscribe-cta-buttons-to-both-subscription-tier-cards-that-display-a-toast-notification-indicating-the-subscription-flow-is-simulated-as-stripe-integration-is-not-yet-implemented",
-      "featureTitle": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
+      "featureId": "feature-create-sign-up-form-with-fields-for-full-name-work-email-security-password-and-confirm-password-using-indigo-white-saas-theme-styling",
+      "featureTitle": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
       "files": [
-        "frontend/src/pages/Subscriptions.tsx"
+        "frontend/src/pages/LoginPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -94,7 +92,160 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-95"
+        "REQ-112"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-sign-in-form-with-fields-for-work-email-and-security-password-using-indigo-white-saas-theme-styling",
+      "featureTitle": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
+      "files": [
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-113"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-framer-motion-slide-transitions-when-switching-between-sign-in-and-create-account-forms",
+      "featureTitle": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+      "files": [
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-114"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-sonner-toast-notification-displaying-success-message-when-a-new-account-is-created-successfully",
+      "featureTitle": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
+      "files": [
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-115"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-session-persistence-by-saving-user-data-name-and-role-to-current-axon-session-in-localstorage-upon-successful-login",
+      "featureTitle": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
+      "files": [
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/utils/localStorageAuth.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-116"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-dashboardlayout-tsx-to-display-personalized-greeting-welcome-back-name-by-retrieving-the-user-s-name-from-current-axon-session-in-localstorage",
+      "featureTitle": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
+      "files": [
+        "frontend/src/components/layout/DashboardLayout.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-117"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-or-replace-the-hardcoded-admin-axon-com-authentication-logic-in-loginpage-tsx-with-the-new-localstorage-based-authentication-system",
+      "featureTitle": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
+      "files": [
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-118"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-default-role-assignment-logic-that-assigns-user-role-to-new-accounts-created-through-sign-up",
+      "featureTitle": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
+      "files": [
+        "frontend/src/utils/localStorageAuth.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-119"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-protectedroute-tsx-to-check-authentication-state-from-localstorage-instead-of-internet-identity",
+      "featureTitle": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
+      "files": [
+        "frontend/src/components/auth/ProtectedRoute.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-120"
       ],
       "confidence": "high"
     }

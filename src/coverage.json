@@ -1,72 +1,158 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T15:15:38.801Z",
+  "generatedAt": "2026-02-20T16:13:01.005Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 13,
+    "implemented": 13,
     "items": [
       {
-        "id": "REQ-91",
-        "summary": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
+        "id": "REQ-108",
+        "summary": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/utils/localStorageAuth.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/utils/localStorageAuth.ts"
         ]
       },
       {
-        "id": "REQ-92",
-        "summary": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
+        "id": "REQ-109",
+        "summary": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Subscriptions.tsx",
-          "frontend/src/App.tsx",
+          "frontend/src/utils/localStorageAuth.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/localStorageAuth.ts"
+        ]
+      },
+      {
+        "id": "REQ-110",
+        "summary": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/localStorageAuth.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/localStorageAuth.ts"
+        ]
+      },
+      {
+        "id": "REQ-111",
+        "summary": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-112",
+        "summary": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-113",
+        "summary": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-114",
+        "summary": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-115",
+        "summary": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-116",
+        "summary": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-117",
+        "summary": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
+        "status": "implemented",
+        "plannedFiles": [
           "frontend/src/components/layout/DashboardLayout.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Subscriptions.tsx",
-          "frontend/src/App.tsx",
           "frontend/src/components/layout/DashboardLayout.tsx"
         ]
       },
       {
-        "id": "REQ-93",
-        "summary": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
+        "id": "REQ-118",
+        "summary": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Subscriptions.tsx"
+          "frontend/src/pages/LoginPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Subscriptions.tsx"
+          "frontend/src/pages/LoginPage.tsx"
         ]
       },
       {
-        "id": "REQ-94",
-        "summary": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
+        "id": "REQ-119",
+        "summary": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Subscriptions.tsx"
+          "frontend/src/utils/localStorageAuth.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Subscriptions.tsx"
+          "frontend/src/utils/localStorageAuth.ts"
         ]
       },
       {
-        "id": "REQ-95",
-        "summary": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
+        "id": "REQ-120",
+        "summary": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Subscriptions.tsx"
+          "frontend/src/components/auth/ProtectedRoute.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Subscriptions.tsx"
+          "frontend/src/components/auth/ProtectedRoute.tsx"
         ]
       }
     ]
@@ -77,9 +163,10 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProtectedRoute.tsx",
     "frontend/src/components/layout/DashboardLayout.tsx",
-    "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/Subscriptions.tsx",
+    "frontend/src/pages/LoginPage.tsx",
+    "frontend/src/utils/localStorageAuth.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

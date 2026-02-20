@@ -1,23 +1,21 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 25,
-  "summary": "Axon - Enterprise Meeting Intelligence & Privacy Suite with multi-page architecture being expanded into high-density Enterprise Ecosystem on ICP with role-based access control, admin panel, and Motoko backend for persistent data storage",
+  "projectStateVersion": 29,
+  "summary": "Axon Sovereign - Enterprise Meeting Intelligence & Privacy Suite transitioning from dark glassmorphism theme to clean light-mode Enterprise SaaS design with split-screen professional login, fixed sidebar navigation, and high-density data modules using Indigo-600/Emerald-500 color palette, implementing localStorage-based authentication system with user registration and session persistence",
   "architectural_notes": [
     "Tech stack: React, Node.js, Tailwind CSS, Framer Motion, Supabase Auth",
     "UI components: Shadcn/UI with Tabs and Sheets for navigation",
-    "Glassmorphism design with Midnight (#000000) backgrounds and Border-Beam animations",
     "All page transitions must use Framer Motion",
     "Multi-page architecture with persistent sidebar navigation",
     "60fps Canvas-based visualizations for neural frequency display",
     "ApexCharts for sentiment tracking and analytics",
     "PWA-ready mobile remote with 120Hz optimization",
     "Global hotkeys: Ctrl+Shift+P (Panic), Ctrl+Shift+L (Lag), CMD+K (Tactical Layer toggle)",
-    "Skeleton loaders, Sonner toast notifications, and magnetic button hover effects"
+    "Skeleton loaders, Sonner toast notifications, and magnetic button hover effects",
+    "Design system: Clean light-mode Enterprise SaaS aesthetic with Indigo-600 primary, Emerald-500 success, Slate-50 background"
   ],
-  "known_issues": [
-    "Sign-in page gets stuck in loading state and does not proceed after authentication"
-  ],
-  "isFixRequest": false,
+  "known_issues": [],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-public-landing-page-with-hero-section-displaying-neural-meeting-intelligence-for-global-leaders-security-architecture-sections-for-quantum-resistant-encryption-soc2-type-ii-compliance-and-biometric-integrity-and-a-3-tier-pricing-table-showing-professional-free-enterprise-49-mo-and-sovereign-149-mo-tiers",
@@ -722,6 +720,206 @@
         "REQ-95"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-replace-the-existing-dark-theme-with-a-light-mode-enterprise-saas-color-palette-throughout-the-application-using-indigo-600-as-primary-color-emerald-500-as-success-color-and-slate-50-f9fafb-as-the-main-background-color",
+      "title": "Replace the existing dark theme with a light-mode Enterprise SaaS color palette throughout the application, using Indigo-600 as primary color, Emerald-500 as success color, and Slate-50 (#F9FAFB) as the main background color",
+      "reqIds": [
+        "REQ-96"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-login-page-loginpage-tsx-with-a-50-50-split-screen-layout-left-side-featuring-a-deep-indigo-background-with-an-abstract-neural-network-graphic-and-the-headline-secure-your-enterprise-sovereignty-right-side-displaying-a-clean-white-login-form-with-rounded-xl-corners-shadow-sm-soft-shadows-and-inter-typography",
+      "title": "Redesign the login page (LoginPage.tsx) with a 50/50 split-screen layout: left side featuring a deep Indigo background with an abstract neural network graphic and the headline 'Secure your enterprise sovereignty'; right side displaying a clean white login form with rounded-xl corners, shadow-sm soft shadows, and Inter typography",
+      "reqIds": [
+        "REQ-97"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-login-authentication-logic-to-accept-email-admin-axon-com-with-password-password123-and-implement-session-persistence-using-localstorage-so-that-page-refresh-does-not-log-the-user-out",
+      "title": "Update login authentication logic to accept email 'admin@axon.com' with password 'password123', and implement session persistence using localStorage so that page refresh does not log the user out",
+      "reqIds": [
+        "REQ-98"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restructure-the-dashboard-layout-dashboardlayout-tsx-with-a-fixed-left-sidebar-featuring-slate-950-background-and-icon-based-navigation-for-overview-vault-neural-logs-and-settings-pages",
+      "title": "Restructure the dashboard layout (DashboardLayout.tsx) with a fixed left sidebar featuring Slate-950 background and icon-based navigation for Overview, Vault, Neural Logs, and Settings pages",
+      "reqIds": [
+        "REQ-99"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-white-top-bar-to-the-dashboard-layout-with-a-search-input-field-and-a-user-profile-avatar-displaying-initials-e-g-ar-for-alex-rivera",
+      "title": "Add a white top bar to the dashboard layout with a search input field and a user profile avatar displaying initials (e.g., 'AR' for Alex Rivera)",
+      "reqIds": [
+        "REQ-100"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-main-dashboard-content-area-background-to-light-gray-f9fafb-so-that-white-cards-and-components-stand-out-with-visual-separation",
+      "title": "Update the main dashboard content area background to light-gray (#F9FAFB) so that white cards and components stand out with visual separation",
+      "reqIds": [
+        "REQ-101"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-three-small-metric-cards-at-the-top-of-the-dashboard-displaying-total-encrypted-data-active-sentinel-nodes-and-security-health-with-appropriate-values-and-icons",
+      "title": "Create three small metric cards at the top of the dashboard displaying 'Total Encrypted Data', 'Active Sentinel Nodes', and 'Security Health' with appropriate values and icons",
+      "reqIds": [
+        "REQ-102"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-large-live-traffic-visualization-area-below-the-metric-cards-featuring-either-a-linear-area-chart-or-a-geographic-heatmap-rendered-in-soft-blue-indigo-tones-instead-of-the-existing-hacker-style-global-map",
+      "title": "Implement a large 'Live Traffic' visualization area below the metric cards, featuring either a Linear Area Chart or a Geographic Heatmap rendered in soft blue/indigo tones instead of the existing hacker-style global map",
+      "reqIds": [
+        "REQ-103"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-recent-files-activity-table-component-displaying-a-list-of-vault-documents-with-columns-for-name-security-level-status-and-owner-in-a-clean-tabular-format",
+      "title": "Create a 'Recent Files' activity table component displaying a list of vault documents with columns for Name, Security Level, Status, and Owner in a clean tabular format",
+      "reqIds": [
+        "REQ-104"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-mobile-responsiveness-for-the-dashboard-layout-so-that-the-fixed-sidebar-is-hidden-on-mobile-devices-and-replaced-with-a-hamburger-menu-that-opens-a-drawer-navigation",
+      "title": "Implement mobile responsiveness for the dashboard layout so that the fixed sidebar is hidden on mobile devices and replaced with a hamburger menu that opens a drawer navigation",
+      "reqIds": [
+        "REQ-105"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-all-existing-glitch-effects-dramatic-animations-and-dark-themed-motion-effects-with-subtle-framer-motion-fade-in-transitions-throughout-the-application",
+      "title": "Replace all existing glitch effects, dramatic animations, and dark-themed motion effects with subtle Framer Motion fade-in transitions throughout the application",
+      "reqIds": [
+        "REQ-106"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-global-typography-to-use-the-inter-font-family-consistently-across-all-components-replacing-any-existing-font-choices",
+      "title": "Update global typography to use the Inter font family consistently across all components, replacing any existing font choices",
+      "reqIds": [
+        "REQ-107"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-localstorage-based-user-registry-system-that-stores-user-data-email-password-name-in-an-array-called-axon-users",
+      "title": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
+      "reqIds": [
+        "REQ-108"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-sign-up-validation-logic-that-prevents-registration-if-the-email-already-exists-in-the-axon-users-array",
+      "title": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
+      "reqIds": [
+        "REQ-109"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-sign-in-authentication-logic-that-searches-the-axon-users-array-and-grants-access-when-email-and-password-match-a-registered-user",
+      "title": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
+      "reqIds": [
+        "REQ-110"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-existing-loginpage-tsx-with-a-toggle-based-authentication-ui-that-switches-between-sign-in-and-create-account-forms-without-page-reload",
+      "title": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
+      "reqIds": [
+        "REQ-111"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-sign-up-form-with-fields-for-full-name-work-email-security-password-and-confirm-password-using-indigo-white-saas-theme-styling",
+      "title": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
+      "reqIds": [
+        "REQ-112"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-sign-in-form-with-fields-for-work-email-and-security-password-using-indigo-white-saas-theme-styling",
+      "title": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
+      "reqIds": [
+        "REQ-113"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-framer-motion-slide-transitions-when-switching-between-sign-in-and-create-account-forms",
+      "title": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+      "reqIds": [
+        "REQ-114"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-sonner-toast-notification-displaying-success-message-when-a-new-account-is-created-successfully",
+      "title": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
+      "reqIds": [
+        "REQ-115"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-session-persistence-by-saving-user-data-name-and-role-to-current-axon-session-in-localstorage-upon-successful-login",
+      "title": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
+      "reqIds": [
+        "REQ-116"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-dashboardlayout-tsx-to-display-personalized-greeting-welcome-back-name-by-retrieving-the-user-s-name-from-current-axon-session-in-localstorage",
+      "title": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
+      "reqIds": [
+        "REQ-117"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-or-replace-the-hardcoded-admin-axon-com-authentication-logic-in-loginpage-tsx-with-the-new-localstorage-based-authentication-system",
+      "title": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
+      "reqIds": [
+        "REQ-118"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-default-role-assignment-logic-that-assigns-user-role-to-new-accounts-created-through-sign-up",
+      "title": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
+      "reqIds": [
+        "REQ-119"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-protectedroute-tsx-to-check-authentication-state-from-localstorage-instead-of-internet-identity",
+      "title": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
+      "reqIds": [
+        "REQ-120"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -904,12 +1102,6 @@
       "status": "pending"
     },
     {
-      "id": "AR-24",
-      "summary": "Fix sign-in page loading issue preventing users from proceeding after authentication",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
       "id": "AR-53",
       "summary": "Ensure the useInternetIdentity hook correctly manages the authentication state lifecycle and notifies components when authentication completes",
       "reqIds": [
@@ -976,6 +1168,72 @@
     {
       "id": "AR-72",
       "summary": "Create new Subscriptions page accessible from dashboard sidebar positioned after Analytics & Vault, displaying two pricing tiers: ₹300/month and ₹500/month with feature differentiation based on importance and value",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-73",
+      "summary": "Redesign login page with 50/50 split-screen layout: left side deep Indigo background with neural network graphic and headline 'Secure your enterprise sovereignty', right side clean white login form with rounded-xl corners, soft shadows, Inter typography, and admin@axon.com / password123 authentication with localStorage session persistence",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-74",
+      "summary": "Create Enterprise SaaS dashboard structure with fixed left sidebar (Slate-950 background) containing icons for Overview, Vault, Neural Logs, and Settings; white top bar with search functionality and user profile avatar; and light-gray background (#F9FAFB) for main content area",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-75",
+      "summary": "Implement Bento Grid data modules with three metric cards showing Total Encrypted Data, Active Sentinel Nodes, and Security Health; large Live Traffic area with Linear Area Chart or Geographic Heatmap in soft blue/indigo tones; and Recent Files activity table with columns for Name, Security Level, Status, and Owner",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-76",
+      "summary": "Ensure mobile responsiveness with hamburger menu replacing fixed sidebar on mobile devices, and implement subtle Framer Motion fade-in animations throughout the interface using Indigo-600 primary, Emerald-500 success, and Slate-50 background color palette",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-77",
+      "summary": "Implement localStorage-based user registry system storing user data (Email, Password, Name) in AXON_USERS array with email validation preventing duplicate registrations",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-78",
+      "summary": "Create authentication logic for sign-up (save to AXON_USERS) and sign-in (validate against AXON_USERS array) with isLoggedIn state management",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-79",
+      "summary": "Build toggle-based authentication UI switching between Sign In and Create Account forms using Framer Motion slide transitions with Indigo/White SaaS theme",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-80",
+      "summary": "Implement Sign Up form with fields: Full Name, Work Email, Security Password, Confirm Password; and Sign In form with Work Email and Security Password fields",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-81",
+      "summary": "Add success toast notification using Sonner when new account is created successfully",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-82",
+      "summary": "Implement session persistence by saving user data (Name and Role) to CURRENT_AXON_SESSION in localStorage upon successful login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-83",
+      "summary": "Display personalized greeting on dashboard load pulling user name from CURRENT_AXON_SESSION: 'Welcome back, [Name]'",
       "reqIds": [],
       "status": "pending"
     }

@@ -1,100 +1,229 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove landing page pricing and add dashboard Subscriptions page",
+  "title": "Build localStorage-based authentication system with sign-up and sign-in flow",
   "requirements": [
     {
-      "id": "REQ-91",
-      "summary": "Remove the existing 3-tier pricing table section from the landing page",
+      "id": "REQ-108",
+      "summary": "Create localStorage-based user registry system that stores user data in 'AXON_USERS' array",
       "acceptanceCriteria": [
-        "The pricing section is completely removed from LandingPage.tsx",
-        "The landing page layout remains clean and cohesive after removal",
-        "All references to the pricing tiers in the landing page are eliminated"
+        "localStorage key 'AXON_USERS' exists and stores an array of user objects",
+        "Each user object contains Email, Password, and Name fields",
+        "Array persists across browser sessions"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Remove the pricing section that displays the 3-tier pricing table (Professional Free, Enterprise $49/mo, Sovereign $149/mo). Delete the entire pricing container div and all related JSX elements including tier cards, pricing details, and feature lists. Preserve all other sections of the landing page including hero, features, testimonials, and footer."
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "create",
+          "description": "Create utility module for localStorage-based authentication. Implement functions to initialize, read, and write to the 'AXON_USERS' array in localStorage. Include TypeScript interfaces for User objects with Email, Password, Name, and Role fields. Provide helper functions for user lookup, registration, and validation."
         }
       ]
     },
     {
-      "id": "REQ-92",
-      "summary": "Create a new Subscriptions page accessible from the dashboard sidebar after Analytics & Vault",
+      "id": "REQ-109",
+      "summary": "Implement sign-up validation logic that prevents duplicate email registration",
       "acceptanceCriteria": [
-        "New route created for /subscriptions page",
-        "Subscriptions link appears in DashboardLayout sidebar after Analytics & Vault",
-        "Page is accessible to all authenticated users",
-        "Navigation follows the existing sidebar patterns with icons and labels"
+        "System checks for duplicate emails before saving new user",
+        "Error message displays when attempting to register with existing email",
+        "Validation occurs before data is written to localStorage"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Subscriptions.tsx",
-          "operation": "create",
-          "description": "Create a new Subscriptions page component that will display subscription pricing tiers. Include a page header with title 'Subscriptions' and subtitle explaining the subscription options. Set up the basic page structure using the same glassmorphism styling patterns found in other dashboard pages with midnight black backgrounds and grid layouts for tier cards."
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Add validateEmailUnique function that searches the 'AXON_USERS' array for existing emails before registration. Return validation result with appropriate error messages. Include case-insensitive email comparison to prevent duplicate accounts."
+        }
+      ]
+    },
+    {
+      "id": "REQ-110",
+      "summary": "Implement sign-in authentication logic that validates credentials against 'AXON_USERS' array",
+      "acceptanceCriteria": [
+        "System validates credentials against 'AXON_USERS' array",
+        "Login succeeds only when both email and password match exactly",
+        "isLoggedIn state is set to true upon successful authentication",
+        "Error message displays for invalid credentials"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Add authenticateUser function that searches 'AXON_USERS' array for matching email and password. Return user object on success or null on failure. Include exact string matching for both email and password validation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-111",
+      "summary": "Replace LoginPage.tsx with toggle-based authentication UI switching between Sign In and Create Account forms",
+      "acceptanceCriteria": [
+        "Single page displays either Sign In or Create Account form based on toggle state",
+        "Transition between forms happens instantly without page reload",
+        "User can easily switch between Sign In and Create Account modes",
+        "Split-screen layout is maintained with form on the right side"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Replace the existing authentication logic with a toggle-based UI using useState to switch between 'Sign In' and 'Create Account' modes. Remove Internet Identity integration and hardcoded admin@axon.com logic. Maintain the existing split-screen layout (left side: Indigo background with neural network branding, right side: white form area). Add a text link or button to toggle between the two forms without page reload."
+        }
+      ]
+    },
+    {
+      "id": "REQ-112",
+      "summary": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password",
+      "acceptanceCriteria": [
+        "Form includes four input fields: Full Name, Work Email, Security Password, Confirm Password",
+        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
+        "Password fields include type='password' for security",
+        "Form validation ensures passwords match before submission"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Add Sign Up form section with four input fields: Full Name (text), Work Email (email), Security Password (password), and Confirm Password (password). Use Indigo-600 for primary colors (buttons, focus states) and white backgrounds for inputs. Include client-side validation to check that Security Password and Confirm Password match before allowing submission. Display validation errors inline below relevant fields."
+        }
+      ]
+    },
+    {
+      "id": "REQ-113",
+      "summary": "Create Sign In form with fields for Work Email and Security Password",
+      "acceptanceCriteria": [
+        "Form includes two input fields: Work Email and Security Password",
+        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
+        "Password field uses type='password' for security",
+        "Form includes submit button with action-oriented text"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Add Sign In form section with two input fields: Work Email (email) and Security Password (password). Use Indigo-600 for primary colors and white backgrounds for inputs. Include a submit button with action-oriented text like 'Sign In' or 'Access Dashboard'. Apply consistent styling with the Sign Up form."
+        }
+      ]
+    },
+    {
+      "id": "REQ-114",
+      "summary": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+      "acceptanceCriteria": [
+        "Forms animate with slide effect when toggling between Sign In and Create Account",
+        "Transition is smooth and does not flicker",
+        "Animation duration is appropriate (300-500ms)",
+        "Only the form content animates while the layout remains stable"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Wrap Sign In and Create Account form sections with Framer Motion's motion.div components. Implement slide transition animations using variants with x-axis translation. Set animation duration to 300-500ms for smooth transitions. Use AnimatePresence to handle enter/exit animations. Ensure only the form content animates while the split-screen layout container remains fixed."
+        }
+      ]
+    },
+    {
+      "id": "REQ-115",
+      "summary": "Add Sonner toast notification displaying 'Success' message when a new account is created",
+      "acceptanceCriteria": [
+        "Toast notification appears immediately after successful account creation",
+        "Toast displays success message with appropriate styling",
+        "Toast auto-dismisses after a few seconds",
+        "Toast uses Sonner library consistent with existing implementation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Import toast from 'sonner' and call toast.success() with a success message immediately after successfully saving a new user to 'AXON_USERS' in localStorage. Display a message like 'Account created successfully!' or 'Welcome to AXON!'. The Toaster component is already configured in App.tsx, so no additional setup is needed."
+        }
+      ]
+    },
+    {
+      "id": "REQ-116",
+      "summary": "Implement session persistence by saving user data to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
+      "acceptanceCriteria": [
+        "localStorage key 'CURRENT_AXON_SESSION' is created on successful login",
+        "Session data includes user's Name and Role fields",
+        "Session persists across page refreshes",
+        "Session data is cleared on logout"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Add setCurrentSession function that saves user session data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful authentication. Add getCurrentSession function to retrieve the current session. Add clearCurrentSession function to remove session data on logout. Use JSON.stringify/parse for storage."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Register the /subscriptions route in the router configuration. Add the route definition after the analytics-vault route and before the sentinel-protocol route. Import the Subscriptions component and wrap it with ProtectedRoute to ensure only authenticated users can access it."
-        },
+          "description": "After successful authentication in the Sign In form, call setCurrentSession with the authenticated user's Name and Role before navigating to the dashboard. Ensure session persistence across page refreshes by storing data in localStorage."
+        }
+      ]
+    },
+    {
+      "id": "REQ-117",
+      "summary": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' using 'CURRENT_AXON_SESSION' data",
+      "acceptanceCriteria": [
+        "Dashboard displays 'Welcome back, [Name]' greeting on load",
+        "Name is retrieved from 'CURRENT_AXON_SESSION' in localStorage",
+        "Greeting displays correctly for any user name",
+        "Fallback text displays if session data is unavailable"
+      ],
+      "file_operations": [
         {
           "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Add a 'Subscriptions' navigation link in the sidebar menu items array after the 'Analytics & Vault' link. Use an appropriate icon from lucide-react (e.g., CreditCard or DollarSign) and set the href to '/subscriptions'. Follow the existing navigation item pattern with icon, label, and active state styling."
+          "description": "Import getCurrentSession from the localStorageAuth utility. Use useEffect to retrieve the current user's Name from 'CURRENT_AXON_SESSION' on component mount. Display a personalized greeting like 'Welcome back, [Name]' in the header or sidebar area. Provide a fallback greeting like 'Welcome back' if session data is unavailable. Do not modify the existing sidebar navigation structure."
         }
       ]
     },
     {
-      "id": "REQ-93",
-      "summary": "Implement two subscription pricing tiers with glassmorphism card styling on the Subscriptions page",
+      "id": "REQ-118",
+      "summary": "Remove hardcoded admin@axon.com authentication logic and replace with localStorage-based authentication",
       "acceptanceCriteria": [
-        "Two pricing cards displayed side-by-side in a responsive grid layout",
-        "Each card shows tier name, monthly price in Indian Rupees (₹), and feature list",
-        "Cards use glassmorphism effects matching the existing bento grid cards",
-        "Hover effects and BorderBeam animations are applied for premium feel"
+        "Hardcoded email 'admin@axon.com' and password 'password123' are removed",
+        "Authentication validates against 'AXON_USERS' array in localStorage",
+        "No fallback to hardcoded credentials exists",
+        "All authentication flows through the localStorage system"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Subscriptions.tsx",
+          "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Add a responsive grid layout (grid-cols-1 md:grid-cols-2) containing two pricing tier cards. Each card should use the same glassmorphism styling as BentoCard components with backdrop-blur, border gradients, and hover effects. Include BorderBeam component on card hover for the premium animated border effect. Structure each card with: tier name heading, large price display showing '₹300' or '₹500' with '/month' suffix, feature list section (to be populated in REQ-94), and a CTA button placeholder (to be implemented in REQ-95). Apply consistent spacing, padding, and the midnight black background theme."
+          "description": "Remove the hardcoded credential check for 'admin@axon.com' and 'password123'. Replace with authenticateUser function from localStorageAuth utility that validates credentials against the 'AXON_USERS' array in localStorage. Remove sessionStorage['AXON_SESSION'] logic and replace with 'CURRENT_AXON_SESSION' from the utility."
         }
       ]
     },
     {
-      "id": "REQ-94",
-      "summary": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance",
+      "id": "REQ-119",
+      "summary": "Implement default role assignment logic that assigns 'USER' role to new accounts",
       "acceptanceCriteria": [
-        "Basic tier (₹300/month) includes: Neural Frequency Visualizer, Sentiment Analysis, Meeting ROI Tracking, Speaker Identity Matrix, Voice Pattern Recognition, up to 10 meeting recordings per month",
-        "Premium tier (₹500/month) includes: All Basic features plus Sentinel Protocol access, Panic Mode, Environment Spoofing, Packet Jitter Simulator, Dark Web Monitoring, Threat Detection Matrix, Executive Briefing Generator, unlimited meeting recordings, priority support",
-        "Each feature is clearly listed under its respective tier",
-        "Visual indicators (checkmarks/icons) show which features are included in each tier",
-        "Feature descriptions are concise and emphasize value/benefits"
+        "New users are automatically assigned 'USER' role on registration",
+        "Role is stored in 'AXON_USERS' array alongside email, password, and name",
+        "Role is transferred to 'CURRENT_AXON_SESSION' on login",
+        "Role-based access control continues to work with new authentication system"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Subscriptions.tsx",
+          "path": "frontend/src/utils/localStorageAuth.ts",
           "operation": "modify",
-          "description": "Populate the feature lists for both pricing tiers. For the Basic tier card, add a features array containing: Neural Frequency Visualizer, Sentiment Analysis, Meeting ROI Tracking, Speaker Identity Matrix, Voice Pattern Recognition, and 'Up to 10 meeting recordings/month'. For the Premium tier card, add a features array with all Basic features plus: Sentinel Protocol access, Panic Mode, Environment Spoofing, Packet Jitter Simulator, Dark Web Monitoring, Threat Detection Matrix, Executive Briefing Generator, 'Unlimited meeting recordings', and 'Priority support'. Render each feature as a list item with a checkmark icon from lucide-react (Check or CheckCircle2) in cyber emerald color. Use proper spacing and typography to make features scannable and emphasize value."
+          "description": "Update the user registration function to automatically assign 'USER' as the default role for all new accounts created through sign-up. Ensure the Role field is included in the user object saved to 'AXON_USERS'. When authenticating users, include the Role field in the returned user object so it can be saved to 'CURRENT_AXON_SESSION'."
         }
       ]
     },
     {
-      "id": "REQ-95",
-      "summary": "Add Subscribe CTA buttons with simulated subscription flow toast notifications",
+      "id": "REQ-120",
+      "summary": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
       "acceptanceCriteria": [
-        "Each tier card has a prominent CTA button with Cyber Emerald glow effect matching landing page buttons",
-        "Button text reads 'Subscribe to Basic' or 'Subscribe to Premium' respectively",
-        "Clicking the button triggers a Sonner toast notification explaining this is a simulated subscription interface",
-        "Buttons are styled consistently with existing PrimaryCTA components"
+        "ProtectedRoute validates authentication using 'CURRENT_AXON_SESSION' from localStorage",
+        "Unauthenticated users are redirected to login page",
+        "Route protection works immediately after login without refresh",
+        "Internet Identity dependencies are removed or made optional"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Subscriptions.tsx",
+          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
           "operation": "modify",
-          "description": "Add Subscribe buttons to both pricing tier cards using the PrimaryCTA component for consistent styling with cyber emerald glow effects. Set button text to 'Subscribe to Basic' for the ₹300/month tier and 'Subscribe to Premium' for the ₹500/month tier. Implement onClick handlers that trigger Sonner toast notifications with a message like 'Subscription flow is currently simulated. Stripe integration coming soon!' Use toast.info() from sonner with appropriate styling. Position buttons at the bottom of each card with proper margin and full-width styling on mobile."
+          "description": "Replace Internet Identity authentication check with localStorage-based session validation. Import getCurrentSession from localStorageAuth utility and check for the presence of 'CURRENT_AXON_SESSION' in localStorage to determine if the user is authenticated. If no valid session exists, redirect to '/login'. Remove or make optional the useInternetIdentity hook dependency. Update loading states to reflect the simpler localStorage check (no async authentication needed)."
         }
       ]
     }

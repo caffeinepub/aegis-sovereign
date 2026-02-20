@@ -2,241 +2,172 @@ import { ReactNode, useState, useEffect } from 'react';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useInternetIdentity } from '../../hooks/useInternetIdentity';
-import { useKeyboardShortcut } from '../../hooks/useKeyboardShortcut';
-import { useGetCallerUserRole, useGetCallerUserProfile } from '../../hooks/useQueries';
-import { useGhostMode } from '../../contexts/GhostModeContext';
-import { useQueryClient } from '@tanstack/react-query';
-import SecurityAuditScheduler from '../scheduling/SecurityAuditScheduler';
+import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   LayoutDashboard,
-  Brain,
-  Shield,
-  Smartphone,
-  BarChart3,
-  CreditCard,
+  Lock,
+  FileText,
+  Settings,
   Menu,
   LogOut,
-  User,
-  Settings,
-  Eye,
-  EyeOff,
-  ChevronLeft,
-  ChevronRight,
-  Loader2,
+  Search,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { UserRole } from '../../backend';
+import { getCurrentSession, clearCurrentSession } from '@/utils/localStorageAuth';
 
 interface NavItem {
   name: string;
   path: string;
   icon: React.ReactNode;
-  adminOnly?: boolean;
 }
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const router = useRouterState();
-  const queryClient = useQueryClient();
-  const { clear, identity } = useInternetIdentity();
-  const { data: userRole, isLoading: roleLoading, isFetched: roleFetched } = useGetCallerUserRole();
-  const { data: userProfile, isLoading: profileLoading, isFetched: profileFetched } = useGetCallerUserProfile();
-  const { isGhostMode, toggleGhostMode } = useGhostMode();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
-    const stored = localStorage.getItem('sidebarCollapsed');
-    return stored === 'true';
-  });
+  const [userName, setUserName] = useState<string>('User');
+  const [userRole, setUserRole] = useState<string>('Member');
 
   useEffect(() => {
-    localStorage.setItem('sidebarCollapsed', String(sidebarCollapsed));
-  }, [sidebarCollapsed]);
-
-  useKeyboardShortcut(['Control', 'Shift', 'G'], () => {
-    toggleGhostMode();
-    toast.info(isGhostMode ? 'Ghost Mode Deactivated' : 'Ghost Mode Activated');
-  });
-
-  const isAdmin = userRole === UserRole.admin;
+    const session = getCurrentSession();
+    if (session) {
+      setUserName(session.name);
+      setUserRole(session.role);
+    } else {
+      navigate({ to: '/login' });
+    }
+  }, [navigate]);
 
   const navItems: NavItem[] = [
-    { name: 'Command Center', path: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
-    { name: 'Neural Lab', path: '/dashboard/neural-lab', icon: <Brain className="h-5 w-5" /> },
-    {
-      name: 'Sentinel Protocol',
-      path: '/dashboard/sentinel',
-      icon: <Shield className="h-5 w-5" />,
-      adminOnly: true,
-    },
-    { name: 'Device Sync', path: '/dashboard/device-sync', icon: <Smartphone className="h-5 w-5" /> },
-    { name: 'Analytics & Vault', path: '/dashboard/analytics', icon: <BarChart3 className="h-5 w-5" /> },
-    { name: 'Subscriptions', path: '/dashboard/subscriptions', icon: <CreditCard className="h-5 w-5" /> },
-    {
-      name: 'Admin Panel',
-      path: '/dashboard/admin-panel',
-      icon: <Settings className="h-5 w-5" />,
-      adminOnly: true,
-    },
+    { name: 'Overview', path: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
+    { name: 'Vault', path: '/dashboard/analytics', icon: <Lock className="h-5 w-5" /> },
+    { name: 'Neural Logs', path: '/dashboard/neural-lab', icon: <FileText className="h-5 w-5" /> },
+    { name: 'Settings', path: '/dashboard/settings', icon: <Settings className="h-5 w-5" /> },
   ];
 
   const handleLogout = () => {
-    clear();
-    queryClient.clear();
+    clearCurrentSession();
     toast.success('Logged out successfully');
-    navigate({ to: '/' });
+    navigate({ to: '/login' });
   };
 
-  // Show loading state while fetching user data
-  if (roleLoading || !roleFetched || profileLoading || !profileFetched) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-black">
-        <div className="text-center">
-          <Loader2 className="mx-auto mb-4 h-12 w-12 animate-spin text-emerald-400" />
-          <p className="text-gray-400">Loading dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
-  const NavContent = ({ collapsed = false }: { collapsed?: boolean }) => (
-    <div className="flex h-full flex-col">
-      <div className="border-b border-white/10 p-6">
+  const NavContent = () => (
+    <div className="flex h-full flex-col bg-slate-950">
+      <div className="p-6 border-b border-slate-800">
         <div className="flex items-center gap-3">
           <img src="/assets/generated/axon-logo.dim_800x800.png" alt="AXON" className="h-10 w-10" />
-          {!collapsed && (
-            <div>
-              <h2 className="text-lg font-bold">AXON</h2>
-              <p className="text-xs text-gray-400">Enterprise Intelligence</p>
-            </div>
-          )}
+          <div>
+            <h2 className="text-lg font-bold text-white">AXON</h2>
+            <p className="text-xs text-slate-400">SOVEREIGN</p>
+          </div>
         </div>
-        {!collapsed && isAdmin && (
-          <Badge variant="default" className="mt-3 bg-gradient-to-r from-emerald-500 to-cyan-500">
-            ADMIN
-          </Badge>
-        )}
       </div>
 
-      <ScrollArea className="flex-1">
-        <nav className="space-y-1 p-4">
-          {navItems
-            .filter((item) => !item.adminOnly || isAdmin)
-            .map((item) => {
-              const isActive = router.location.pathname === item.path;
-              return (
-                <button
-                  key={item.path}
-                  onClick={() => {
-                    navigate({ to: item.path });
-                    setMobileOpen(false);
-                  }}
-                  className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-all ${
-                    isActive
-                      ? 'bg-emerald-500/20 text-emerald-400 shadow-lg shadow-emerald-500/20'
-                      : 'text-gray-300 hover:bg-white/5'
-                  } ${collapsed ? 'justify-center' : ''}`}
-                  title={collapsed ? item.name : undefined}
-                >
-                  {item.icon}
-                  {!collapsed && <span className="font-medium">{item.name}</span>}
-                </button>
-              );
-            })}
-        </nav>
+      {/* Welcome Message */}
+      <div className="px-6 py-4 border-b border-slate-800">
+        <p className="text-sm text-slate-400">Welcome back,</p>
+        <p className="text-lg font-semibold text-white">{userName}</p>
+      </div>
 
-        {/* Schedule Security Audit Module */}
-        {!collapsed && (
-          <div className="px-4 pb-4">
-            <SecurityAuditScheduler />
-          </div>
-        )}
-      </ScrollArea>
+      <nav className="flex-1 p-4 space-y-1">
+        {navItems.map((item) => {
+          const isActive = router.location.pathname === item.path;
+          return (
+            <button
+              key={item.path}
+              onClick={() => {
+                navigate({ to: item.path });
+                setMobileOpen(false);
+              }}
+              className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-all ${
+                isActive
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-slate-300 hover:bg-slate-800'
+              }`}
+            >
+              {item.icon}
+              <span className="font-medium">{item.name}</span>
+            </button>
+          );
+        })}
+      </nav>
 
-      <div className="border-t border-white/10 p-4">
-        {/* Ghost Mode Toggle */}
-        <button
-          onClick={toggleGhostMode}
-          className={`mb-3 flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-all ${
-            isGhostMode ? 'bg-purple-500/20 text-purple-400' : 'bg-white/5 text-gray-300 hover:bg-white/10'
-          } ${collapsed ? 'justify-center' : ''}`}
-          title={collapsed ? (isGhostMode ? 'Ghost Mode Active' : 'Ghost Mode') : undefined}
-        >
-          {isGhostMode ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-          {!collapsed && (
-            <span className="text-sm font-medium">{isGhostMode ? 'Ghost Mode ON' : 'Ghost Mode'}</span>
-          )}
-        </button>
-
-        {/* User Profile */}
-        {!collapsed && (
-          <div className="mb-3 rounded-lg bg-white/5 p-3">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500">
-                <User className="h-5 w-5 text-white" />
-              </div>
-              <div className="flex-1 overflow-hidden">
-                <p className="truncate text-sm font-medium text-white">{userProfile?.name || 'User'}</p>
-                <p className="truncate text-xs text-gray-400">{isAdmin ? 'Administrator' : 'Operative'}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Logout Button */}
+      <div className="p-4 border-t border-slate-800">
         <button
           onClick={handleLogout}
-          className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-red-400 transition-all hover:bg-red-500/10 ${
-            collapsed ? 'justify-center' : ''
-          }`}
-          title={collapsed ? 'Logout' : undefined}
+          className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-slate-300 hover:bg-slate-800 transition-all"
         >
           <LogOut className="h-5 w-5" />
-          {!collapsed && <span className="font-medium">Logout</span>}
+          <span className="font-medium">Logout</span>
         </button>
       </div>
     </div>
   );
 
   return (
-    <div className="flex min-h-screen bg-black text-white">
+    <div className="flex min-h-screen bg-slate-50">
       {/* Desktop Sidebar */}
-      <aside
-        className={`hidden lg:flex lg:flex-col border-r border-white/10 bg-black/50 backdrop-blur-xl transition-all duration-300 ${
-          sidebarCollapsed ? 'lg:w-20' : 'lg:w-80'
-        }`}
-      >
-        <NavContent collapsed={sidebarCollapsed} />
-        <button
-          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="absolute -right-3 top-20 z-50 flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-black text-gray-400 hover:text-white"
-        >
-          {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-        </button>
+      <aside className="hidden lg:flex lg:w-64 lg:flex-col border-r border-slate-200 bg-slate-950">
+        <NavContent />
       </aside>
 
       {/* Mobile Sidebar */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="fixed left-4 top-4 z-40 lg:hidden"
-          >
+        <SheetTrigger asChild className="lg:hidden">
+          <Button variant="ghost" size="icon" className="fixed top-4 left-4 z-50">
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-80 border-white/10 bg-black p-0">
+        <SheetContent side="left" className="p-0 w-64">
           <NavContent />
         </SheetContent>
       </Sheet>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        <div className={isGhostMode ? 'ghost-mode-blur' : ''}>{children}</div>
-      </main>
+      <div className="flex-1 flex flex-col">
+        {/* Top Bar */}
+        <header className="bg-white border-b border-slate-200 px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 max-w-md">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <Input
+                  type="search"
+                  placeholder="Search..."
+                  className="pl-10 h-10 rounded-lg border-slate-300 focus:border-indigo-600 focus:ring-indigo-600"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 ml-4">
+              <div className="hidden md:block text-right">
+                <p className="text-sm font-medium text-slate-900">{userName}</p>
+                <p className="text-xs text-slate-500">{userRole}</p>
+              </div>
+              <Avatar className="h-10 w-10 bg-indigo-600">
+                <AvatarFallback className="bg-indigo-600 text-white font-semibold">
+                  {getInitials(userName)}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 p-6 bg-slate-50">
+          <div className="animate-fade-in">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }
