@@ -1,21 +1,19 @@
 # Specification
 
 ## Summary
-**Goal:** Implement a localStorage-based authentication system with sign-up and sign-in functionality to replace the hardcoded admin credentials.
+**Goal:** Restore the original clean dashboard UI with Deep Onyx background, Emerald accents, and integrate functional components including Control Panel, Active Plan, Telemetry Feed, and Team Status.
 
 **Planned changes:**
-- Create localStorage user registry ('AXON_USERS') to store user data (Email, Password, Name, Role)
-- Build toggle-based authentication UI that switches between Sign In and Create Account forms with Framer Motion slide transitions
-- Implement sign-up form with Full Name, Work Email, Security Password, and Confirm Password fields
-- Implement sign-in form with Work Email and Security Password fields
-- Add validation to prevent duplicate email registration
-- Create authentication logic that validates credentials against the 'AXON_USERS' array
-- Save user session data (Name, Role) to 'CURRENT_AXON_SESSION' in localStorage on successful login
-- Update DashboardLayout.tsx to display personalized 'Welcome back, [Name]' greeting from session data
-- Add Sonner success toast notification on account creation
-- Assign default 'USER' role to new accounts
-- Update ProtectedRoute.tsx to use localStorage-based authentication
-- Remove hardcoded admin@axon.com authentication logic
-- Apply Indigo/White SaaS theme styling to authentication forms
+- Restore original sidebar and main content spacing with Deep Onyx (#050505) background and Emerald (#10b981) accents
+- Display clean and prominent 'Welcome back' header at the top
+- Add Control Panel card with Neural Shield and Stealth Mode toggles that log to telemetry feed
+- Add Active Plan card showing 'Sovereign Enterprise' badge with nearby Log Out button
+- Implement compact scrolling Telemetry Feed on the right side displaying logged events
+- Add Team Status card showing simple list of active users
+- Configure Neural Scan transition to play only once upon successful login
+- Remove redundant logos and Initializing screens
+- Standardize all dashboard icons to Lucide icon set with Emerald color
+- Ensure Log Out button clears AXON_SESSION and redirects to Sign-In
+- Maintain localStorage authentication logic (AXON_SESSION determines dashboard vs Sign-In display)
 
-**User-visible outcome:** Users can create new accounts and sign in using their credentials, with data persisted in the browser. The dashboard displays a personalized greeting with their name upon login.
+**User-visible outcome:** Users see a clean, high-density dashboard with the original spacing and color scheme, functional toggles that log to a telemetry feed, team status visibility, and proper session management with single-play Neural Scan transition on login.

@@ -1,269 +1,233 @@
 {
   "kind": "build_request",
-  "title": "Build localStorage-based authentication system with sign-up and sign-in flow",
-  "projectName": "Axon",
-  "priority": "high",
+  "title": "Restore original clean dashboard UI with integrated functional components",
+  "projectName": "Axon Sovereign",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-108",
-      "text": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
+      "id": "REQ-1",
+      "text": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "Create a 'User Registry' using localStorage. SIGN UP LOGIC: When a user registers, their data (Email, Password, Name) must be saved into an array in localStorage called 'AXON_USERS'."
+          "Bring back the exact sidebar and main content spacing from the 'Nishant' dashboard version",
+          "Use the Deep Onyx (#050505) background with the subtle Emerald (#10b981) accents"
         ]
       },
       "acceptanceCriteria": [
-        "localStorage key 'AXON_USERS' exists and stores an array of user objects",
-        "Each user object contains Email, Password, and Name fields",
-        "Array persists across browser sessions"
+        "Dashboard uses Deep Onyx (#050505) as the primary background color",
+        "Emerald (#10b981) accent color is applied consistently to interactive elements",
+        "Sidebar spacing matches the original clean, high-density layout",
+        "Main content area spacing provides adequate breathing room while maintaining density"
       ]
     },
     {
-      "id": "REQ-109",
-      "text": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
+      "id": "REQ-2",
+      "text": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "VALIDATION: Prevent registration if the email already exists in the 'AXON_USERS' array."
+          "Ensure the 'Welcome back' header is clean and prominent"
         ]
       },
       "acceptanceCriteria": [
-        "System checks for duplicate emails before saving new user",
-        "Error message displays when attempting to register with existing email",
-        "Validation occurs before data is written to localStorage"
+        "Welcome back header is visible at the top of the dashboard",
+        "Header text is legible with appropriate font size and weight",
+        "Header stands out visually without cluttering the interface"
       ]
     },
     {
-      "id": "REQ-110",
-      "text": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
+      "id": "REQ-3",
+      "text": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "SIGN IN LOGIC: When logging in, the system must search the 'AXON_USERS' array. If the email and password match a registered user, grant access and set 'isLoggedIn' to true."
+          "CONTROL PANEL: Toggles for [Neural Shield, Stealth Mode] that log actions to the feed"
         ]
       },
       "acceptanceCriteria": [
-        "System validates credentials against 'AXON_USERS' array",
-        "Login succeeds only when both email and password match exactly",
-        "isLoggedIn state is set to true upon successful authentication",
-        "Error message displays for invalid credentials"
+        "Control Panel card is displayed as a clean, non-cluttered bento-style card",
+        "Neural Shield toggle is present and functional",
+        "Stealth Mode toggle is present and functional",
+        "Toggle state changes are logged to the telemetry feed with timestamps",
+        "Toggle states persist during the session"
       ]
     },
     {
-      "id": "REQ-111",
-      "text": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
+      "id": "REQ-4",
+      "text": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "Create a toggle state to switch between 'Sign In' and 'Create Account' without reloading the page."
+          "ACTIVE PLAN: A small badge/card showing 'Sovereign Enterprise' with a 'Log Out' button nearby"
         ]
       },
       "acceptanceCriteria": [
-        "Single page displays either Sign In or Create Account form based on toggle state",
-        "Transition between forms happens instantly without page reload",
-        "User can easily switch between Sign In and Create Account modes",
-        "Split-screen layout is maintained with form on the right side"
+        "Active Plan card is displayed as a small badge/card in bento style",
+        "Card shows 'Sovereign Enterprise' plan name clearly",
+        "Log Out button is positioned near the Active Plan display",
+        "Log Out button is visually distinct and easily accessible"
       ]
     },
     {
-      "id": "REQ-112",
-      "text": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
+      "id": "REQ-5",
+      "text": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "Fields for Sign Up: [Full Name, Work Email, Security Password, Confirm Password].",
-          "Visuals: Use the professional Indigo/White SaaS theme."
+          "TELEMETRY FEED: A compact scrolling log on the right side"
         ]
       },
       "acceptanceCriteria": [
-        "Form includes four input fields: Full Name, Work Email, Security Password, Confirm Password",
-        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
-        "Password fields include type='password' for security",
-        "Form validation ensures passwords match before submission"
+        "Telemetry Feed is positioned on the right side of the dashboard",
+        "Feed displays events in a compact, scrollable format",
+        "Feed auto-scrolls to show newest entries",
+        "Feed captures toggle actions from Control Panel",
+        "Feed entries include timestamps"
       ]
     },
     {
-      "id": "REQ-113",
-      "text": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
+      "id": "REQ-6",
+      "text": "Add a Team Status card showing a simple list of active users",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "Fields for Sign In: [Work Email, Security Password].",
-          "Visuals: Use the professional Indigo/White SaaS theme."
+          "TEAM STATUS: A simple list showing active users"
         ]
       },
       "acceptanceCriteria": [
-        "Form includes two input fields: Work Email and Security Password",
-        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
-        "Password field uses type='password' for security",
-        "Form includes submit button with action-oriented text"
+        "Team Status card is displayed in bento style within the main grid",
+        "Card shows a clean list of active users",
+        "User list is easy to scan and non-cluttered",
+        "Active status is visually indicated for each user"
       ]
     },
     {
-      "id": "REQ-114",
-      "text": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+      "id": "REQ-7",
+      "text": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "React (useState, useEffect)",
-          "Framer Motion for smooth 'Slide' transitions between Sign-In and Sign-Up forms."
+          "KEEP the localStorage logic: If 'AXON_SESSION' exists, show the dashboard; if not, show Sign-In"
         ]
       },
       "acceptanceCriteria": [
-        "Forms animate with slide effect when toggling between Sign In and Create Account",
-        "Transition is smooth and does not flicker",
-        "Animation duration is appropriate (300-500ms)",
-        "Only the form content animates while the layout remains stable"
+        "When AXON_SESSION exists in localStorage, dashboard is displayed",
+        "When AXON_SESSION does not exist, Sign-In page is displayed",
+        "Session check occurs on app initialization",
+        "No changes to existing localStorage authentication flow"
       ]
     },
     {
-      "id": "REQ-115",
-      "text": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
+      "id": "REQ-8",
+      "text": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "Add a 'Success' toast notification when a new account is created."
+          "Ensure 'Log Out' clears the session and takes the user back to the beginning"
         ]
       },
       "acceptanceCriteria": [
-        "Toast notification appears immediately after successful account creation",
-        "Toast displays success message with appropriate styling",
-        "Toast auto-dismisses after a few seconds",
-        "Toast uses Sonner library consistent with existing implementation"
+        "Clicking Log Out removes AXON_SESSION from localStorage",
+        "User is redirected to Sign-In page after logout",
+        "Session state is completely cleared on logout",
+        "No dashboard content remains accessible after logout"
       ]
     },
     {
-      "id": "REQ-116",
-      "text": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
+      "id": "REQ-9",
+      "text": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "When a user logs in, save their specific session data (Name and Role) to 'CURRENT_AXON_SESSION'."
+          "Ensure the 'Neural Scan' transition plays only once upon successful login"
         ]
       },
       "acceptanceCriteria": [
-        "localStorage key 'CURRENT_AXON_SESSION' is created on successful login",
-        "Session data includes user's Name and Role fields",
-        "Session persists across page refreshes",
-        "Session data is cleared on logout"
+        "Neural Scan transition plays immediately after successful login",
+        "Transition does not replay on subsequent dashboard visits during the same session",
+        "Transition state is tracked to prevent duplicate playback",
+        "User sees smooth transition from login to dashboard exactly once per session"
       ]
     },
     {
-      "id": "REQ-117",
-      "text": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
+      "id": "REQ-10",
+      "text": "Remove all redundant logos and Initializing screens from the dashboard interface",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "On Dashboard load, pull the Name from 'CURRENT_AXON_SESSION' to display a personalized greeting: 'Welcome back, [Name]'."
+          "Remove any redundant logos or 'Initializing' screens"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard displays 'Welcome back, [Name]' greeting on load",
-        "Name is retrieved from 'CURRENT_AXON_SESSION' in localStorage",
-        "Greeting displays correctly for any user name",
-        "Fallback text displays if session data is unavailable"
+        "No duplicate logos appear on the dashboard",
+        "Initializing screens are removed from the dashboard flow",
+        "Dashboard loads directly without unnecessary loading states",
+        "Interface is clean without visual redundancy"
       ]
     },
     {
-      "id": "REQ-118",
-      "text": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
+      "id": "REQ-11",
+      "text": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Hardcoded email 'admin@axon.com' and password 'password123' are removed",
-        "Authentication validates against 'AXON_USERS' array in localStorage",
-        "No fallback to hardcoded credentials exists",
-        "All authentication flows through the localStorage system"
-      ]
-    },
-    {
-      "id": "REQ-119",
-      "text": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
+          "msg-5"
         ],
         "quotes": [
-          "When a user logs in, save their specific session data (Name and Role) to 'CURRENT_AXON_SESSION'."
+          "Standardize all icons to use the Lucide icon set in Emerald color"
         ]
       },
       "acceptanceCriteria": [
-        "New users are automatically assigned 'USER' role on registration",
-        "Role is stored in 'AXON_USERS' array alongside email, password, and name",
-        "Role is transferred to 'CURRENT_AXON_SESSION' on login",
-        "Role-based access control continues to work with new authentication system"
-      ]
-    },
-    {
-      "id": "REQ-120",
-      "text": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ]
-      },
-      "acceptanceCriteria": [
-        "ProtectedRoute validates authentication using 'CURRENT_AXON_SESSION' from localStorage",
-        "Unauthenticated users are redirected to login page",
-        "Route protection works immediately after login without refresh",
-        "Internet Identity dependencies are removed or made optional"
+        "All icons in the dashboard use the Lucide icon library",
+        "Icons are colored with Emerald (#10b981)",
+        "Icon set is consistent across all dashboard components",
+        "No mixed icon libraries or inconsistent icon styles remain"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the backend Motoko actor",
-    "Do not change the existing DashboardLayout.tsx sidebar structure beyond adding the greeting",
-    "Maintain the existing split-screen login page layout with left side Indigo background and right side white form",
-    "Do not modify Internet Identity integration files (useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts)",
-    "Keep all existing UI components (Shadcn/UI) unchanged",
-    "Preserve the Indigo-600 primary color and Emerald-500 success color palette"
+    "Do not modify the localStorage authentication implementation in frontend/src/utils/localStorageAuth.ts",
+    "Do not alter the authentication flow logic beyond UI presentation",
+    "Preserve existing AXON_SESSION key name and structure",
+    "Maintain compatibility with existing login and signup pages"
   ],
   "nonGoals": [
-    "Backend user storage or persistence",
-    "Password encryption or hashing",
-    "Email verification or password reset functionality",
-    "OAuth or third-party authentication",
-    "Integration with Internet Identity system",
-    "Multi-factor authentication",
-    "Session timeout or auto-logout features",
-    "Password strength validation beyond confirm password matching"
+    "Adding new authentication methods or providers",
+    "Changing the backend authentication logic",
+    "Implementing real-time data synchronization for team status",
+    "Adding new dashboard pages or routes",
+    "Modifying the Neural Scan animation itself, only its trigger behavior"
   ],
   "imageRequirements": {
     "required": [],

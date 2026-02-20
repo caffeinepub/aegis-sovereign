@@ -1,923 +1,101 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 29,
-  "summary": "Axon Sovereign - Enterprise Meeting Intelligence & Privacy Suite transitioning from dark glassmorphism theme to clean light-mode Enterprise SaaS design with split-screen professional login, fixed sidebar navigation, and high-density data modules using Indigo-600/Emerald-500 color palette, implementing localStorage-based authentication system with user registration and session persistence",
+  "projectStateVersion": 3,
+  "summary": "Dashboard application with authentication, clean UI featuring Deep Onyx (#050505) background with Emerald (#10b981) accents, control panel toggles, active plan display, telemetry feed, and team status",
   "architectural_notes": [
-    "Tech stack: React, Node.js, Tailwind CSS, Framer Motion, Supabase Auth",
-    "UI components: Shadcn/UI with Tabs and Sheets for navigation",
-    "All page transitions must use Framer Motion",
-    "Multi-page architecture with persistent sidebar navigation",
-    "60fps Canvas-based visualizations for neural frequency display",
-    "ApexCharts for sentiment tracking and analytics",
-    "PWA-ready mobile remote with 120Hz optimization",
-    "Global hotkeys: Ctrl+Shift+P (Panic), Ctrl+Shift+L (Lag), CMD+K (Tactical Layer toggle)",
-    "Skeleton loaders, Sonner toast notifications, and magnetic button hover effects",
-    "Design system: Clean light-mode Enterprise SaaS aesthetic with Indigo-600 primary, Emerald-500 success, Slate-50 background"
+    "Deep Onyx (#050505) background with Emerald (#10b981) accent colors throughout UI",
+    "localStorage-based authentication using 'AXON_SESSION' key",
+    "Bento-style card layout for main dashboard components",
+    "Lucide icon library standardized across application"
   ],
   "known_issues": [],
   "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-create-a-public-landing-page-with-hero-section-displaying-neural-meeting-intelligence-for-global-leaders-security-architecture-sections-for-quantum-resistant-encryption-soc2-type-ii-compliance-and-biometric-integrity-and-a-3-tier-pricing-table-showing-professional-free-enterprise-49-mo-and-sovereign-149-mo-tiers",
-      "title": "Create a public landing page with hero section displaying 'Neural Meeting Intelligence for Global Leaders', security architecture sections for Quantum-Resistant Encryption, SOC2 Type II Compliance, and Biometric Integrity, and a 3-tier pricing table showing Professional (Free), Enterprise ($49/mo), and Sovereign ($149/mo) tiers",
+      "id": "feature-restore-the-original-sidebar-and-main-content-spacing-from-the-nishant-dashboard-version-with-deep-onyx-050505-background-and-emerald-10b981-accents",
+      "title": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-authentication-system-allowing-users-to-sign-up-and-log-in-to-access-the-dashboard",
-      "title": "Implement authentication system allowing users to sign up and log in to access the dashboard",
+      "id": "feature-display-a-clean-and-prominent-welcome-back-header-at-the-top-of-the-dashboard",
+      "title": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-command-center-dashboard-page-with-bento-grid-layout-using-midnight-black-000000-backgrounds-and-glassmorphism-styling",
-      "title": "Create Command Center dashboard page with Bento Grid layout using midnight black (#000000) backgrounds and glassmorphism styling",
+      "id": "feature-create-a-control-panel-card-in-bento-style-with-toggles-for-neural-shield-and-stealth-mode-that-log-toggle-actions-to-the-telemetry-feed",
+      "title": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-neural-frequency-visualizer-component-that-renders-a-60fps-canvas-based-wave-animation-reacting-to-simulated-real-time-audio-data-in-the-top-card-of-the-command-center",
-      "title": "Implement Neural Frequency Visualizer component that renders a 60fps Canvas-based wave animation reacting to simulated real-time audio data in the top card of the Command Center",
+      "id": "feature-add-an-active-plan-card-displaying-sovereign-enterprise-as-a-badge-with-a-log-out-button-positioned-nearby",
+      "title": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
       "reqIds": [
         "REQ-4"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-sentiment-radar-component-using-apexcharts-area-chart-that-displays-live-sentiment-pulse-tracking-vocal-stress-and-emotional-tension-metrics-with-interactive-chart-controls",
-      "title": "Create Sentiment Radar component using ApexCharts Area Chart that displays live sentiment pulse tracking Vocal Stress and Emotional Tension metrics with interactive chart controls",
+      "id": "feature-implement-a-compact-scrolling-telemetry-feed-on-the-right-side-of-the-dashboard-displaying-logged-events",
+      "title": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
       "reqIds": [
         "REQ-5"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-meeting-roi-ticker-that-displays-a-live-counter-tracking-meeting-costs-in-indian-rupees-per-second",
-      "title": "Implement Meeting ROI Ticker that displays a live counter tracking meeting costs in Indian Rupees (₹) per second",
+      "id": "feature-add-a-team-status-card-showing-a-simple-list-of-active-users",
+      "title": "Add a Team Status card showing a simple list of active users",
       "reqIds": [
         "REQ-6"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-speaker-identity-matrix-component-as-a-scrolling-feed-that-tags-participants-by-vocal-frequency-characteristics",
-      "title": "Create Speaker Identity Matrix component as a scrolling feed that tags participants by vocal frequency characteristics",
+      "id": "feature-maintain-localstorage-authentication-logic-where-axon-session-existence-determines-dashboard-vs-sign-in-display",
+      "title": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
       "reqIds": [
         "REQ-7"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-neural-lab-dedicated-page-featuring-vocal-cloning-interface-with-drag-and-drop-zones-for-vocal-sample-uploads-circular-neural-progress-animation-showing-synthesis-status-voice-health-dashboard-displaying-vocal-metrics-and-a-synthesize-button-that-triggers-a-high-end-loading-sequence",
-      "title": "Create Neural Lab dedicated page featuring vocal cloning interface with drag-and-drop zones for vocal sample uploads, circular neural progress animation showing synthesis status, Voice Health dashboard displaying vocal metrics, and a Synthesize button that triggers a high-end loading sequence",
+      "id": "feature-ensure-log-out-button-clears-axon-session-from-localstorage-and-redirects-user-to-sign-in-page",
+      "title": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
       "reqIds": [
         "REQ-8"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-ai-mirror-status-indicator-displaying-neural-proxy-ready-when-vocal-synthesis-is-complete-and-auto-vocal-response-is-available",
-      "title": "Implement AI Mirror status indicator displaying 'Neural Proxy Ready' when vocal synthesis is complete and auto-vocal response is available",
+      "id": "feature-configure-neural-scan-transition-to-play-only-once-upon-successful-login-not-on-subsequent-page-loads",
+      "title": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
       "reqIds": [
         "REQ-9"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-hidden-sentinel-protocol-page-accessible-via-cmd-k-toggle-styled-as-a-tactical-hud-with-dark-theme-and-military-grade-interface-aesthetics",
-      "title": "Create hidden Sentinel Protocol page accessible via CMD+K toggle, styled as a tactical HUD with dark theme and military-grade interface aesthetics",
+      "id": "feature-remove-all-redundant-logos-and-initializing-screens-from-the-dashboard-interface",
+      "title": "Remove all redundant logos and Initializing screens from the dashboard interface",
       "reqIds": [
         "REQ-10"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-panic-protocol-feature-that-triggers-a-full-screen-overlay-displaying-either-system-update-or-critical-failure-message-with-screen-glitch-visual-effects-and-looping-audio-simulation-when-activated-via-ctrl-shift-p-hotkey",
-      "title": "Implement Panic Protocol feature that triggers a full-screen overlay displaying either 'System Update' or 'Critical Failure' message with screen-glitch visual effects and looping audio simulation when activated via Ctrl+Shift+P hotkey",
+      "id": "feature-standardize-all-dashboard-icons-to-use-the-lucide-icon-set-with-emerald-10b981-color",
+      "title": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
       "reqIds": [
         "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-environment-spoofing-feature-with-16-high-fidelity-audio-loop-cards-office-private-jet-cafe-airport-and-12-additional-environments-each-with-play-stop-toggle-controls-and-environment-specific-icons",
-      "title": "Create Environment Spoofing feature with 16 high-fidelity audio loop cards (Office, Private Jet, Cafe, Airport, and 12 additional environments) each with play/stop toggle controls and environment-specific icons",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-packet-jitter-simulator-with-slider-control-that-manually-degrades-audio-quality-to-simulate-robot-or-broken-voice-effects-activated-via-ctrl-shift-l-hotkey",
-      "title": "Implement Packet Jitter Simulator with slider control that manually degrades audio quality to simulate robot or broken voice effects, activated via Ctrl+Shift+L hotkey",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-hardware-mimicry-feature-with-selectable-fake-os-update-screens-for-windows-11-and-macos-that-can-be-displayed-during-screen-shares",
-      "title": "Create Hardware Mimicry feature with selectable fake OS update screens for Windows 11 and macOS that can be displayed during screen-shares",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-device-sync-page-featuring-a-large-qr-code-for-mobile-device-pairing-and-a-live-connection-log-that-displays-real-time-code-style-log-entries-when-devices-connect",
-      "title": "Create Device Sync page featuring a large QR code for mobile device pairing and a live connection log that displays real-time code-style log entries when devices connect",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-websocket-synchronization-using-socket-io-to-enable-real-time-communication-between-laptop-and-mobile-devices-with-sub-30ms-latency-for-tactical-protocol-triggers",
-      "title": "Implement WebSocket synchronization using Socket.io to enable real-time communication between laptop and mobile devices with sub-30ms latency for tactical protocol triggers",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-analytics-vault-page-displaying-a-list-of-past-meeting-logs-with-encrypted-lock-icons-and-detailed-post-meeting-reports-with-ai-generated-action-items",
-      "title": "Create Analytics & Vault page displaying a list of past meeting logs with encrypted lock icons and detailed post-meeting reports with AI-generated action items",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-mobile-tactical-remote-route-at-remote-optimized-for-pwa-with-full-screen-interface-large-haptic-feedback-tactical-buttons-for-panic-protocol-lag-simulation-and-environment-controls-at-120hz-refresh-rate",
-      "title": "Create mobile tactical remote route at /remote optimized for PWA with full-screen interface, large haptic-feedback tactical buttons for panic protocol, lag simulation, and environment controls at 120Hz refresh rate",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-pwa-manifest-and-service-worker-enabling-the-remote-route-to-be-added-to-mobile-home-screen-with-a-professional-aegis-icon",
-      "title": "Implement PWA manifest and service worker enabling the /remote route to be added to mobile home screen with a professional Aegis icon",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-persistent-sidebar-navigation-with-shadcn-ui-components-allowing-users-to-switch-between-command-center-neural-lab-sentinel-protocol-device-sync-and-analytics-vault-pages",
-      "title": "Implement persistent sidebar navigation with Shadcn/UI components allowing users to switch between Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Analytics & Vault pages",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-framer-motion-page-transitions-for-all-route-changes-with-smooth-animations-between-pages",
-      "title": "Implement Framer Motion page transitions for all route changes with smooth animations between pages",
-      "reqIds": [
-        "REQ-21"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-border-beam-light-trail-animations-on-bento-grid-cards-to-create-visual-interest-and-premium-feel",
-      "title": "Implement Border-Beam light-trail animations on Bento Grid cards to create visual interest and premium feel",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-sonner-toast-notifications-for-user-feedback-and-skeleton-loaders-for-async-content-loading-throughout-the-application",
-      "title": "Implement Sonner toast notifications for user feedback and skeleton loaders for async content loading throughout the application",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-magnetic-button-hover-effects-with-smooth-attraction-animations-throughout-the-interface",
-      "title": "Implement magnetic button hover effects with smooth attraction animations throughout the interface",
-      "reqIds": [
-        "REQ-24"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-investigate-and-fix-react-error-185-hydration-rendering-mismatch-that-occurs-immediately-after-user-signup-when-navigating-to-the-dashboard",
-      "title": "Investigate and fix React error #185 (hydration/rendering mismatch) that occurs immediately after user signup when navigating to the dashboard",
-      "reqIds": [
-        "REQ-26"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-signuppage-tsx-properly-handles-the-signup-flow-and-redirects-to-dashboard-only-after-internet-identity-authentication-and-backend-user-creation-are-both-complete",
-      "title": "Ensure SignupPage.tsx properly handles the signup flow and redirects to dashboard only after Internet Identity authentication and backend user creation are both complete",
-      "reqIds": [
-        "REQ-27"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-verify-that-protectedroute-tsx-correctly-handles-the-authenticated-state-during-initial-navigation-after-signup-without-triggering-rendering-errors",
-      "title": "Verify that ProtectedRoute.tsx correctly handles the authenticated state during initial navigation after signup without triggering rendering errors",
-      "reqIds": [
-        "REQ-28"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-error-boundary-components-to-gracefully-catch-and-display-react-errors-instead-of-showing-minified-error-messages-to-users",
-      "title": "Add error boundary components to gracefully catch and display React errors instead of showing minified error messages to users",
-      "reqIds": [
-        "REQ-29"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-system-audit-trail-side-panel-component-that-displays-auto-scrolling-terminal-style-logs-with-green-text-00ff00-on-black-background-simulating-packet-encryption-logs-with-entries-like-encrypt-aes-256-key-rotated-and-sensory-acoustic-masking-active",
-      "title": "Create System Audit Trail side panel component that displays auto-scrolling terminal-style logs with green text (#00FF00) on black background, simulating packet encryption logs with entries like '[ENCRYPT] AES-256 Key Rotated' and '[SENSORY] Acoustic Masking Active'",
-      "reqIds": [
-        "REQ-30"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-biometric-stress-radar-bento-card-component-featuring-a-spider-radar-chart-that-displays-5-metrics-executive-stress-vocal-stability-background-noise-packet-health-and-privacy-score-with-live-updating-data",
-      "title": "Create Biometric Stress Radar bento card component featuring a spider/radar chart that displays 5 metrics: Executive Stress, Vocal Stability, Background Noise, Packet Health, and Privacy Score with live-updating data",
-      "reqIds": [
-        "REQ-31"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-global-node-map-component-displaying-a-minimalist-svg-world-map-with-animated-glowing-ping-effects-in-major-cities-san-francisco-london-tokyo-bangalore-to-visualize-aegis-global-infrastructure",
-      "title": "Create Global Node Map component displaying a minimalist SVG world map with animated glowing ping effects in major cities (San Francisco, London, Tokyo, Bangalore) to visualize Aegis global infrastructure",
-      "reqIds": [
-        "REQ-32"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-integrate-system-audit-trail-biometric-stress-radar-and-global-node-map-into-command-center-page-layout-positioning-them-appropriately-within-the-existing-bento-grid-structure",
-      "title": "Integrate System Audit Trail, Biometric Stress Radar, and Global Node Map into Command Center page layout, positioning them appropriately within the existing bento grid structure",
-      "reqIds": [
-        "REQ-33"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-hide-sentinel-and-admin-panel-routes-from-user-role-users-in-the-frontend-navigation-and-routing-logic",
-      "title": "Hide /sentinel and /admin-panel routes from USER role users in the frontend navigation and routing logic",
-      "reqIds": [
-        "REQ-36"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-expand-command-center-dashboard-to-full-width-12-column-grid-layout-with-high-information-density-design",
-      "title": "Expand Command Center dashboard to full-width 12-column grid layout with high information density design",
-      "reqIds": [
-        "REQ-37"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-neural-packet-stream-component-displaying-scrolling-terminal-logs-with-real-time-encryption-events",
-      "title": "Create Neural Packet Stream component displaying scrolling terminal logs with real-time encryption events",
-      "reqIds": [
-        "REQ-38"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-sovereign-orb-3d-css-component-with-framer-motion-ripple-effects-on-hover",
-      "title": "Create Sovereign Orb 3D CSS component with Framer Motion ripple effects on hover",
-      "reqIds": [
-        "REQ-39"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-waterfall-spectrogram-component-using-html5-canvas-with-neon-green-frequencies-flowing-top-to-bottom",
-      "title": "Create Waterfall Spectrogram component using HTML5 Canvas with neon green frequencies flowing top-to-bottom",
-      "reqIds": [
-        "REQ-40"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-environment-mixer-component-with-8-tactical-volume-sliders-for-different-environments-with-pulsing-icons",
-      "title": "Create Environment Mixer component with 8 tactical volume sliders for different environments with pulsing icons",
-      "reqIds": [
-        "REQ-41"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-enhance-panic-protocol-to-display-fullscreen-fixed-un-closable-windows-11-update-overlay",
-      "title": "Enhance Panic Protocol to display fullscreen fixed un-closable Windows 11 Update overlay",
-      "reqIds": [
-        "REQ-42"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-ghost-mode-toggle-that-applies-global-blur-effect-to-obfuscate-all-dashboard-data-for-instant-privacy",
-      "title": "Create Ghost Mode toggle that applies global blur effect to obfuscate all dashboard data for instant privacy",
-      "reqIds": [
-        "REQ-43"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-dashboardlayout-sidebar-to-60px-collapsed-240px-expanded-glassmorphic-design-with-pro-admin-badge",
-      "title": "Update DashboardLayout sidebar to 60px collapsed / 240px expanded glassmorphic design with PRO admin badge",
-      "reqIds": [
-        "REQ-44"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-admin-panel-route-at-admin-panel-with-user-management-interface-showing-all-users-and-their-roles",
-      "title": "Create Admin Panel route at /admin-panel with user management interface showing all users and their roles",
-      "reqIds": [
-        "REQ-45"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-status-active-green-pulse-indicators-to-all-dashboard-components-showing-live-data",
-      "title": "Add 'Status: Active' green pulse indicators to all dashboard components showing live data",
-      "reqIds": [
-        "REQ-46"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-simplify-the-authentication-flow-to-ensure-users-can-successfully-sign-up-via-internet-identity-and-be-redirected-to-the-command-center-dashboard-without-hydration-or-rendering-errors",
-      "title": "Simplify the authentication flow to ensure users can successfully sign up via Internet Identity and be redirected to the Command Center dashboard without hydration or rendering errors",
-      "reqIds": [
-        "REQ-48"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-protectedroute-component-correctly-handles-authentication-state-transitions-without-triggering-react-rendering-errors",
-      "title": "Ensure ProtectedRoute component correctly handles authentication state transitions without triggering React rendering errors",
-      "reqIds": [
-        "REQ-49"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-verify-that-the-command-center-dashboard-renders-correctly-on-first-visit-after-signup-with-all-components-loading-without-errors",
-      "title": "Verify that the Command Center dashboard renders correctly on first visit after signup with all components loading without errors",
-      "reqIds": [
-        "REQ-51"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-role-based-route-protection-works-correctly-for-sentinel-and-admin-panel-routes-after-successful-authentication",
-      "title": "Ensure role-based route protection works correctly for /sentinel and /admin-panel routes after successful authentication",
-      "reqIds": [
-        "REQ-52"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-existing-aegis-sovereign-logo-with-a-new-logo-design-across-all-instances-in-the-application-including-the-landing-page-header-dashboard-sidebar-pwa-manifest-icons-and-favicon",
-      "title": "Replace the existing Aegis Sovereign logo with a new logo design across all instances in the application including the landing page header, dashboard sidebar, PWA manifest icons, and favicon",
-      "reqIds": [
-        "REQ-53"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-main-application-title-in-the-landing-page-header-from-aegis-sovereign-to-axon",
-      "title": "Update the main application title in the landing page header from 'Aegis Sovereign' to 'Axon'",
-      "reqIds": [
-        "REQ-54"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-application-name-in-the-dashboard-sidebar-from-aegis-sovereign-to-axon",
-      "title": "Update the application name in the dashboard sidebar from 'Aegis Sovereign' to 'Axon'",
-      "reqIds": [
-        "REQ-55"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-pwa-manifest-name-and-short-name-from-aegis-sovereign-remote-to-axon-remote-in-frontend-public-manifest-json",
-      "title": "Update the PWA manifest name and short_name from 'Aegis Sovereign Remote' to 'Axon Remote' in frontend/public/manifest.json",
-      "reqIds": [
-        "REQ-56"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-html-document-title-from-aegis-sovereign-to-axon-in-frontend-index-html",
-      "title": "Update the HTML document title from 'Aegis Sovereign' to 'Axon' in frontend/index.html",
-      "reqIds": [
-        "REQ-57"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-all-text-references-from-aegis-sovereign-to-axon-throughout-the-application-including-page-titles-metadata-and-user-facing-text",
-      "title": "Update all text references from 'Aegis Sovereign' to 'Axon' throughout the application including page titles, metadata, and user-facing text",
-      "reqIds": [
-        "REQ-58"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-project-state-summary-and-documentation-to-reflect-the-new-axon-brand-name-instead-of-aegis-sovereign",
-      "title": "Update project state summary and documentation to reflect the new 'Axon' brand name instead of 'Aegis Sovereign'",
-      "reqIds": [
-        "REQ-59"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-a-new-axon-logo-image-featuring-a-minimalist-a-constructed-from-two-converging-neural-pathways-with-the-crossbar-as-a-glowing-action-potential-bright-pulse-of-light-traveling-left-to-right-one-leg-styled-as-a-sleek-fiber-optic-cable-and-the-other-as-a-biological-axon-with-subtle-myelin-sheath-segments-and-a-small-radiant-synapse-glowing-node-at-the-apex-of-the-a",
-      "title": "Generate a new AXON logo image featuring a minimalist 'A' constructed from two converging neural pathways, with the crossbar as a glowing Action Potential (bright pulse of light) traveling left to right, one leg styled as a sleek fiber-optic cable and the other as a biological axon with subtle myelin sheath segments, and a small radiant Synapse (glowing node) at the apex of the 'A'",
-      "reqIds": [
-        "REQ-60"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-synapse-cyan-00f2ff-to-nerve-green-10b981-gradient-as-the-primary-color-scheme-for-the-axon-logo-with-a-pitch-black-background-featuring-subtle-carbon-fiber-texture",
-      "title": "Apply Synapse Cyan (#00f2ff) to Nerve Green (#10b981) gradient as the primary color scheme for the AXON logo with a pitch black background featuring subtle carbon-fiber texture",
-      "reqIds": [
-        "REQ-61"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-all-instances-of-the-current-logo-with-the-new-axon-neural-pathway-logo-across-the-landing-page-header-dashboard-sidebar-and-favicon-locations-in-frontend-public",
-      "title": "Replace all instances of the current logo with the new AXON neural pathway logo across the landing page header, dashboard sidebar, and favicon locations in frontend/public/",
-      "reqIds": [
-        "REQ-62"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-pwa-icon-variants-of-the-new-axon-logo-at-192x192-and-512x512-dimensions-for-frontend-public-icons-to-replace-existing-manifest-icon-references",
-      "title": "Generate PWA icon variants of the new AXON logo at 192x192 and 512x512 dimensions for frontend/public/icons/ to replace existing manifest icon references",
-      "reqIds": [
-        "REQ-63"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-investigate-and-fix-the-sign-in-page-loading-state-issue-where-the-page-remains-in-loading-state-indefinitely-after-internet-identity-authentication-without-redirecting-to-the-dashboard",
-      "title": "Investigate and fix the sign-in page loading state issue where the page remains in loading state indefinitely after Internet Identity authentication without redirecting to the dashboard",
-      "reqIds": [
-        "REQ-64"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-verify-that-loginpage-tsx-properly-handles-the-authentication-flow-state-transitions-between-unauthenticated-authenticating-and-authenticated-states-without-race-conditions",
-      "title": "Verify that LoginPage.tsx properly handles the authentication flow state transitions between unauthenticated, authenticating, and authenticated states without race conditions",
-      "reqIds": [
-        "REQ-65"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-timeout-handling-to-the-login-flow-to-detect-and-recover-from-authentication-hangs-displaying-an-error-message-to-the-user-after-30-seconds-of-loading",
-      "title": "Add timeout handling to the login flow to detect and recover from authentication hangs, displaying an error message to the user after 30 seconds of loading",
-      "reqIds": [
-        "REQ-67"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-detailed-console-logging-to-the-authentication-flow-in-both-loginpage-and-useinternetidentity-to-help-diagnose-where-the-loading-state-gets-stuck",
-      "title": "Add detailed console logging to the authentication flow in both LoginPage and useInternetIdentity to help diagnose where the loading state gets stuck",
-      "reqIds": [
-        "REQ-68"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-rewrite-the-landing-page-hero-headline-from-axon-dashboard-to-secure-your-corporate-intelligence-with-sovereign-neural-defense-and-add-a-subheadline-the-only-decentralized-command-center-that-masks-acoustic-signatures-and-encrypts-executive-summaries-in-real-time",
-      "title": "Rewrite the landing page hero headline from 'AXON Dashboard' to 'Secure Your Corporate Intelligence with Sovereign Neural Defense' and add a subheadline: 'The only decentralized command center that masks acoustic signatures and encrypts executive summaries in real-time.'",
-      "reqIds": [
-        "REQ-69"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-verified-operative-feedback-testimonials-section-on-the-landing-page-below-the-pricing-tiers-featuring-3-high-density-testimonials-with-fake-user-avatars-names-e-g-chief-security-officer-fortune-500-5-star-rating-icons-and-transformation-focused-quotes-like-before-axon-our-remote-meetings-were-a-security-risk-now-we-operate-with-total-peace-of-mind",
-      "title": "Create a 'Verified Operative Feedback' testimonials section on the landing page below the pricing tiers featuring 3 high-density testimonials with fake user avatars, names (e.g., 'Chief Security Officer, Fortune 500'), 5-star rating icons, and transformation-focused quotes like 'Before Axon, our remote meetings were a security risk; now, we operate with total peace of mind.'",
-      "reqIds": [
-        "REQ-70"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-standardize-all-primary-cta-buttons-across-the-landing-page-to-use-the-same-cyber-emerald-glow-effect-identical-shape-and-consistent-size-update-button-text-from-generic-labels-like-submit-or-activate-to-action-oriented-phrasing-such-as-secure-my-first-meeting-or-start-sovereign-trial",
-      "title": "Standardize all primary CTA buttons across the landing page to use the same Cyber Emerald glow effect, identical shape, and consistent size. Update button text from generic labels like 'Submit' or 'Activate' to action-oriented phrasing such as 'Secure My First Meeting' or 'Start Sovereign Trial'.",
-      "reqIds": [
-        "REQ-71"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-cta-buttons-are-strategically-placed-and-visible-in-three-key-locations-on-the-landing-page-the-header-navigation-the-hero-section-and-at-the-bottom-of-the-subscription-pricing-module-for-maximum-conversion-repetition",
-      "title": "Ensure CTA buttons are strategically placed and visible in three key locations on the landing page: the header navigation, the hero section, and at the bottom of the subscription/pricing module for maximum conversion repetition.",
-      "reqIds": [
-        "REQ-72"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-schedule-security-audit-module-in-the-dashboard-sidebar-featuring-a-simulated-calendly-style-widget-that-allows-users-to-select-a-time-slot-for-a-tactical-onboarding-call-instead-of-a-traditional-contact-form",
-      "title": "Create a 'Schedule Security Audit' module in the dashboard sidebar featuring a simulated Calendly-style widget that allows users to select a time slot for a 'Tactical Onboarding Call' instead of a traditional contact form.",
-      "reqIds": [
-        "REQ-73"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-video-welcome-widget-positioned-in-the-bottom-right-corner-of-the-landing-page-in-picture-in-picture-style-displaying-a-simulated-looping-video-of-an-operator-explaining-the-system-s-benefits-to-build-trust-and-parasocial-connection-with-visitors",
-      "title": "Create a 'Video Welcome' widget positioned in the bottom-right corner of the landing page in picture-in-picture style, displaying a simulated looping video of an 'Operator' explaining the system's benefits to build trust and parasocial connection with visitors.",
-      "reqIds": [
-        "REQ-74"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-simplify-the-top-navigation-bar-to-display-only-4-primary-links-dashboard-intelligence-pricing-and-support-move-all-technical-logs-legal-documentation-and-secondary-features-to-a-clean-footer-navigation-section",
-      "title": "Simplify the top navigation bar to display only 4 primary links: Dashboard, Intelligence, Pricing, and Support. Move all technical logs, legal documentation, and secondary features to a clean footer navigation section.",
-      "reqIds": [
-        "REQ-75"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-advanced-threat-detection-matrix-component-displaying-a-3d-heatmap-visualization-of-detected-security-threats-across-different-attack-vectors-phishing-malware-ddos-zero-day-with-severity-levels-shown-as-color-coded-cells-that-pulse-when-active-threats-are-detected",
-      "title": "Create Advanced Threat Detection Matrix component displaying a 3D heatmap visualization of detected security threats across different attack vectors (phishing, malware, DDoS, zero-day) with severity levels shown as color-coded cells that pulse when active threats are detected",
-      "reqIds": [
-        "REQ-76"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-executive-briefing-generator-that-automatically-creates-ai-powered-meeting-summaries-with-key-decisions-action-items-risk-assessments-and-follow-up-tasks-displayed-in-a-collapsible-card-with-export-to-pdf-functionality",
-      "title": "Implement Executive Briefing Generator that automatically creates AI-powered meeting summaries with key decisions, action items, risk assessments, and follow-up tasks, displayed in a collapsible card with export-to-PDF functionality",
-      "reqIds": [
-        "REQ-77"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-quantum-encryption-status-monitor-showing-real-time-encryption-metrics-including-key-rotation-frequency-quantum-resistance-level-in-qubits-lattice-based-crypto-status-and-post-quantum-readiness-score-with-animated-progress-rings",
-      "title": "Create Quantum Encryption Status Monitor showing real-time encryption metrics including key rotation frequency, quantum resistance level (in qubits), lattice-based crypto status, and post-quantum readiness score with animated progress rings",
-      "reqIds": [
-        "REQ-78"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-network-latency-globe-component-featuring-a-3d-rotating-earth-visualization-using-three-js-react-three-fiber-showing-connection-paths-between-nodes-with-latency-measurements-displayed-as-colored-arcs-green-50ms-yellow-50-150ms-red-150ms",
-      "title": "Implement Network Latency Globe component featuring a 3D rotating Earth visualization using Three.js/React Three Fiber showing connection paths between nodes with latency measurements displayed as colored arcs (green <50ms, yellow 50-150ms, red >150ms)",
-      "reqIds": [
-        "REQ-79"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-real-time-participant-emotion-tracker-displaying-individual-participant-emotion-states-during-meetings-with-facial-emotion-analysis-simulation-showing-7-emotions-joy-surprise-fear-disgust-anger-sadness-neutral-as-stacked-area-charts-over-meeting-timeline",
-      "title": "Create Real-Time Participant Emotion Tracker displaying individual participant emotion states during meetings with facial emotion analysis simulation showing 7 emotions (joy, surprise, fear, disgust, anger, sadness, neutral) as stacked area charts over meeting timeline",
-      "reqIds": [
-        "REQ-80"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-voice-pattern-recognition-timeline-showing-speaker-vocal-signatures-as-waveform-fingerprints-on-a-horizontal-timeline-with-each-speaker-assigned-a-unique-color-and-their-speaking-segments-displayed-as-colored-bars-with-intensity-indicating-volume",
-      "title": "Implement Voice Pattern Recognition Timeline showing speaker vocal signatures as waveform fingerprints on a horizontal timeline, with each speaker assigned a unique color and their speaking segments displayed as colored bars with intensity indicating volume",
-      "reqIds": [
-        "REQ-81"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-tactical-command-hotkeys-reference-panel-accessible-via-key-press-displaying-a-modal-overlay-with-categorized-keyboard-shortcuts-for-all-tactical-features-panic-protocol-ghost-mode-lag-simulation-environment-controls-with-visual-key-representations",
-      "title": "Create Tactical Command Hotkeys Reference Panel accessible via '?' key press, displaying a modal overlay with categorized keyboard shortcuts for all tactical features (panic protocol, ghost mode, lag simulation, environment controls) with visual key representations",
-      "reqIds": [
-        "REQ-82"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-performance-metrics-dashboard-showing-frontend-rendering-performance-with-fps-counter-memory-usage-graph-bundle-size-indicator-and-react-component-render-counts-to-help-optimize-application-performance",
-      "title": "Implement Performance Metrics Dashboard showing frontend rendering performance with FPS counter, memory usage graph, bundle size indicator, and React component render counts to help optimize application performance",
-      "reqIds": [
-        "REQ-83"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-compliance-audit-logger-that-tracks-and-stores-all-security-sensitive-actions-login-attempts-role-changes-data-access-panic-protocol-activations-in-the-backend-with-tamper-proof-timestamps-and-user-principals",
-      "title": "Create Compliance Audit Logger that tracks and stores all security-sensitive actions (login attempts, role changes, data access, panic protocol activations) in the backend with tamper-proof timestamps and user principals",
-      "reqIds": [
-        "REQ-84"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-mobile-optimized-biometric-scanner-interface-accessible-at-mobile-biometric-route-that-simulates-fingerprint-and-facial-recognition-with-animated-scanning-effects-haptic-feedback-and-success-failure-states-for-enhanced-mobile-pwa-experience",
-      "title": "Create Mobile-Optimized Biometric Scanner interface accessible at /mobile-biometric route that simulates fingerprint and facial recognition with animated scanning effects, haptic feedback, and success/failure states for enhanced mobile PWA experience",
-      "reqIds": [
-        "REQ-86"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-dark-web-monitoring-dashboard-showing-simulated-threat-intelligence-feeds-from-dark-web-sources-displaying-potential-data-leaks-credential-dumps-and-brand-mentions-with-severity-ratings-and-recommended-actions",
-      "title": "Implement Dark Web Monitoring Dashboard showing simulated threat intelligence feeds from dark web sources, displaying potential data leaks, credential dumps, and brand mentions with severity ratings and recommended actions",
-      "reqIds": [
-        "REQ-87"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-bandwidth-optimization-controller-allowing-users-to-adjust-streaming-quality-levels-low-medium-high-ultra-for-all-audio-video-components-with-real-time-bandwidth-usage-indicator-showing-current-consumption-in-mbps",
-      "title": "Create Bandwidth Optimization Controller allowing users to adjust streaming quality levels (Low/Medium/High/Ultra) for all audio/video components with real-time bandwidth usage indicator showing current consumption in Mbps",
-      "reqIds": [
-        "REQ-88"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-session-recording-archive-feature-that-allows-users-to-save-important-meeting-sessions-with-metadata-tags-searchable-titles-and-playback-functionality-with-seek-controls-and-timestamp-bookmarks",
-      "title": "Implement Session Recording Archive feature that allows users to save important meeting sessions with metadata tags, searchable titles, and playback functionality with seek controls and timestamp bookmarks",
-      "reqIds": [
-        "REQ-89"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-system-health-monitor-showing-real-time-metrics-for-all-backend-services-including-canister-cycles-balance-heap-memory-usage-stable-memory-usage-and-query-update-call-counts-with-alert-thresholds",
-      "title": "Create System Health Monitor showing real-time metrics for all backend services including canister cycles balance, heap memory usage, stable memory usage, and query/update call counts with alert thresholds",
-      "reqIds": [
-        "REQ-90"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-the-existing-3-tier-pricing-table-section-professional-free-enterprise-49-mo-sovereign-149-mo-from-the-landing-page-landingpage-tsx",
-      "title": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
-      "reqIds": [
-        "REQ-91"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-new-subscriptions-page-component-accessible-from-the-dashboard-sidebar-positioned-in-the-navigation-menu-after-analytics-vault",
-      "title": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
-      "reqIds": [
-        "REQ-92"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-two-subscription-pricing-tiers-on-the-subscriptions-page-basic-tier-at-300-month-and-premium-tier-at-500-month-displayed-as-cards-with-glassmorphism-styling-consistent-with-the-existing-dashboard-design",
-      "title": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
-      "reqIds": [
-        "REQ-93"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-differentiate-features-between-basic-300-month-and-premium-500-month-tiers-based-on-importance-with-basic-tier-including-essential-meeting-intelligence-features-and-premium-tier-adding-advanced-security-tactical-controls-and-priority-features",
-      "title": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
-      "reqIds": [
-        "REQ-94"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-subscribe-cta-buttons-to-both-subscription-tier-cards-that-display-a-toast-notification-indicating-the-subscription-flow-is-simulated-as-stripe-integration-is-not-yet-implemented",
-      "title": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
-      "reqIds": [
-        "REQ-95"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-existing-dark-theme-with-a-light-mode-enterprise-saas-color-palette-throughout-the-application-using-indigo-600-as-primary-color-emerald-500-as-success-color-and-slate-50-f9fafb-as-the-main-background-color",
-      "title": "Replace the existing dark theme with a light-mode Enterprise SaaS color palette throughout the application, using Indigo-600 as primary color, Emerald-500 as success color, and Slate-50 (#F9FAFB) as the main background color",
-      "reqIds": [
-        "REQ-96"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-redesign-the-login-page-loginpage-tsx-with-a-50-50-split-screen-layout-left-side-featuring-a-deep-indigo-background-with-an-abstract-neural-network-graphic-and-the-headline-secure-your-enterprise-sovereignty-right-side-displaying-a-clean-white-login-form-with-rounded-xl-corners-shadow-sm-soft-shadows-and-inter-typography",
-      "title": "Redesign the login page (LoginPage.tsx) with a 50/50 split-screen layout: left side featuring a deep Indigo background with an abstract neural network graphic and the headline 'Secure your enterprise sovereignty'; right side displaying a clean white login form with rounded-xl corners, shadow-sm soft shadows, and Inter typography",
-      "reqIds": [
-        "REQ-97"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-login-authentication-logic-to-accept-email-admin-axon-com-with-password-password123-and-implement-session-persistence-using-localstorage-so-that-page-refresh-does-not-log-the-user-out",
-      "title": "Update login authentication logic to accept email 'admin@axon.com' with password 'password123', and implement session persistence using localStorage so that page refresh does not log the user out",
-      "reqIds": [
-        "REQ-98"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-restructure-the-dashboard-layout-dashboardlayout-tsx-with-a-fixed-left-sidebar-featuring-slate-950-background-and-icon-based-navigation-for-overview-vault-neural-logs-and-settings-pages",
-      "title": "Restructure the dashboard layout (DashboardLayout.tsx) with a fixed left sidebar featuring Slate-950 background and icon-based navigation for Overview, Vault, Neural Logs, and Settings pages",
-      "reqIds": [
-        "REQ-99"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-white-top-bar-to-the-dashboard-layout-with-a-search-input-field-and-a-user-profile-avatar-displaying-initials-e-g-ar-for-alex-rivera",
-      "title": "Add a white top bar to the dashboard layout with a search input field and a user profile avatar displaying initials (e.g., 'AR' for Alex Rivera)",
-      "reqIds": [
-        "REQ-100"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-main-dashboard-content-area-background-to-light-gray-f9fafb-so-that-white-cards-and-components-stand-out-with-visual-separation",
-      "title": "Update the main dashboard content area background to light-gray (#F9FAFB) so that white cards and components stand out with visual separation",
-      "reqIds": [
-        "REQ-101"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-three-small-metric-cards-at-the-top-of-the-dashboard-displaying-total-encrypted-data-active-sentinel-nodes-and-security-health-with-appropriate-values-and-icons",
-      "title": "Create three small metric cards at the top of the dashboard displaying 'Total Encrypted Data', 'Active Sentinel Nodes', and 'Security Health' with appropriate values and icons",
-      "reqIds": [
-        "REQ-102"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-large-live-traffic-visualization-area-below-the-metric-cards-featuring-either-a-linear-area-chart-or-a-geographic-heatmap-rendered-in-soft-blue-indigo-tones-instead-of-the-existing-hacker-style-global-map",
-      "title": "Implement a large 'Live Traffic' visualization area below the metric cards, featuring either a Linear Area Chart or a Geographic Heatmap rendered in soft blue/indigo tones instead of the existing hacker-style global map",
-      "reqIds": [
-        "REQ-103"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-recent-files-activity-table-component-displaying-a-list-of-vault-documents-with-columns-for-name-security-level-status-and-owner-in-a-clean-tabular-format",
-      "title": "Create a 'Recent Files' activity table component displaying a list of vault documents with columns for Name, Security Level, Status, and Owner in a clean tabular format",
-      "reqIds": [
-        "REQ-104"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-mobile-responsiveness-for-the-dashboard-layout-so-that-the-fixed-sidebar-is-hidden-on-mobile-devices-and-replaced-with-a-hamburger-menu-that-opens-a-drawer-navigation",
-      "title": "Implement mobile responsiveness for the dashboard layout so that the fixed sidebar is hidden on mobile devices and replaced with a hamburger menu that opens a drawer navigation",
-      "reqIds": [
-        "REQ-105"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-all-existing-glitch-effects-dramatic-animations-and-dark-themed-motion-effects-with-subtle-framer-motion-fade-in-transitions-throughout-the-application",
-      "title": "Replace all existing glitch effects, dramatic animations, and dark-themed motion effects with subtle Framer Motion fade-in transitions throughout the application",
-      "reqIds": [
-        "REQ-106"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-global-typography-to-use-the-inter-font-family-consistently-across-all-components-replacing-any-existing-font-choices",
-      "title": "Update global typography to use the Inter font family consistently across all components, replacing any existing font choices",
-      "reqIds": [
-        "REQ-107"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-localstorage-based-user-registry-system-that-stores-user-data-email-password-name-in-an-array-called-axon-users",
-      "title": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
-      "reqIds": [
-        "REQ-108"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-sign-up-validation-logic-that-prevents-registration-if-the-email-already-exists-in-the-axon-users-array",
-      "title": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
-      "reqIds": [
-        "REQ-109"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-sign-in-authentication-logic-that-searches-the-axon-users-array-and-grants-access-when-email-and-password-match-a-registered-user",
-      "title": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
-      "reqIds": [
-        "REQ-110"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-existing-loginpage-tsx-with-a-toggle-based-authentication-ui-that-switches-between-sign-in-and-create-account-forms-without-page-reload",
-      "title": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
-      "reqIds": [
-        "REQ-111"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-sign-up-form-with-fields-for-full-name-work-email-security-password-and-confirm-password-using-indigo-white-saas-theme-styling",
-      "title": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
-      "reqIds": [
-        "REQ-112"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-sign-in-form-with-fields-for-work-email-and-security-password-using-indigo-white-saas-theme-styling",
-      "title": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
-      "reqIds": [
-        "REQ-113"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-framer-motion-slide-transitions-when-switching-between-sign-in-and-create-account-forms",
-      "title": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
-      "reqIds": [
-        "REQ-114"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-sonner-toast-notification-displaying-success-message-when-a-new-account-is-created-successfully",
-      "title": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
-      "reqIds": [
-        "REQ-115"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-session-persistence-by-saving-user-data-name-and-role-to-current-axon-session-in-localstorage-upon-successful-login",
-      "title": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
-      "reqIds": [
-        "REQ-116"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-dashboardlayout-tsx-to-display-personalized-greeting-welcome-back-name-by-retrieving-the-user-s-name-from-current-axon-session-in-localstorage",
-      "title": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
-      "reqIds": [
-        "REQ-117"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-or-replace-the-hardcoded-admin-axon-com-authentication-logic-in-loginpage-tsx-with-the-new-localstorage-based-authentication-system",
-      "title": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
-      "reqIds": [
-        "REQ-118"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-default-role-assignment-logic-that-assigns-user-role-to-new-accounts-created-through-sign-up",
-      "title": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
-      "reqIds": [
-        "REQ-119"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-protectedroute-tsx-to-check-authentication-state-from-localstorage-instead-of-internet-identity",
-      "title": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
-      "reqIds": [
-        "REQ-120"
       ],
       "version": 1
     }
@@ -925,321 +103,66 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Command Center dashboard with Bento Grid layout, sentiment pulse chart, neural frequency visualizer, meeting ROI ticker, and speaker identity matrix",
+      "summary": "Restore original clean, high-density dashboard UI with sidebar and main content spacing",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Neural Lab page for vocal cloning with drag-and-drop zones, neural progress animation, voice health dashboard, and synthesize functionality",
+      "summary": "Integrate Control Panel with Neural Shield and Stealth Mode toggles that log to feed",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Sentinel Protocol hidden page with tactical HUD, 16 environment spoof cards, emergency panic button, packet jitter slider, and fake OS update selectors",
+      "summary": "Add Active Plan card showing 'Sovereign Enterprise' with Log Out button",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Device Sync page with QR code for mobile pairing and live connection log",
+      "summary": "Implement compact scrolling Telemetry Feed on the right side",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-5",
-      "summary": "Analytics & Vault page with encrypted meeting logs and AI-generated post-meeting reports",
+      "summary": "Add Team Status card showing list of active users",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-6",
-      "summary": "Public landing page with hero video, security whitepaper section, and 3-tier pricing table (Professional Free, Enterprise $49/mo, Sovereign $149/mo)",
+      "summary": "Maintain localStorage authentication logic with AXON_SESSION",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-7",
-      "summary": "Mobile tactical remote route (/remote) with full-screen interface and large haptic buttons optimized for PWA",
+      "summary": "Ensure Log Out clears session and returns to Sign-In",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-8",
-      "summary": "WebSocket sync using Socket.io for <30ms latency between devices with global hotkeys support",
+      "summary": "Neural Scan transition plays only once upon successful login",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-33",
-      "summary": "Store meeting session data including duration, participants, sentiment analysis results, and cost calculations in the backend for display in Analytics & Vault",
-      "reqIds": [
-        "REQ-25"
-      ],
-      "status": "pending"
-    },
-    {
       "id": "AR-9",
-      "summary": "System Audit Trail side panel with auto-scrolling terminal-style log displaying encryption packet logs like [ENCRYPT] AES-256 Key Rotated and [SENSORY] Acoustic Masking Active in green text on black background",
+      "summary": "Remove redundant logos and Initializing screens",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-10",
-      "summary": "Biometric Stress Radar bento card featuring spider/radar chart with 5 metrics: Executive Stress, Vocal Stability, Background Noise, Packet Health, and Privacy Score",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Global Node Map showing minimalist SVG world map with glowing ping animations in major cities (SF, London, Tokyo, Bangalore) to visualize global infrastructure",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Implement Principal Operator system assigning ADMIN role to user's Internet Identity principal with role-based access control hiding /sentinel and /admin-panel for USER roles",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Create Motoko backend to persist Meeting Logs and Panic History in stable memory",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Expand Command Center to 12-column grid layout filling 100% browser width with high information density",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Create Neural Packet Stream scrolling terminal module with real-time logs like [ENCRYPT] AES-256 Key Rotated",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-16",
-      "summary": "Create Sovereign Orb 3D CSS centerpiece with Framer Motion ripple effects on hover",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Create Waterfall Spectrogram HTML5 Canvas component with neon green frequencies flowing top-to-bottom",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-18",
-      "summary": "Create Environment Mixer with 8 tactical volume sliders (Office, Rain, Cafe, etc.) with pulsing icons in Sentinel Protocol",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-19",
-      "summary": "Enhance Panic Trigger to display fullscreen fixed un-closable Windows 11 Update overlay",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-20",
-      "summary": "Create Ghost Mode global blur toggle that obfuscates all data for instant privacy",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-21",
-      "summary": "Update persistent sidebar to 60px/240px glassmorphic design with PRO admin badge",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-22",
-      "summary": "Setup modular routing for /dashboard, /neural, /sentinel, /vault, and /admin-panel pages",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-23",
-      "summary": "Add Status: Active green pulse indicators to all components with high information density design",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-34",
-      "summary": "Implement role-based access control system with ADMIN and USER roles stored in Motoko backend, assigning ADMIN role to the owner's Internet Identity principal",
-      "reqIds": [
-        "REQ-34"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-35",
-      "summary": "Persist Meeting Logs and Panic History in Motoko backend stable memory with CRUD operations",
-      "reqIds": [
-        "REQ-35"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-47",
-      "summary": "Record Panic Protocol activations to backend including timestamp, trigger type, and user principal",
-      "reqIds": [
-        "REQ-47"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-50",
-      "summary": "Simplify the backend user creation flow to handle role assignment reliably during signup",
-      "reqIds": [
-        "REQ-50"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-53",
-      "summary": "Ensure the useInternetIdentity hook correctly manages the authentication state lifecycle and notifies components when authentication completes",
-      "reqIds": [
-        "REQ-66"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-54",
-      "summary": "Rewrite landing page hero headline to 'Secure Your Corporate Intelligence with Sovereign Neural Defense' with subheadline explaining acoustic masking and real-time encryption",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-55",
-      "summary": "Add 'Verified Operative Feedback' testimonial section below pricing tiers with 3 high-density testimonials featuring avatars, names, roles, 5-star ratings, and transformation-focused quotes",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-56",
-      "summary": "Standardize all CTA buttons to Cyber Emerald glow with consistent size/shape and action-oriented phrasing like 'Secure My First Meeting' and 'Start Sovereign Trial'",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-57",
-      "summary": "Ensure CTA buttons are visible in Header, Hero section, and bottom of Subscription module with repetition throughout landing page",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-58",
-      "summary": "Add 'Schedule Security Audit' module to sidebar with simulated Calendly widget for booking Tactical Onboarding Call",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-59",
-      "summary": "Create Video Trust Module in bottom right corner with picture-in-picture looping video of Operator explaining system benefits",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-60",
-      "summary": "Simplify top navigation to only 4 links: Dashboard, Intelligence, Pricing, Support; move technical logs and legal docs to footer",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-70",
-      "summary": "Implement Intelligent Meeting Scheduler with conflict detection that displays upcoming meetings in a calendar view, highlights scheduling conflicts, suggests optimal meeting times based on participant availability patterns, and integrates with the existing Security Audit Scheduler",
-      "reqIds": [
-        "REQ-85"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-71",
-      "summary": "Remove pricing tier section from landing page",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-72",
-      "summary": "Create new Subscriptions page accessible from dashboard sidebar positioned after Analytics & Vault, displaying two pricing tiers: ₹300/month and ₹500/month with feature differentiation based on importance and value",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-73",
-      "summary": "Redesign login page with 50/50 split-screen layout: left side deep Indigo background with neural network graphic and headline 'Secure your enterprise sovereignty', right side clean white login form with rounded-xl corners, soft shadows, Inter typography, and admin@axon.com / password123 authentication with localStorage session persistence",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-74",
-      "summary": "Create Enterprise SaaS dashboard structure with fixed left sidebar (Slate-950 background) containing icons for Overview, Vault, Neural Logs, and Settings; white top bar with search functionality and user profile avatar; and light-gray background (#F9FAFB) for main content area",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-75",
-      "summary": "Implement Bento Grid data modules with three metric cards showing Total Encrypted Data, Active Sentinel Nodes, and Security Health; large Live Traffic area with Linear Area Chart or Geographic Heatmap in soft blue/indigo tones; and Recent Files activity table with columns for Name, Security Level, Status, and Owner",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-76",
-      "summary": "Ensure mobile responsiveness with hamburger menu replacing fixed sidebar on mobile devices, and implement subtle Framer Motion fade-in animations throughout the interface using Indigo-600 primary, Emerald-500 success, and Slate-50 background color palette",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-77",
-      "summary": "Implement localStorage-based user registry system storing user data (Email, Password, Name) in AXON_USERS array with email validation preventing duplicate registrations",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-78",
-      "summary": "Create authentication logic for sign-up (save to AXON_USERS) and sign-in (validate against AXON_USERS array) with isLoggedIn state management",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-79",
-      "summary": "Build toggle-based authentication UI switching between Sign In and Create Account forms using Framer Motion slide transitions with Indigo/White SaaS theme",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-80",
-      "summary": "Implement Sign Up form with fields: Full Name, Work Email, Security Password, Confirm Password; and Sign In form with Work Email and Security Password fields",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-81",
-      "summary": "Add success toast notification using Sonner when new account is created successfully",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-82",
-      "summary": "Implement session persistence by saving user data (Name and Role) to CURRENT_AXON_SESSION in localStorage upon successful login",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-83",
-      "summary": "Display personalized greeting on dashboard load pulling user name from CURRENT_AXON_SESSION: 'Welcome back, [Name]'",
+      "summary": "Standardize all icons to Lucide icon set in Emerald color",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Aegis Sovereign",
+  "projectName": "Axon Sovereign",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

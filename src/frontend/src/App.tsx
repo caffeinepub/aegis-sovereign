@@ -1,5 +1,7 @@
 import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
+import { TelemetryProvider } from '@/contexts/TelemetryContext';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -11,7 +13,6 @@ import AnalyticsVault from './pages/AnalyticsVault';
 import Subscriptions from './pages/Subscriptions';
 import TacticalRemote from './pages/TacticalRemote';
 import AdminPanel from './pages/AdminPanel';
-import DevMetrics from './pages/DevMetrics';
 import Settings from './pages/Settings';
 import MobileBiometric from './pages/MobileBiometric';
 import DashboardLayout from './components/layout/DashboardLayout';
@@ -19,12 +20,25 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import PageTransition from './components/transitions/PageTransition';
 import ErrorBoundary from './components/errors/ErrorBoundary';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 const rootRoute = createRootRoute({
   component: () => (
-    <>
-      <Outlet />
-      <Toaster />
-    </>
+    <QueryClientProvider client={queryClient}>
+      <TelemetryProvider>
+        <ErrorBoundary>
+          <Outlet />
+          <Toaster />
+        </ErrorBoundary>
+      </TelemetryProvider>
+    </QueryClientProvider>
   ),
 });
 
@@ -170,16 +184,6 @@ const adminPanelRoute = createRoute({
   ),
 });
 
-const devMetricsRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/dev-metrics',
-  component: () => (
-    <PageTransition>
-      <DevMetrics />
-    </PageTransition>
-  ),
-});
-
 const routeTree = rootRoute.addChildren([
   indexRoute,
   loginRoute,
@@ -195,7 +199,6 @@ const routeTree = rootRoute.addChildren([
     subscriptionsRoute,
     settingsRoute,
     adminPanelRoute,
-    devMetricsRoute,
   ]),
 ]);
 

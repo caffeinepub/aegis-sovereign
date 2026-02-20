@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-localstorage-based-user-registry-system-that-stores-user-data-email-password-name-in-an-array-called-axon-users",
-      "featureTitle": "Create localStorage-based user registry system that stores user data (Email, Password, Name) in an array called 'AXON_USERS'",
+      "featureId": "feature-restore-the-original-sidebar-and-main-content-spacing-from-the-nishant-dashboard-version-with-deep-onyx-050505-background-and-emerald-10b981-accents",
+      "featureTitle": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
       "files": [
-        "frontend/src/utils/localStorageAuth.ts"
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,15 +17,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-108"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-sign-up-validation-logic-that-prevents-registration-if-the-email-already-exists-in-the-axon-users-array",
-      "featureTitle": "Implement sign-up validation logic that prevents registration if the email already exists in the 'AXON_USERS' array",
+      "featureId": "feature-display-a-clean-and-prominent-welcome-back-header-at-the-top-of-the-dashboard",
+      "featureTitle": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
       "files": [
-        "frontend/src/utils/localStorageAuth.ts"
+        "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -35,15 +36,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-109"
+        "REQ-2"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-sign-in-authentication-logic-that-searches-the-axon-users-array-and-grants-access-when-email-and-password-match-a-registered-user",
-      "featureTitle": "Implement sign-in authentication logic that searches the 'AXON_USERS' array and grants access when email and password match a registered user",
+      "featureId": "feature-create-a-control-panel-card-in-bento-style-with-toggles-for-neural-shield-and-stealth-mode-that-log-toggle-actions-to-the-telemetry-feed",
+      "featureTitle": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
       "files": [
-        "frontend/src/utils/localStorageAuth.ts"
+        "frontend/src/components/dashboard/ControlPanel.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -54,15 +55,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-110"
+        "REQ-3"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-replace-the-existing-loginpage-tsx-with-a-toggle-based-authentication-ui-that-switches-between-sign-in-and-create-account-forms-without-page-reload",
-      "featureTitle": "Replace the existing LoginPage.tsx with a toggle-based authentication UI that switches between 'Sign In' and 'Create Account' forms without page reload",
+      "featureId": "feature-add-an-active-plan-card-displaying-sovereign-enterprise-as-a-badge-with-a-log-out-button-positioned-nearby",
+      "featureTitle": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
       "files": [
-        "frontend/src/pages/LoginPage.tsx"
+        "frontend/src/components/dashboard/ActivePlanCard.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -73,15 +74,16 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-111"
+        "REQ-4"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-sign-up-form-with-fields-for-full-name-work-email-security-password-and-confirm-password-using-indigo-white-saas-theme-styling",
-      "featureTitle": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password using Indigo/White SaaS theme styling",
+      "featureId": "feature-implement-a-compact-scrolling-telemetry-feed-on-the-right-side-of-the-dashboard-displaying-logged-events",
+      "featureTitle": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
       "files": [
-        "frontend/src/pages/LoginPage.tsx"
+        "frontend/src/components/dashboard/TelemetryFeed.tsx",
+        "frontend/src/contexts/TelemetryContext.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -92,15 +94,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-112"
+        "REQ-5"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-sign-in-form-with-fields-for-work-email-and-security-password-using-indigo-white-saas-theme-styling",
-      "featureTitle": "Create Sign In form with fields for Work Email and Security Password using Indigo/White SaaS theme styling",
+      "featureId": "feature-add-a-team-status-card-showing-a-simple-list-of-active-users",
+      "featureTitle": "Add a Team Status card showing a simple list of active users",
       "files": [
-        "frontend/src/pages/LoginPage.tsx"
+        "frontend/src/components/dashboard/TeamStatusCard.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -111,15 +113,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-113"
+        "REQ-6"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-framer-motion-slide-transitions-when-switching-between-sign-in-and-create-account-forms",
-      "featureTitle": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
+      "featureId": "feature-maintain-localstorage-authentication-logic-where-axon-session-existence-determines-dashboard-vs-sign-in-display",
+      "featureTitle": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
       "files": [
-        "frontend/src/pages/LoginPage.tsx"
+        "frontend/src/App.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -130,53 +132,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-114"
+        "REQ-7"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-sonner-toast-notification-displaying-success-message-when-a-new-account-is-created-successfully",
-      "featureTitle": "Add Sonner toast notification displaying 'Success' message when a new account is created successfully",
+      "featureId": "feature-ensure-log-out-button-clears-axon-session-from-localstorage-and-redirects-user-to-sign-in-page",
+      "featureTitle": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
       "files": [
-        "frontend/src/pages/LoginPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-115"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-session-persistence-by-saving-user-data-name-and-role-to-current-axon-session-in-localstorage-upon-successful-login",
-      "featureTitle": "Implement session persistence by saving user data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
-      "files": [
-        "frontend/src/pages/LoginPage.tsx",
-        "frontend/src/utils/localStorageAuth.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-116"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-dashboardlayout-tsx-to-display-personalized-greeting-welcome-back-name-by-retrieving-the-user-s-name-from-current-axon-session-in-localstorage",
-      "featureTitle": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' by retrieving the user's name from 'CURRENT_AXON_SESSION' in localStorage",
-      "files": [
+        "frontend/src/components/dashboard/ActivePlanCard.tsx",
         "frontend/src/components/layout/DashboardLayout.tsx"
       ],
       "components": [
@@ -188,14 +152,16 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-117"
+        "REQ-8"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-or-replace-the-hardcoded-admin-axon-com-authentication-logic-in-loginpage-tsx-with-the-new-localstorage-based-authentication-system",
-      "featureTitle": "Remove or replace the hardcoded admin@axon.com authentication logic in LoginPage.tsx with the new localStorage-based authentication system",
+      "featureId": "feature-configure-neural-scan-transition-to-play-only-once-upon-successful-login-not-on-subsequent-page-loads",
+      "featureTitle": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
       "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/transitions/NeuralScanTransition.tsx",
         "frontend/src/pages/LoginPage.tsx"
       ],
       "components": [
@@ -207,15 +173,16 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-118"
+        "REQ-9"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-default-role-assignment-logic-that-assigns-user-role-to-new-accounts-created-through-sign-up",
-      "featureTitle": "Implement default role assignment logic that assigns 'USER' role to new accounts created through sign-up",
+      "featureId": "feature-remove-all-redundant-logos-and-initializing-screens-from-the-dashboard-interface",
+      "featureTitle": "Remove all redundant logos and Initializing screens from the dashboard interface",
       "files": [
-        "frontend/src/utils/localStorageAuth.ts"
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -226,15 +193,20 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-119"
+        "REQ-10"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-protectedroute-tsx-to-check-authentication-state-from-localstorage-instead-of-internet-identity",
-      "featureTitle": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
+      "featureId": "feature-standardize-all-dashboard-icons-to-use-the-lucide-icon-set-with-emerald-10b981-color",
+      "featureTitle": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
       "files": [
-        "frontend/src/components/auth/ProtectedRoute.tsx"
+        "frontend/src/components/dashboard/ActivePlanCard.tsx",
+        "frontend/src/components/dashboard/ControlPanel.tsx",
+        "frontend/src/components/dashboard/TeamStatusCard.tsx",
+        "frontend/src/components/dashboard/TelemetryFeed.tsx",
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -245,7 +217,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-120"
+        "REQ-11"
       ],
       "confidence": "high"
     }

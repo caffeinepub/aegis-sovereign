@@ -9,6 +9,10 @@ import Footer from '@/components/layout/Footer';
 export default function LandingPage() {
   const navigate = useNavigate();
 
+  const handleCTAClick = () => {
+    navigate({ to: '/login' });
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
@@ -30,7 +34,7 @@ export default function LandingPage() {
             </a>
           </nav>
           <div className="flex items-center gap-4">
-            <PrimaryCTA onClick={() => navigate({ to: '/signup' })}>
+            <PrimaryCTA onClick={handleCTAClick}>
               Start Sovereign Trial
             </PrimaryCTA>
           </div>
@@ -60,7 +64,7 @@ export default function LandingPage() {
             The only decentralized command center that masks acoustic signatures and encrypts executive summaries in real-time.
           </p>
           <div className="flex items-center justify-center gap-4">
-            <PrimaryCTA onClick={() => navigate({ to: '/signup' })}>
+            <PrimaryCTA onClick={handleCTAClick}>
               Secure My First Meeting
             </PrimaryCTA>
           </div>

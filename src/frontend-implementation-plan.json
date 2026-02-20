@@ -1,229 +1,248 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Build localStorage-based authentication system with sign-up and sign-in flow",
+  "title": "Restore original clean dashboard UI with integrated functional components",
   "requirements": [
     {
-      "id": "REQ-108",
-      "summary": "Create localStorage-based user registry system that stores user data in 'AXON_USERS' array",
+      "id": "REQ-1",
+      "summary": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
       "acceptanceCriteria": [
-        "localStorage key 'AXON_USERS' exists and stores an array of user objects",
-        "Each user object contains Email, Password, and Name fields",
-        "Array persists across browser sessions"
+        "Dashboard uses Deep Onyx (#050505) as the primary background color",
+        "Emerald (#10b981) accent color is applied consistently to interactive elements",
+        "Sidebar spacing matches the original clean, high-density layout",
+        "Main content area spacing provides adequate breathing room while maintaining density"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/localStorageAuth.ts",
-          "operation": "create",
-          "description": "Create utility module for localStorage-based authentication. Implement functions to initialize, read, and write to the 'AXON_USERS' array in localStorage. Include TypeScript interfaces for User objects with Email, Password, Name, and Role fields. Provide helper functions for user lookup, registration, and validation."
-        }
-      ]
-    },
-    {
-      "id": "REQ-109",
-      "summary": "Implement sign-up validation logic that prevents duplicate email registration",
-      "acceptanceCriteria": [
-        "System checks for duplicate emails before saving new user",
-        "Error message displays when attempting to register with existing email",
-        "Validation occurs before data is written to localStorage"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/localStorageAuth.ts",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Add validateEmailUnique function that searches the 'AXON_USERS' array for existing emails before registration. Return validation result with appropriate error messages. Include case-insensitive email comparison to prevent duplicate accounts."
-        }
-      ]
-    },
-    {
-      "id": "REQ-110",
-      "summary": "Implement sign-in authentication logic that validates credentials against 'AXON_USERS' array",
-      "acceptanceCriteria": [
-        "System validates credentials against 'AXON_USERS' array",
-        "Login succeeds only when both email and password match exactly",
-        "isLoggedIn state is set to true upon successful authentication",
-        "Error message displays for invalid credentials"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/localStorageAuth.ts",
-          "operation": "modify",
-          "description": "Add authenticateUser function that searches 'AXON_USERS' array for matching email and password. Return user object on success or null on failure. Include exact string matching for both email and password validation."
-        }
-      ]
-    },
-    {
-      "id": "REQ-111",
-      "summary": "Replace LoginPage.tsx with toggle-based authentication UI switching between Sign In and Create Account forms",
-      "acceptanceCriteria": [
-        "Single page displays either Sign In or Create Account form based on toggle state",
-        "Transition between forms happens instantly without page reload",
-        "User can easily switch between Sign In and Create Account modes",
-        "Split-screen layout is maintained with form on the right side"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Replace the existing authentication logic with a toggle-based UI using useState to switch between 'Sign In' and 'Create Account' modes. Remove Internet Identity integration and hardcoded admin@axon.com logic. Maintain the existing split-screen layout (left side: Indigo background with neural network branding, right side: white form area). Add a text link or button to toggle between the two forms without page reload."
-        }
-      ]
-    },
-    {
-      "id": "REQ-112",
-      "summary": "Create Sign Up form with fields for Full Name, Work Email, Security Password, and Confirm Password",
-      "acceptanceCriteria": [
-        "Form includes four input fields: Full Name, Work Email, Security Password, Confirm Password",
-        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
-        "Password fields include type='password' for security",
-        "Form validation ensures passwords match before submission"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Add Sign Up form section with four input fields: Full Name (text), Work Email (email), Security Password (password), and Confirm Password (password). Use Indigo-600 for primary colors (buttons, focus states) and white backgrounds for inputs. Include client-side validation to check that Security Password and Confirm Password match before allowing submission. Display validation errors inline below relevant fields."
-        }
-      ]
-    },
-    {
-      "id": "REQ-113",
-      "summary": "Create Sign In form with fields for Work Email and Security Password",
-      "acceptanceCriteria": [
-        "Form includes two input fields: Work Email and Security Password",
-        "Fields use Indigo-600 primary color scheme with clean white backgrounds",
-        "Password field uses type='password' for security",
-        "Form includes submit button with action-oriented text"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Add Sign In form section with two input fields: Work Email (email) and Security Password (password). Use Indigo-600 for primary colors and white backgrounds for inputs. Include a submit button with action-oriented text like 'Sign In' or 'Access Dashboard'. Apply consistent styling with the Sign Up form."
-        }
-      ]
-    },
-    {
-      "id": "REQ-114",
-      "summary": "Implement Framer Motion slide transitions when switching between Sign In and Create Account forms",
-      "acceptanceCriteria": [
-        "Forms animate with slide effect when toggling between Sign In and Create Account",
-        "Transition is smooth and does not flicker",
-        "Animation duration is appropriate (300-500ms)",
-        "Only the form content animates while the layout remains stable"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Wrap Sign In and Create Account form sections with Framer Motion's motion.div components. Implement slide transition animations using variants with x-axis translation. Set animation duration to 300-500ms for smooth transitions. Use AnimatePresence to handle enter/exit animations. Ensure only the form content animates while the split-screen layout container remains fixed."
-        }
-      ]
-    },
-    {
-      "id": "REQ-115",
-      "summary": "Add Sonner toast notification displaying 'Success' message when a new account is created",
-      "acceptanceCriteria": [
-        "Toast notification appears immediately after successful account creation",
-        "Toast displays success message with appropriate styling",
-        "Toast auto-dismisses after a few seconds",
-        "Toast uses Sonner library consistent with existing implementation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Import toast from 'sonner' and call toast.success() with a success message immediately after successfully saving a new user to 'AXON_USERS' in localStorage. Display a message like 'Account created successfully!' or 'Welcome to AXON!'. The Toaster component is already configured in App.tsx, so no additional setup is needed."
-        }
-      ]
-    },
-    {
-      "id": "REQ-116",
-      "summary": "Implement session persistence by saving user data to 'CURRENT_AXON_SESSION' in localStorage upon successful login",
-      "acceptanceCriteria": [
-        "localStorage key 'CURRENT_AXON_SESSION' is created on successful login",
-        "Session data includes user's Name and Role fields",
-        "Session persists across page refreshes",
-        "Session data is cleared on logout"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/localStorageAuth.ts",
-          "operation": "modify",
-          "description": "Add setCurrentSession function that saves user session data (Name and Role) to 'CURRENT_AXON_SESSION' in localStorage upon successful authentication. Add getCurrentSession function to retrieve the current session. Add clearCurrentSession function to remove session data on logout. Use JSON.stringify/parse for storage."
+          "description": "Update CSS variables to use Deep Onyx (#050505) as the primary background color for both light and dark themes. Update accent colors to use Emerald (#10b981) consistently across interactive elements, buttons, and hover states."
         },
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "After successful authentication in the Sign In form, call setCurrentSession with the authenticated user's Name and Role before navigating to the dashboard. Ensure session persistence across page refreshes by storing data in localStorage."
-        }
-      ]
-    },
-    {
-      "id": "REQ-117",
-      "summary": "Update DashboardLayout.tsx to display personalized greeting 'Welcome back, [Name]' using 'CURRENT_AXON_SESSION' data",
-      "acceptanceCriteria": [
-        "Dashboard displays 'Welcome back, [Name]' greeting on load",
-        "Name is retrieved from 'CURRENT_AXON_SESSION' in localStorage",
-        "Greeting displays correctly for any user name",
-        "Fallback text displays if session data is unavailable"
-      ],
-      "file_operations": [
         {
           "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Import getCurrentSession from the localStorageAuth utility. Use useEffect to retrieve the current user's Name from 'CURRENT_AXON_SESSION' on component mount. Display a personalized greeting like 'Welcome back, [Name]' in the header or sidebar area. Provide a fallback greeting like 'Welcome back' if session data is unavailable. Do not modify the existing sidebar navigation structure."
+          "description": "Restore original sidebar spacing with clean, high-density layout. Update background colors to Deep Onyx (#050505) and ensure Emerald (#10b981) accents are applied to sidebar navigation items, active states, and interactive elements. Adjust main content area padding to provide adequate breathing room while maintaining density."
         }
       ]
     },
     {
-      "id": "REQ-118",
-      "summary": "Remove hardcoded admin@axon.com authentication logic and replace with localStorage-based authentication",
+      "id": "REQ-2",
+      "summary": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
       "acceptanceCriteria": [
-        "Hardcoded email 'admin@axon.com' and password 'password123' are removed",
-        "Authentication validates against 'AXON_USERS' array in localStorage",
-        "No fallback to hardcoded credentials exists",
-        "All authentication flows through the localStorage system"
+        "Welcome back header is visible at the top of the dashboard",
+        "Header text is legible with appropriate font size and weight",
+        "Header stands out visually without cluttering the interface"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Add a clean and prominent 'Welcome back' header at the top of the dashboard page. Use appropriate font size (text-2xl or text-3xl) and weight (font-semibold) to make it stand out. Position it above the existing metric cards grid without cluttering the interface."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
+      "acceptanceCriteria": [
+        "Control Panel card is displayed as a clean, non-cluttered bento-style card",
+        "Neural Shield toggle is present and functional",
+        "Stealth Mode toggle is present and functional",
+        "Toggle state changes are logged to the telemetry feed with timestamps",
+        "Toggle states persist during the session"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/ControlPanel.tsx",
+          "operation": "create",
+          "description": "Create a new ControlPanel component using BentoCard for styling. Include two toggle switches using shadcn/ui Switch component for Neural Shield and Stealth Mode. Use React state with useState to manage toggle states. Implement sessionStorage to persist toggle states during the session. When toggles change state, emit events that can be consumed by the TelemetryFeed component. Use Lucide icons (Shield and EyeOff) in Emerald (#10b981) color next to each toggle label."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
+      "acceptanceCriteria": [
+        "Active Plan card is displayed as a small badge/card in bento style",
+        "Card shows 'Sovereign Enterprise' plan name clearly",
+        "Log Out button is positioned near the Active Plan display",
+        "Log Out button is visually distinct and easily accessible"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
+          "operation": "create",
+          "description": "Create a new ActivePlanCard component using BentoCard for styling. Display 'Sovereign Enterprise' as a badge using shadcn/ui Badge component with Emerald accent styling. Position a Log Out button nearby using shadcn/ui Button component with appropriate styling. The Log Out button should use the logout functionality from useInternetIdentity hook to clear AXON_SESSION and redirect to the login page. Use a Lucide icon (Crown or Sparkles) for the plan badge and LogOut icon for the button."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
+      "acceptanceCriteria": [
+        "Telemetry Feed is positioned on the right side of the dashboard",
+        "Feed displays events in a compact, scrollable format",
+        "Feed auto-scrolls to show newest entries",
+        "Feed captures toggle actions from Control Panel",
+        "Feed entries include timestamps"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/TelemetryFeed.tsx",
+          "operation": "create",
+          "description": "Create a new TelemetryFeed component that displays a compact scrolling log of events. Use React state to maintain an array of log entries with timestamps. Implement a custom event listener or React context to receive toggle events from ControlPanel. Display entries in reverse chronological order with auto-scroll to bottom using useEffect and scrollIntoView. Style with Deep Onyx background, compact padding, and scrollable overflow. Format timestamps using toLocaleTimeString. Limit feed to last 50 entries to prevent memory issues."
+        },
+        {
+          "path": "frontend/src/contexts/TelemetryContext.tsx",
+          "operation": "create",
+          "description": "Create a React context to manage telemetry events across components. Provide a TelemetryProvider that maintains the event log state and exposes a logEvent function. Export a useTelemetry hook for components to add events to the feed. This allows ControlPanel to log toggle actions that TelemetryFeed can display."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add a Team Status card showing a simple list of active users",
+      "acceptanceCriteria": [
+        "Team Status card is displayed in bento style within the main grid",
+        "Card shows a clean list of active users",
+        "User list is easy to scan and non-cluttered",
+        "Active status is visually indicated for each user"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/TeamStatusCard.tsx",
+          "operation": "create",
+          "description": "Create a new TeamStatusCard component using BentoCard for styling. Display a simple list of 3-4 mock active users (e.g., 'Alex Carter', 'Jordan Lee', 'Morgan Blake') with ActiveStatusIndicator component next to each name. Use a clean vertical list layout with appropriate spacing between users. Include Lucide Users icon in Emerald (#10b981) color as the card header icon."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
+      "acceptanceCriteria": [
+        "When AXON_SESSION exists in localStorage, dashboard is displayed",
+        "When AXON_SESSION does not exist, Sign-In page is displayed",
+        "Session check occurs on app initialization",
+        "No changes to existing localStorage authentication flow"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify that ProtectedRoute components correctly check for AXON_SESSION in localStorage via the localStorageAuth utility. Ensure dashboard routes (/command-center, /analytics-vault, etc.) remain wrapped in ProtectedRoute. No modifications to the authentication logic itself - only verification that the existing flow is intact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
+      "acceptanceCriteria": [
+        "Clicking Log Out removes AXON_SESSION from localStorage",
+        "User is redirected to Sign-In page after logout",
+        "Session state is completely cleared on logout",
+        "No dashboard content remains accessible after logout"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
+          "operation": "modify",
+          "description": "Ensure the Log Out button in ActivePlanCard calls the logout function from localStorageAuth utility (imported from frontend/src/utils/localStorageAuth.ts) to clear AXON_SESSION from localStorage, then uses TanStack Router's useNavigate to redirect to the login page (/login). Clear any React Query cache using queryClient.clear() if applicable."
+        },
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Verify that the existing logout functionality in DashboardLayout correctly clears AXON_SESSION using the localStorageAuth utility and redirects to /login. Ensure queryClient.clear() is called to remove any cached user data."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
+      "acceptanceCriteria": [
+        "Neural Scan transition plays immediately after successful login",
+        "Transition does not replay on subsequent dashboard visits during the same session",
+        "Transition state is tracked to prevent duplicate playback",
+        "User sees smooth transition from login to dashboard exactly once per session"
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Remove the hardcoded credential check for 'admin@axon.com' and 'password123'. Replace with authenticateUser function from localStorageAuth utility that validates credentials against the 'AXON_USERS' array in localStorage. Remove sessionStorage['AXON_SESSION'] logic and replace with 'CURRENT_AXON_SESSION' from the utility."
+          "description": "After successful login (when setCurrentUser is called and AXON_SESSION is created), set a sessionStorage flag 'NEURAL_SCAN_PLAYED' to 'true'. Before redirecting to /command-center, check if this flag exists. If it doesn't exist, trigger the Neural Scan transition animation. If it exists, skip the transition and redirect immediately."
+        },
+        {
+          "path": "frontend/src/components/transitions/NeuralScanTransition.tsx",
+          "operation": "create",
+          "description": "Create a NeuralScanTransition component that displays a fullscreen scanning animation (using animated SVG or canvas with scan lines effect and Emerald accent color). Component should check sessionStorage for 'NEURAL_SCAN_PLAYED' flag on mount. If flag is present, don't render. If absent, show the animation for 2-3 seconds, then set the flag and call an onComplete callback to proceed to the dashboard."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add conditional rendering logic to show NeuralScanTransition component immediately after login if the 'NEURAL_SCAN_PLAYED' sessionStorage flag is not set. Ensure the transition wraps the navigation from login to dashboard, preventing dashboard render until transition completes."
         }
       ]
     },
     {
-      "id": "REQ-119",
-      "summary": "Implement default role assignment logic that assigns 'USER' role to new accounts",
+      "id": "REQ-10",
+      "summary": "Remove all redundant logos and Initializing screens from the dashboard interface",
       "acceptanceCriteria": [
-        "New users are automatically assigned 'USER' role on registration",
-        "Role is stored in 'AXON_USERS' array alongside email, password, and name",
-        "Role is transferred to 'CURRENT_AXON_SESSION' on login",
-        "Role-based access control continues to work with new authentication system"
+        "No duplicate logos appear on the dashboard",
+        "Initializing screens are removed from the dashboard flow",
+        "Dashboard loads directly without unnecessary loading states",
+        "Interface is clean without visual redundancy"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/localStorageAuth.ts",
+          "path": "frontend/src/pages/CommandCenter.tsx",
           "operation": "modify",
-          "description": "Update the user registration function to automatically assign 'USER' as the default role for all new accounts created through sign-up. Ensure the Role field is included in the user object saved to 'AXON_USERS'. When authenticating users, include the Role field in the returned user object so it can be saved to 'CURRENT_AXON_SESSION'."
+          "description": "Remove any redundant logo displays (multiple instances of axon-logo.dim_800x800.png or aegis-logo variants) from the CommandCenter page. Remove any 'Initializing...' loading states or screens that appear after authentication. Keep only essential loading skeletons for async data fetching."
+        },
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Remove any redundant logo displays from the sidebar or header in DashboardLayout. Ensure only one logo instance appears in the sidebar if needed. Remove any 'Initializing' screens or unnecessary loading overlays from the layout component."
         }
       ]
     },
     {
-      "id": "REQ-120",
-      "summary": "Update ProtectedRoute.tsx to check authentication state from localStorage instead of Internet Identity",
+      "id": "REQ-11",
+      "summary": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
       "acceptanceCriteria": [
-        "ProtectedRoute validates authentication using 'CURRENT_AXON_SESSION' from localStorage",
-        "Unauthenticated users are redirected to login page",
-        "Route protection works immediately after login without refresh",
-        "Internet Identity dependencies are removed or made optional"
+        "All icons in the dashboard use the Lucide icon library",
+        "Icons are colored with Emerald (#10b981)",
+        "Icon set is consistent across all dashboard components",
+        "No mixed icon libraries or inconsistent icon styles remain"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
+          "path": "frontend/src/components/dashboard/ControlPanel.tsx",
           "operation": "modify",
-          "description": "Replace Internet Identity authentication check with localStorage-based session validation. Import getCurrentSession from localStorageAuth utility and check for the presence of 'CURRENT_AXON_SESSION' in localStorage to determine if the user is authenticated. If no valid session exists, redirect to '/login'. Remove or make optional the useInternetIdentity hook dependency. Update loading states to reflect the simpler localStorage check (no async authentication needed)."
+          "description": "Ensure all icons in ControlPanel use Lucide React icons (Shield, EyeOff) with className='text-emerald-500' or inline style color='#10b981' for consistent Emerald color."
+        },
+        {
+          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
+          "operation": "modify",
+          "description": "Ensure all icons in ActivePlanCard use Lucide React icons (Crown or Sparkles for plan, LogOut for logout button) with Emerald (#10b981) color styling."
+        },
+        {
+          "path": "frontend/src/components/dashboard/TeamStatusCard.tsx",
+          "operation": "modify",
+          "description": "Ensure the Users icon from Lucide React is used with Emerald (#10b981) color for the card header."
+        },
+        {
+          "path": "frontend/src/components/dashboard/TelemetryFeed.tsx",
+          "operation": "modify",
+          "description": "Use Lucide React icons (Activity or Radio) for the telemetry feed header with Emerald (#10b981) color. Ensure any event-type icons in the feed also use Lucide with consistent styling."
+        },
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Review all icons used in CommandCenter page (metric cards, section headers) and replace with Lucide React equivalents (Shield, Database, Activity, etc.) using Emerald (#10b981) color. Remove any non-Lucide icon imports."
+        },
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Standardize sidebar navigation icons to use Lucide React (LayoutDashboard, Lock, FileText, Settings, LogOut) with Emerald (#10b981) color for active/hover states. Ensure consistent icon sizing and spacing."
         }
       ]
     }
