@@ -3,17 +3,20 @@ import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { useKeyboardShortcut } from '../../hooks/useKeyboardShortcut';
 import { useGetCallerUserRole, useGetCallerUserProfile } from '../../hooks/useQueries';
 import { useGhostMode } from '../../contexts/GhostModeContext';
 import { useQueryClient } from '@tanstack/react-query';
+import SecurityAuditScheduler from '../scheduling/SecurityAuditScheduler';
 import {
   LayoutDashboard,
   Brain,
   Shield,
   Smartphone,
   BarChart3,
+  CreditCard,
   Menu,
   LogOut,
   User,
@@ -70,6 +73,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     },
     { name: 'Device Sync', path: '/dashboard/device-sync', icon: <Smartphone className="h-5 w-5" /> },
     { name: 'Analytics & Vault', path: '/dashboard/analytics', icon: <BarChart3 className="h-5 w-5" /> },
+    { name: 'Subscriptions', path: '/dashboard/subscriptions', icon: <CreditCard className="h-5 w-5" /> },
     {
       name: 'Admin Panel',
       path: '/dashboard/admin-panel',
@@ -90,7 +94,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-black">
         <div className="text-center">
-          <Loader2 className="mx-auto mb-4 h-12 w-12 animate-spin text-blue-400" />
+          <Loader2 className="mx-auto mb-4 h-12 w-12 animate-spin text-emerald-400" />
           <p className="text-gray-400">Loading dashboard...</p>
         </div>
       </div>
@@ -101,46 +105,55 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="flex h-full flex-col">
       <div className="border-b border-white/10 p-6">
         <div className="flex items-center gap-3">
-          <img src="/assets/generated/aegis-logo.dim_256x256.png" alt="Aegis" className="h-10 w-10" />
+          <img src="/assets/generated/axon-logo.dim_800x800.png" alt="AXON" className="h-10 w-10" />
           {!collapsed && (
             <div>
-              <h2 className="text-lg font-bold">Aegis Sovereign</h2>
+              <h2 className="text-lg font-bold">AXON</h2>
               <p className="text-xs text-gray-400">Enterprise Intelligence</p>
             </div>
           )}
         </div>
         {!collapsed && isAdmin && (
-          <Badge variant="default" className="mt-3 bg-gradient-to-r from-blue-500 to-purple-500">
+          <Badge variant="default" className="mt-3 bg-gradient-to-r from-emerald-500 to-cyan-500">
             ADMIN
           </Badge>
         )}
       </div>
 
-      <nav className="flex-1 space-y-1 p-4">
-        {navItems
-          .filter((item) => !item.adminOnly || isAdmin)
-          .map((item) => {
-            const isActive = router.location.pathname === item.path;
-            return (
-              <button
-                key={item.path}
-                onClick={() => {
-                  navigate({ to: item.path });
-                  setMobileOpen(false);
-                }}
-                className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-all ${
-                  isActive
-                    ? 'bg-blue-500/20 text-blue-400 shadow-lg shadow-blue-500/20'
-                    : 'text-gray-300 hover:bg-white/5'
-                } ${collapsed ? 'justify-center' : ''}`}
-                title={collapsed ? item.name : undefined}
-              >
-                {item.icon}
-                {!collapsed && <span className="font-medium">{item.name}</span>}
-              </button>
-            );
-          })}
-      </nav>
+      <ScrollArea className="flex-1">
+        <nav className="space-y-1 p-4">
+          {navItems
+            .filter((item) => !item.adminOnly || isAdmin)
+            .map((item) => {
+              const isActive = router.location.pathname === item.path;
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => {
+                    navigate({ to: item.path });
+                    setMobileOpen(false);
+                  }}
+                  className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-all ${
+                    isActive
+                      ? 'bg-emerald-500/20 text-emerald-400 shadow-lg shadow-emerald-500/20'
+                      : 'text-gray-300 hover:bg-white/5'
+                  } ${collapsed ? 'justify-center' : ''}`}
+                  title={collapsed ? item.name : undefined}
+                >
+                  {item.icon}
+                  {!collapsed && <span className="font-medium">{item.name}</span>}
+                </button>
+              );
+            })}
+        </nav>
+
+        {/* Schedule Security Audit Module */}
+        {!collapsed && (
+          <div className="px-4 pb-4">
+            <SecurityAuditScheduler />
+          </div>
+        )}
+      </ScrollArea>
 
       <div className="border-t border-white/10 p-4">
         {/* Ghost Mode Toggle */}
@@ -153,7 +166,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         >
           {isGhostMode ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           {!collapsed && (
-            <span className="text-sm font-medium">{isGhostMode ? 'Ghost Mode Active' : 'Ghost Mode'}</span>
+            <span className="text-sm font-medium">{isGhostMode ? 'Ghost Mode ON' : 'Ghost Mode'}</span>
           )}
         </button>
 
@@ -161,27 +174,28 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         {!collapsed && (
           <div className="mb-3 rounded-lg bg-white/5 p-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500">
-                <User className="h-5 w-5" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500">
+                <User className="h-5 w-5 text-white" />
               </div>
               <div className="flex-1 overflow-hidden">
-                <p className="truncate text-sm font-medium">{userProfile?.name || 'User'}</p>
-                <p className="truncate text-xs text-gray-400">{isAdmin ? 'Administrator' : 'User'}</p>
+                <p className="truncate text-sm font-medium text-white">{userProfile?.name || 'User'}</p>
+                <p className="truncate text-xs text-gray-400">{isAdmin ? 'Administrator' : 'Operative'}</p>
               </div>
             </div>
           </div>
         )}
 
         {/* Logout Button */}
-        <Button
-          variant="ghost"
+        <button
           onClick={handleLogout}
-          className={`w-full ${collapsed ? 'justify-center px-2' : 'justify-start'} text-gray-300 hover:bg-red-500/10 hover:text-red-400`}
+          className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 text-red-400 transition-all hover:bg-red-500/10 ${
+            collapsed ? 'justify-center' : ''
+          }`}
           title={collapsed ? 'Logout' : undefined}
         >
           <LogOut className="h-5 w-5" />
-          {!collapsed && <span className="ml-3">Logout</span>}
-        </Button>
+          {!collapsed && <span className="font-medium">Logout</span>}
+        </button>
       </div>
     </div>
   );
@@ -190,30 +204,31 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen bg-black text-white">
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden border-r border-white/10 bg-black/50 backdrop-blur-xl transition-all duration-300 lg:block ${
-          sidebarCollapsed ? 'w-20' : 'w-64'
+        className={`hidden lg:flex lg:flex-col border-r border-white/10 bg-black/50 backdrop-blur-xl transition-all duration-300 ${
+          sidebarCollapsed ? 'lg:w-20' : 'lg:w-80'
         }`}
       >
-        <div className="relative flex h-full flex-col">
-          <NavContent collapsed={sidebarCollapsed} />
-          {/* Collapse Toggle */}
-          <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="absolute -right-3 top-20 flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-black text-gray-400 hover:bg-white/5 hover:text-white"
-          >
-            {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          </button>
-        </div>
+        <NavContent collapsed={sidebarCollapsed} />
+        <button
+          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          className="absolute -right-3 top-20 z-50 flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-black text-gray-400 hover:text-white"
+        >
+          {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        </button>
       </aside>
 
       {/* Mobile Sidebar */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="fixed left-4 top-4 z-50 lg:hidden">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="fixed left-4 top-4 z-40 lg:hidden"
+          >
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-64 border-white/10 bg-black/95 p-0 backdrop-blur-xl">
+        <SheetContent side="left" className="w-80 border-white/10 bg-black p-0">
           <NavContent />
         </SheetContent>
       </Sheet>

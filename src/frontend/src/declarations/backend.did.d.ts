@@ -10,6 +10,13 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface AuditLogEntry {
+  'action' : string,
+  'user' : User,
+  'timestamp' : Time,
+  'details' : string,
+  'success' : boolean,
+}
 export interface MeetingLog {
   'title' : string,
   'participants' : Array<User>,
@@ -24,6 +31,23 @@ export interface PanicEvent {
   'triggerType' : string,
   'timestamp' : Time,
 }
+export interface SessionRecording {
+  'id' : string,
+  'recordingData' : Uint8Array,
+  'title' : string,
+  'duration' : bigint,
+  'owner' : User,
+  'metadata' : string,
+  'bookmarks' : Array<bigint>,
+  'timestamp' : Time,
+}
+export interface SystemHealthMetrics {
+  'updateCallCount' : bigint,
+  'stableMemory' : bigint,
+  'heapMemory' : bigint,
+  'queryCallCount' : bigint,
+  'cyclesBalance' : bigint,
+}
 export type Time = bigint;
 export type User = Principal;
 export interface UserProfile { 'name' : string }
@@ -34,16 +58,24 @@ export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addMeetingLog' : ActorMethod<[MeetingLog], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'assignRole' : ActorMethod<[Principal, UserRole], undefined>,
   'clearPanicHistory' : ActorMethod<[], undefined>,
   'deleteMeetingLog' : ActorMethod<[string], undefined>,
+  'deleteSessionRecording' : ActorMethod<[string], undefined>,
   'getAllMeetingLogs' : ActorMethod<[], Array<MeetingLog>>,
+  'getAllSessionRecordings' : ActorMethod<[], Array<SessionRecording>>,
+  'getAuditLog' : ActorMethod<[], Array<AuditLogEntry>>,
+  'getAuditLogForUser' : ActorMethod<[Principal], Array<AuditLogEntry>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getMeetingLog' : ActorMethod<[string], [] | [MeetingLog]>,
   'getPanicHistory' : ActorMethod<[], Array<PanicEvent>>,
+  'getSessionRecording' : ActorMethod<[string], [] | [SessionRecording]>,
+  'getSystemHealthMetrics' : ActorMethod<[], SystemHealthMetrics>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'saveSessionRecording' : ActorMethod<[SessionRecording], undefined>,
   'triggerPanic' : ActorMethod<[string], undefined>,
   'updateMeetingLog' : ActorMethod<[string, MeetingLog], undefined>,
 }

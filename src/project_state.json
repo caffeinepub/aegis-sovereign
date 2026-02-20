@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
-  "summary": "Aegis Sovereign - Enterprise Meeting Intelligence & Privacy Suite with multi-page architecture being expanded into high-density Enterprise Ecosystem on ICP with role-based access control, admin panel, and Motoko backend for persistent data storage",
+  "projectStateVersion": 25,
+  "summary": "Axon - Enterprise Meeting Intelligence & Privacy Suite with multi-page architecture being expanded into high-density Enterprise Ecosystem on ICP with role-based access control, admin panel, and Motoko backend for persistent data storage",
   "architectural_notes": [
     "Tech stack: React, Node.js, Tailwind CSS, Framer Motion, Supabase Auth",
     "UI components: Shadcn/UI with Tabs and Sheets for navigation",
@@ -14,9 +14,10 @@
     "Global hotkeys: Ctrl+Shift+P (Panic), Ctrl+Shift+L (Lag), CMD+K (Tactical Layer toggle)",
     "Skeleton loaders, Sonner toast notifications, and magnetic button hover effects"
   ],
-  "known_issues": [],
+  "known_issues": [
+    "Sign-in page gets stuck in loading state and does not proceed after authentication"
+  ],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Modern minimalist Aegis Sovereign logo featuring a shield with neural network pattern, designed for enterprise security software with clean lines and professional aesthetic suitable for tech applications (aegis-logo.dim_256x256.png)\n- Favicon version of the Aegis Sovereign logo optimized for small display at 32x32 pixels with high contrast and recognizable symbol (aegis-favicon.dim_32x32.png)\n- PWA app icon featuring the Aegis Sovereign logo on transparent or solid background optimized for mobile home screens at 192x192 pixels (aegis-icon-192.dim_192x192.png)\n- High-resolution PWA app icon for high-DPI displays at 512x512 pixels (aegis-icon-512.dim_512x512.png)",
   "existing_features": [
     {
       "id": "feature-create-a-public-landing-page-with-hero-section-displaying-neural-meeting-intelligence-for-global-leaders-security-architecture-sections-for-quantum-resistant-encryption-soc2-type-ii-compliance-and-biometric-integrity-and-a-3-tier-pricing-table-showing-professional-free-enterprise-49-mo-and-sovereign-149-mo-tiers",
@@ -401,6 +402,326 @@
         "REQ-53"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-main-application-title-in-the-landing-page-header-from-aegis-sovereign-to-axon",
+      "title": "Update the main application title in the landing page header from 'Aegis Sovereign' to 'Axon'",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-application-name-in-the-dashboard-sidebar-from-aegis-sovereign-to-axon",
+      "title": "Update the application name in the dashboard sidebar from 'Aegis Sovereign' to 'Axon'",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-pwa-manifest-name-and-short-name-from-aegis-sovereign-remote-to-axon-remote-in-frontend-public-manifest-json",
+      "title": "Update the PWA manifest name and short_name from 'Aegis Sovereign Remote' to 'Axon Remote' in frontend/public/manifest.json",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-html-document-title-from-aegis-sovereign-to-axon-in-frontend-index-html",
+      "title": "Update the HTML document title from 'Aegis Sovereign' to 'Axon' in frontend/index.html",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-text-references-from-aegis-sovereign-to-axon-throughout-the-application-including-page-titles-metadata-and-user-facing-text",
+      "title": "Update all text references from 'Aegis Sovereign' to 'Axon' throughout the application including page titles, metadata, and user-facing text",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-project-state-summary-and-documentation-to-reflect-the-new-axon-brand-name-instead-of-aegis-sovereign",
+      "title": "Update project state summary and documentation to reflect the new 'Axon' brand name instead of 'Aegis Sovereign'",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-new-axon-logo-image-featuring-a-minimalist-a-constructed-from-two-converging-neural-pathways-with-the-crossbar-as-a-glowing-action-potential-bright-pulse-of-light-traveling-left-to-right-one-leg-styled-as-a-sleek-fiber-optic-cable-and-the-other-as-a-biological-axon-with-subtle-myelin-sheath-segments-and-a-small-radiant-synapse-glowing-node-at-the-apex-of-the-a",
+      "title": "Generate a new AXON logo image featuring a minimalist 'A' constructed from two converging neural pathways, with the crossbar as a glowing Action Potential (bright pulse of light) traveling left to right, one leg styled as a sleek fiber-optic cable and the other as a biological axon with subtle myelin sheath segments, and a small radiant Synapse (glowing node) at the apex of the 'A'",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-synapse-cyan-00f2ff-to-nerve-green-10b981-gradient-as-the-primary-color-scheme-for-the-axon-logo-with-a-pitch-black-background-featuring-subtle-carbon-fiber-texture",
+      "title": "Apply Synapse Cyan (#00f2ff) to Nerve Green (#10b981) gradient as the primary color scheme for the AXON logo with a pitch black background featuring subtle carbon-fiber texture",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-all-instances-of-the-current-logo-with-the-new-axon-neural-pathway-logo-across-the-landing-page-header-dashboard-sidebar-and-favicon-locations-in-frontend-public",
+      "title": "Replace all instances of the current logo with the new AXON neural pathway logo across the landing page header, dashboard sidebar, and favicon locations in frontend/public/",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-pwa-icon-variants-of-the-new-axon-logo-at-192x192-and-512x512-dimensions-for-frontend-public-icons-to-replace-existing-manifest-icon-references",
+      "title": "Generate PWA icon variants of the new AXON logo at 192x192 and 512x512 dimensions for frontend/public/icons/ to replace existing manifest icon references",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-investigate-and-fix-the-sign-in-page-loading-state-issue-where-the-page-remains-in-loading-state-indefinitely-after-internet-identity-authentication-without-redirecting-to-the-dashboard",
+      "title": "Investigate and fix the sign-in page loading state issue where the page remains in loading state indefinitely after Internet Identity authentication without redirecting to the dashboard",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-loginpage-tsx-properly-handles-the-authentication-flow-state-transitions-between-unauthenticated-authenticating-and-authenticated-states-without-race-conditions",
+      "title": "Verify that LoginPage.tsx properly handles the authentication flow state transitions between unauthenticated, authenticating, and authenticated states without race conditions",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-timeout-handling-to-the-login-flow-to-detect-and-recover-from-authentication-hangs-displaying-an-error-message-to-the-user-after-30-seconds-of-loading",
+      "title": "Add timeout handling to the login flow to detect and recover from authentication hangs, displaying an error message to the user after 30 seconds of loading",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-detailed-console-logging-to-the-authentication-flow-in-both-loginpage-and-useinternetidentity-to-help-diagnose-where-the-loading-state-gets-stuck",
+      "title": "Add detailed console logging to the authentication flow in both LoginPage and useInternetIdentity to help diagnose where the loading state gets stuck",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-rewrite-the-landing-page-hero-headline-from-axon-dashboard-to-secure-your-corporate-intelligence-with-sovereign-neural-defense-and-add-a-subheadline-the-only-decentralized-command-center-that-masks-acoustic-signatures-and-encrypts-executive-summaries-in-real-time",
+      "title": "Rewrite the landing page hero headline from 'AXON Dashboard' to 'Secure Your Corporate Intelligence with Sovereign Neural Defense' and add a subheadline: 'The only decentralized command center that masks acoustic signatures and encrypts executive summaries in real-time.'",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-verified-operative-feedback-testimonials-section-on-the-landing-page-below-the-pricing-tiers-featuring-3-high-density-testimonials-with-fake-user-avatars-names-e-g-chief-security-officer-fortune-500-5-star-rating-icons-and-transformation-focused-quotes-like-before-axon-our-remote-meetings-were-a-security-risk-now-we-operate-with-total-peace-of-mind",
+      "title": "Create a 'Verified Operative Feedback' testimonials section on the landing page below the pricing tiers featuring 3 high-density testimonials with fake user avatars, names (e.g., 'Chief Security Officer, Fortune 500'), 5-star rating icons, and transformation-focused quotes like 'Before Axon, our remote meetings were a security risk; now, we operate with total peace of mind.'",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-standardize-all-primary-cta-buttons-across-the-landing-page-to-use-the-same-cyber-emerald-glow-effect-identical-shape-and-consistent-size-update-button-text-from-generic-labels-like-submit-or-activate-to-action-oriented-phrasing-such-as-secure-my-first-meeting-or-start-sovereign-trial",
+      "title": "Standardize all primary CTA buttons across the landing page to use the same Cyber Emerald glow effect, identical shape, and consistent size. Update button text from generic labels like 'Submit' or 'Activate' to action-oriented phrasing such as 'Secure My First Meeting' or 'Start Sovereign Trial'.",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-cta-buttons-are-strategically-placed-and-visible-in-three-key-locations-on-the-landing-page-the-header-navigation-the-hero-section-and-at-the-bottom-of-the-subscription-pricing-module-for-maximum-conversion-repetition",
+      "title": "Ensure CTA buttons are strategically placed and visible in three key locations on the landing page: the header navigation, the hero section, and at the bottom of the subscription/pricing module for maximum conversion repetition.",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-schedule-security-audit-module-in-the-dashboard-sidebar-featuring-a-simulated-calendly-style-widget-that-allows-users-to-select-a-time-slot-for-a-tactical-onboarding-call-instead-of-a-traditional-contact-form",
+      "title": "Create a 'Schedule Security Audit' module in the dashboard sidebar featuring a simulated Calendly-style widget that allows users to select a time slot for a 'Tactical Onboarding Call' instead of a traditional contact form.",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-video-welcome-widget-positioned-in-the-bottom-right-corner-of-the-landing-page-in-picture-in-picture-style-displaying-a-simulated-looping-video-of-an-operator-explaining-the-system-s-benefits-to-build-trust-and-parasocial-connection-with-visitors",
+      "title": "Create a 'Video Welcome' widget positioned in the bottom-right corner of the landing page in picture-in-picture style, displaying a simulated looping video of an 'Operator' explaining the system's benefits to build trust and parasocial connection with visitors.",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-simplify-the-top-navigation-bar-to-display-only-4-primary-links-dashboard-intelligence-pricing-and-support-move-all-technical-logs-legal-documentation-and-secondary-features-to-a-clean-footer-navigation-section",
+      "title": "Simplify the top navigation bar to display only 4 primary links: Dashboard, Intelligence, Pricing, and Support. Move all technical logs, legal documentation, and secondary features to a clean footer navigation section.",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-advanced-threat-detection-matrix-component-displaying-a-3d-heatmap-visualization-of-detected-security-threats-across-different-attack-vectors-phishing-malware-ddos-zero-day-with-severity-levels-shown-as-color-coded-cells-that-pulse-when-active-threats-are-detected",
+      "title": "Create Advanced Threat Detection Matrix component displaying a 3D heatmap visualization of detected security threats across different attack vectors (phishing, malware, DDoS, zero-day) with severity levels shown as color-coded cells that pulse when active threats are detected",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-executive-briefing-generator-that-automatically-creates-ai-powered-meeting-summaries-with-key-decisions-action-items-risk-assessments-and-follow-up-tasks-displayed-in-a-collapsible-card-with-export-to-pdf-functionality",
+      "title": "Implement Executive Briefing Generator that automatically creates AI-powered meeting summaries with key decisions, action items, risk assessments, and follow-up tasks, displayed in a collapsible card with export-to-PDF functionality",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-quantum-encryption-status-monitor-showing-real-time-encryption-metrics-including-key-rotation-frequency-quantum-resistance-level-in-qubits-lattice-based-crypto-status-and-post-quantum-readiness-score-with-animated-progress-rings",
+      "title": "Create Quantum Encryption Status Monitor showing real-time encryption metrics including key rotation frequency, quantum resistance level (in qubits), lattice-based crypto status, and post-quantum readiness score with animated progress rings",
+      "reqIds": [
+        "REQ-78"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-network-latency-globe-component-featuring-a-3d-rotating-earth-visualization-using-three-js-react-three-fiber-showing-connection-paths-between-nodes-with-latency-measurements-displayed-as-colored-arcs-green-50ms-yellow-50-150ms-red-150ms",
+      "title": "Implement Network Latency Globe component featuring a 3D rotating Earth visualization using Three.js/React Three Fiber showing connection paths between nodes with latency measurements displayed as colored arcs (green <50ms, yellow 50-150ms, red >150ms)",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-real-time-participant-emotion-tracker-displaying-individual-participant-emotion-states-during-meetings-with-facial-emotion-analysis-simulation-showing-7-emotions-joy-surprise-fear-disgust-anger-sadness-neutral-as-stacked-area-charts-over-meeting-timeline",
+      "title": "Create Real-Time Participant Emotion Tracker displaying individual participant emotion states during meetings with facial emotion analysis simulation showing 7 emotions (joy, surprise, fear, disgust, anger, sadness, neutral) as stacked area charts over meeting timeline",
+      "reqIds": [
+        "REQ-80"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-voice-pattern-recognition-timeline-showing-speaker-vocal-signatures-as-waveform-fingerprints-on-a-horizontal-timeline-with-each-speaker-assigned-a-unique-color-and-their-speaking-segments-displayed-as-colored-bars-with-intensity-indicating-volume",
+      "title": "Implement Voice Pattern Recognition Timeline showing speaker vocal signatures as waveform fingerprints on a horizontal timeline, with each speaker assigned a unique color and their speaking segments displayed as colored bars with intensity indicating volume",
+      "reqIds": [
+        "REQ-81"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-tactical-command-hotkeys-reference-panel-accessible-via-key-press-displaying-a-modal-overlay-with-categorized-keyboard-shortcuts-for-all-tactical-features-panic-protocol-ghost-mode-lag-simulation-environment-controls-with-visual-key-representations",
+      "title": "Create Tactical Command Hotkeys Reference Panel accessible via '?' key press, displaying a modal overlay with categorized keyboard shortcuts for all tactical features (panic protocol, ghost mode, lag simulation, environment controls) with visual key representations",
+      "reqIds": [
+        "REQ-82"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-performance-metrics-dashboard-showing-frontend-rendering-performance-with-fps-counter-memory-usage-graph-bundle-size-indicator-and-react-component-render-counts-to-help-optimize-application-performance",
+      "title": "Implement Performance Metrics Dashboard showing frontend rendering performance with FPS counter, memory usage graph, bundle size indicator, and React component render counts to help optimize application performance",
+      "reqIds": [
+        "REQ-83"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-compliance-audit-logger-that-tracks-and-stores-all-security-sensitive-actions-login-attempts-role-changes-data-access-panic-protocol-activations-in-the-backend-with-tamper-proof-timestamps-and-user-principals",
+      "title": "Create Compliance Audit Logger that tracks and stores all security-sensitive actions (login attempts, role changes, data access, panic protocol activations) in the backend with tamper-proof timestamps and user principals",
+      "reqIds": [
+        "REQ-84"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-mobile-optimized-biometric-scanner-interface-accessible-at-mobile-biometric-route-that-simulates-fingerprint-and-facial-recognition-with-animated-scanning-effects-haptic-feedback-and-success-failure-states-for-enhanced-mobile-pwa-experience",
+      "title": "Create Mobile-Optimized Biometric Scanner interface accessible at /mobile-biometric route that simulates fingerprint and facial recognition with animated scanning effects, haptic feedback, and success/failure states for enhanced mobile PWA experience",
+      "reqIds": [
+        "REQ-86"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-dark-web-monitoring-dashboard-showing-simulated-threat-intelligence-feeds-from-dark-web-sources-displaying-potential-data-leaks-credential-dumps-and-brand-mentions-with-severity-ratings-and-recommended-actions",
+      "title": "Implement Dark Web Monitoring Dashboard showing simulated threat intelligence feeds from dark web sources, displaying potential data leaks, credential dumps, and brand mentions with severity ratings and recommended actions",
+      "reqIds": [
+        "REQ-87"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-bandwidth-optimization-controller-allowing-users-to-adjust-streaming-quality-levels-low-medium-high-ultra-for-all-audio-video-components-with-real-time-bandwidth-usage-indicator-showing-current-consumption-in-mbps",
+      "title": "Create Bandwidth Optimization Controller allowing users to adjust streaming quality levels (Low/Medium/High/Ultra) for all audio/video components with real-time bandwidth usage indicator showing current consumption in Mbps",
+      "reqIds": [
+        "REQ-88"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-session-recording-archive-feature-that-allows-users-to-save-important-meeting-sessions-with-metadata-tags-searchable-titles-and-playback-functionality-with-seek-controls-and-timestamp-bookmarks",
+      "title": "Implement Session Recording Archive feature that allows users to save important meeting sessions with metadata tags, searchable titles, and playback functionality with seek controls and timestamp bookmarks",
+      "reqIds": [
+        "REQ-89"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-system-health-monitor-showing-real-time-metrics-for-all-backend-services-including-canister-cycles-balance-heap-memory-usage-stable-memory-usage-and-query-update-call-counts-with-alert-thresholds",
+      "title": "Create System Health Monitor showing real-time metrics for all backend services including canister cycles balance, heap memory usage, stable memory usage, and query/update call counts with alert thresholds",
+      "reqIds": [
+        "REQ-90"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-existing-3-tier-pricing-table-section-professional-free-enterprise-49-mo-sovereign-149-mo-from-the-landing-page-landingpage-tsx",
+      "title": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
+      "reqIds": [
+        "REQ-91"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-subscriptions-page-component-accessible-from-the-dashboard-sidebar-positioned-in-the-navigation-menu-after-analytics-vault",
+      "title": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
+      "reqIds": [
+        "REQ-92"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-two-subscription-pricing-tiers-on-the-subscriptions-page-basic-tier-at-300-month-and-premium-tier-at-500-month-displayed-as-cards-with-glassmorphism-styling-consistent-with-the-existing-dashboard-design",
+      "title": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
+      "reqIds": [
+        "REQ-93"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-differentiate-features-between-basic-300-month-and-premium-500-month-tiers-based-on-importance-with-basic-tier-including-essential-meeting-intelligence-features-and-premium-tier-adding-advanced-security-tactical-controls-and-priority-features",
+      "title": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
+      "reqIds": [
+        "REQ-94"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-subscribe-cta-buttons-to-both-subscription-tier-cards-that-display-a-toast-notification-indicating-the-subscription-flow-is-simulated-as-stripe-integration-is-not-yet-implemented",
+      "title": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
+      "reqIds": [
+        "REQ-95"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -583,8 +904,78 @@
       "status": "pending"
     },
     {
-      "id": "AR-51",
-      "summary": "Change/update the logo for the Aegis Sovereign application",
+      "id": "AR-24",
+      "summary": "Fix sign-in page loading issue preventing users from proceeding after authentication",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-53",
+      "summary": "Ensure the useInternetIdentity hook correctly manages the authentication state lifecycle and notifies components when authentication completes",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-54",
+      "summary": "Rewrite landing page hero headline to 'Secure Your Corporate Intelligence with Sovereign Neural Defense' with subheadline explaining acoustic masking and real-time encryption",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-55",
+      "summary": "Add 'Verified Operative Feedback' testimonial section below pricing tiers with 3 high-density testimonials featuring avatars, names, roles, 5-star ratings, and transformation-focused quotes",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-56",
+      "summary": "Standardize all CTA buttons to Cyber Emerald glow with consistent size/shape and action-oriented phrasing like 'Secure My First Meeting' and 'Start Sovereign Trial'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-57",
+      "summary": "Ensure CTA buttons are visible in Header, Hero section, and bottom of Subscription module with repetition throughout landing page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-58",
+      "summary": "Add 'Schedule Security Audit' module to sidebar with simulated Calendly widget for booking Tactical Onboarding Call",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-59",
+      "summary": "Create Video Trust Module in bottom right corner with picture-in-picture looping video of Operator explaining system benefits",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-60",
+      "summary": "Simplify top navigation to only 4 links: Dashboard, Intelligence, Pricing, Support; move technical logs and legal docs to footer",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-70",
+      "summary": "Implement Intelligent Meeting Scheduler with conflict detection that displays upcoming meetings in a calendar view, highlights scheduling conflicts, suggests optimal meeting times based on participant availability patterns, and integrates with the existing Security Audit Scheduler",
+      "reqIds": [
+        "REQ-85"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-71",
+      "summary": "Remove pricing tier section from landing page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-72",
+      "summary": "Create new Subscriptions page accessible from dashboard sidebar positioned after Analytics & Vault, displaying two pricing tiers: ₹300/month and ₹500/month with feature differentiation based on importance and value",
       "reqIds": [],
       "status": "pending"
     }

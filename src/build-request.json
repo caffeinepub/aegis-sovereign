@@ -1,47 +1,117 @@
 {
   "kind": "build_request",
-  "title": "Update Aegis Sovereign application logo",
-  "projectName": "Aegis Sovereign",
+  "title": "Remove landing page pricing and add dashboard Subscriptions page",
+  "projectName": "Axon",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-53",
-      "text": "Replace the existing Aegis Sovereign logo with a new logo design across all instances in the application including the landing page header, dashboard sidebar, PWA manifest icons, and favicon",
+      "id": "REQ-91",
+      "text": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-last"
         ],
         "quotes": [
-          "Can u a change the logo"
+          "Remove the pricing from the 1st page"
         ]
       },
       "acceptanceCriteria": [
-        "New logo appears in the landing page header navigation",
-        "New logo displays in the collapsed and expanded sidebar states in DashboardLayout",
-        "PWA manifest icons are updated with the new logo design",
-        "Favicon reflects the new logo",
-        "Logo maintains visual consistency across all screen sizes and contexts"
+        "The pricing section is completely removed from LandingPage.tsx",
+        "The landing page layout remains clean and cohesive after removal",
+        "All references to the pricing tiers in the landing page are eliminated"
+      ]
+    },
+    {
+      "id": "REQ-92",
+      "text": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "add new component under the vault component as 'Subscriptions'"
+        ]
+      },
+      "acceptanceCriteria": [
+        "New route created for /subscriptions page",
+        "Subscriptions link appears in DashboardLayout sidebar after Analytics & Vault",
+        "Page is accessible to all authenticated users",
+        "Navigation follows the existing sidebar patterns with icons and labels"
+      ]
+    },
+    {
+      "id": "REQ-93",
+      "text": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "with 300 Rs./month and 500 Rs./month"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Two pricing cards displayed side-by-side in a responsive grid layout",
+        "Each card shows tier name, monthly price in Indian Rupees (₹), and feature list",
+        "Cards use glassmorphism effects matching the existing bento grid cards",
+        "Hover effects and BorderBeam animations are applied for premium feel"
+      ]
+    },
+    {
+      "id": "REQ-94",
+      "text": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "differentiate the features into them properly according to their importance"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Basic tier (₹300/month) includes: Neural Frequency Visualizer, Sentiment Analysis, Meeting ROI Tracking, Speaker Identity Matrix, Voice Pattern Recognition, up to 10 meeting recordings per month",
+        "Premium tier (₹500/month) includes: All Basic features plus Sentinel Protocol access, Panic Mode, Environment Spoofing, Packet Jitter Simulator, Dark Web Monitoring, Threat Detection Matrix, Executive Briefing Generator, unlimited meeting recordings, priority support",
+        "Each feature is clearly listed under its respective tier",
+        "Visual indicators (checkmarks/icons) show which features are included in each tier",
+        "Feature descriptions are concise and emphasize value/benefits"
+      ]
+    },
+    {
+      "id": "REQ-95",
+      "text": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each tier card has a prominent CTA button with Cyber Emerald glow effect matching landing page buttons",
+        "Button text reads 'Subscribe to Basic' or 'Subscribe to Premium' respectively",
+        "Clicking the button triggers a Sonner toast notification explaining this is a simulated subscription interface",
+        "Buttons are styled consistently with existing PrimaryCTA components"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the DashboardLayout component structure beyond logo asset replacement",
-    "Maintain existing glassmorphism styling and layout positioning",
-    "Preserve PWA manifest structure and only update icon references"
+    "Do not modify frontend/src/hooks/useInternetIdentity.ts or frontend/src/hooks/useActor.ts",
+    "Maintain glassmorphism styling and midnight black backgrounds consistent with existing dashboard design",
+    "Use existing Shadcn/UI components and Tailwind classes for consistency",
+    "Do not implement actual payment processing or Stripe integration"
   ],
   "nonGoals": [
-    "Redesigning the entire branding or color scheme",
-    "Changing the application name or tagline",
-    "Modifying navigation structure or sidebar functionality"
+    "Implementing actual payment processing or Stripe integration",
+    "Adding subscription management backend logic or database schema",
+    "Creating user subscription status tracking or billing cycles",
+    "Modifying the backend Motoko actor to store subscription data",
+    "Adding email notifications or invoicing features"
   ],
   "imageRequirements": {
-    "required": [
-      "Modern minimalist Aegis Sovereign logo featuring a shield with neural network pattern, designed for enterprise security software with clean lines and professional aesthetic suitable for tech applications (aegis-logo.dim_256x256.png)",
-      "Favicon version of the Aegis Sovereign logo optimized for small display at 32x32 pixels with high contrast and recognizable symbol (aegis-favicon.dim_32x32.png)",
-      "PWA app icon featuring the Aegis Sovereign logo on transparent or solid background optimized for mobile home screens at 192x192 pixels (aegis-icon-192.dim_192x192.png)",
-      "High-resolution PWA app icon for high-DPI displays at 512x512 pixels (aegis-icon-512.dim_512x512.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

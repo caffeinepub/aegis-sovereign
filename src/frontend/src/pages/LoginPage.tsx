@@ -23,9 +23,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-black p-4">
       <Card className="w-full max-w-md border-white/10 bg-white/5 backdrop-blur-xl">
         <CardHeader className="text-center">
-          <img src="/assets/generated/aegis-logo.dim_512x512.png" alt="Aegis" className="mx-auto mb-4 h-16 w-16" />
+          <img src="/assets/generated/aegis-logo.dim_512x512.png" alt="Axon" className="mx-auto mb-4 h-16 w-16" />
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Sign in to access your Aegis Sovereign dashboard</CardDescription>
+          <CardDescription>Sign in to access your Axon dashboard</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Button className="w-full" size="lg" onClick={handleLogin} disabled={isLoggingIn}>

@@ -9,14 +9,20 @@ import NeuralLab from './pages/NeuralLab';
 import SentinelProtocol from './pages/SentinelProtocol';
 import DeviceSync from './pages/DeviceSync';
 import AnalyticsVault from './pages/AnalyticsVault';
+import Subscriptions from './pages/Subscriptions';
 import TacticalRemote from './pages/TacticalRemote';
 import AdminPanel from './pages/AdminPanel';
+import DevMetrics from './pages/DevMetrics';
+import Settings from './pages/Settings';
+import MobileBiometric from './pages/MobileBiometric';
 import DashboardLayout from './components/layout/DashboardLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import PageTransition from './components/transitions/PageTransition';
 import PanicProtocol from './components/sentinel/PanicProtocol';
 import ErrorBoundary from './components/errors/ErrorBoundary';
+import HotkeysReferenceModal from './components/common/HotkeysReferenceModal';
+import PerformanceOverlay from './components/dev/PerformanceOverlay';
 import { GhostModeProvider } from './contexts/GhostModeContext';
 import { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
 import { useState } from 'react';
@@ -68,6 +74,18 @@ const remoteRoute = createRoute({
     <PageTransition>
       <TacticalRemote />
     </PageTransition>
+  ),
+});
+
+const mobileBiometricRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/mobile-biometric',
+  component: () => (
+    <ProtectedRoute>
+      <PageTransition>
+        <MobileBiometric />
+      </PageTransition>
+    </ProtectedRoute>
   ),
 });
 
@@ -135,6 +153,26 @@ const analyticsRoute = createRoute({
   ),
 });
 
+const subscriptionsRoute = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/subscriptions',
+  component: () => (
+    <PageTransition>
+      <Subscriptions />
+    </PageTransition>
+  ),
+});
+
+const settingsRoute = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/settings',
+  component: () => (
+    <PageTransition>
+      <Settings />
+    </PageTransition>
+  ),
+});
+
 const adminPanelRoute = createRoute({
   getParentRoute: () => dashboardRoute,
   path: '/admin-panel',
@@ -147,18 +185,34 @@ const adminPanelRoute = createRoute({
   ),
 });
 
+const devMetricsRoute = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/dev-metrics',
+  component: () => (
+    <RoleProtectedRoute requiredRole="admin">
+      <PageTransition>
+        <DevMetrics />
+      </PageTransition>
+    </RoleProtectedRoute>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   loginRoute,
   signupRoute,
   remoteRoute,
+  mobileBiometricRoute,
   dashboardRoute.addChildren([
     commandCenterRoute,
     neuralLabRoute,
     sentinelRoute,
     deviceSyncRoute,
     analyticsRoute,
+    subscriptionsRoute,
+    settingsRoute,
     adminPanelRoute,
+    devMetricsRoute,
   ]),
 ]);
 
@@ -170,31 +224,40 @@ declare module '@tanstack/react-router' {
   }
 }
 
-function AppContent() {
-  const [panicActive, setPanicActive] = useState(false);
-  const triggerPanic = useTriggerPanic();
+function App() {
+  const [showPanic, setShowPanic] = useState(() => {
+    return sessionStorage.getItem('panicActive') === 'true';
+  });
+  const [showPerformanceOverlay, setShowPerformanceOverlay] = useState(false);
+  const { mutate: triggerPanic } = useTriggerPanic();
+
+  const handleClosePanic = () => {
+    setShowPanic(false);
+    sessionStorage.removeItem('panicActive');
+  };
 
   useKeyboardShortcut(['Control', 'Shift', 'P'], () => {
-    triggerPanic.mutate('Windows Update');
-    setPanicActive(true);
+    setShowPanic(true);
+    sessionStorage.setItem('panicActive', 'true');
+    triggerPanic('keyboard-shortcut');
+  });
+
+  useKeyboardShortcut(['Control', 'Shift', 'M'], () => {
+    setShowPerformanceOverlay((prev) => !prev);
   });
 
   return (
-    <>
-      <RouterProvider router={router} />
-      {panicActive && <PanicProtocol onClose={() => setPanicActive(false)} />}
-    </>
+    <ErrorBoundary>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <GhostModeProvider>
+          <RouterProvider router={router} />
+          {showPanic && <PanicProtocol onClose={handleClosePanic} />}
+          <HotkeysReferenceModal />
+          {showPerformanceOverlay && <PerformanceOverlay />}
+        </GhostModeProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
-export default function App() {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-      <ErrorBoundary>
-        <GhostModeProvider>
-          <AppContent />
-        </GhostModeProvider>
-      </ErrorBoundary>
-    </ThemeProvider>
-  );
-}
+export default App;

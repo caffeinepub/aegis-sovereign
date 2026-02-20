@@ -16,7 +16,6 @@ export default function CommandCenter() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Small delay to ensure all components are ready
     const timer = setTimeout(() => {
       setIsInitialized(true);
     }, 100);
@@ -27,7 +26,7 @@ export default function CommandCenter() {
   if (!isInitialized) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-black">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+        <Loader2 className="h-8 w-8 animate-spin text-emerald-400" />
       </div>
     );
   }

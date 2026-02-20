@@ -1,6 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { MeetingLog, PanicEvent, UserProfile, UserRole } from '../backend';
+import type { 
+  MeetingLog, 
+  PanicEvent, 
+  UserProfile, 
+  UserRole, 
+  AuditLogEntry, 
+  SessionRecording,
+  SystemHealthMetrics 
+} from '../backend';
 import { Principal } from '@icp-sdk/core/principal';
 
 export function useGetCallerUserProfile() {
@@ -135,5 +143,104 @@ export function useGetPanicHistory() {
       return await actor.getPanicHistory();
     },
     enabled: !!actor && !isFetching,
+  });
+}
+
+// Audit Log Queries
+export function useGetAuditLog() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<AuditLogEntry[]>({
+    queryKey: ['auditLog'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return await actor.getAuditLog();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useGetAuditLogForUser(user: Principal) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<AuditLogEntry[]>({
+    queryKey: ['auditLog', user.toString()],
+    queryFn: async () => {
+      if (!actor) return [];
+      return await actor.getAuditLogForUser(user);
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+// Session Recording Queries
+export function useGetAllSessionRecordings() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<SessionRecording[]>({
+    queryKey: ['sessionRecordings'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return await actor.getAllSessionRecordings();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useGetSessionRecording(id: string) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<SessionRecording | null>({
+    queryKey: ['sessionRecording', id],
+    queryFn: async () => {
+      if (!actor) return null;
+      return await actor.getSessionRecording(id);
+    },
+    enabled: !!actor && !isFetching && !!id,
+  });
+}
+
+export function useSaveSessionRecording() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (recording: SessionRecording) => {
+      if (!actor) throw new Error('Actor not initialized');
+      await actor.saveSessionRecording(recording);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['sessionRecordings'] });
+    },
+  });
+}
+
+export function useDeleteSessionRecording() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      if (!actor) throw new Error('Actor not initialized');
+      await actor.deleteSessionRecording(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['sessionRecordings'] });
+    },
+  });
+}
+
+// System Health Metrics
+export function useGetSystemHealthMetrics() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<SystemHealthMetrics>({
+    queryKey: ['systemHealth'],
+    queryFn: async () => {
+      if (!actor) throw new Error('Actor not available');
+      return await actor.getSystemHealthMetrics();
+    },
+    enabled: !!actor && !isFetching,
+    refetchInterval: 30000, // Auto-refresh every 30 seconds
   });
 }

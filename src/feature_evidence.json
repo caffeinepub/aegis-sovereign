@@ -2,12 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-replace-the-existing-aegis-sovereign-logo-with-a-new-logo-design-across-all-instances-in-the-application-including-the-landing-page-header-dashboard-sidebar-pwa-manifest-icons-and-favicon",
-      "featureTitle": "Replace the existing Aegis Sovereign logo with a new logo design across all instances in the application including the landing page header, dashboard sidebar, PWA manifest icons, and favicon",
+      "featureId": "feature-remove-the-existing-3-tier-pricing-table-section-professional-free-enterprise-49-mo-sovereign-149-mo-from-the-landing-page-landingpage-tsx",
+      "featureTitle": "Remove the existing 3-tier pricing table section (Professional Free, Enterprise $49/mo, Sovereign $149/mo) from the landing page (LandingPage.tsx)",
       "files": [
-        "frontend/index.html",
-        "frontend/public/manifest.json",
-        "frontend/src/components/layout/DashboardLayout.tsx",
         "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
@@ -19,7 +16,85 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-53"
+        "REQ-91"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-new-subscriptions-page-component-accessible-from-the-dashboard-sidebar-positioned-in-the-navigation-menu-after-analytics-vault",
+      "featureTitle": "Create a new Subscriptions page component accessible from the dashboard sidebar, positioned in the navigation menu after Analytics & Vault",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/pages/Subscriptions.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-92"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-two-subscription-pricing-tiers-on-the-subscriptions-page-basic-tier-at-300-month-and-premium-tier-at-500-month-displayed-as-cards-with-glassmorphism-styling-consistent-with-the-existing-dashboard-design",
+      "featureTitle": "Implement two subscription pricing tiers on the Subscriptions page: Basic tier at ₹300/month and Premium tier at ₹500/month, displayed as cards with glassmorphism styling consistent with the existing dashboard design",
+      "files": [
+        "frontend/src/pages/Subscriptions.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-93"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-differentiate-features-between-basic-300-month-and-premium-500-month-tiers-based-on-importance-with-basic-tier-including-essential-meeting-intelligence-features-and-premium-tier-adding-advanced-security-tactical-controls-and-priority-features",
+      "featureTitle": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance, with Basic tier including essential meeting intelligence features and Premium tier adding advanced security, tactical controls, and priority features",
+      "files": [
+        "frontend/src/pages/Subscriptions.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-94"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-subscribe-cta-buttons-to-both-subscription-tier-cards-that-display-a-toast-notification-indicating-the-subscription-flow-is-simulated-as-stripe-integration-is-not-yet-implemented",
+      "featureTitle": "Add Subscribe CTA buttons to both subscription tier cards that display a toast notification indicating the subscription flow is simulated (as Stripe integration is not yet implemented)",
+      "files": [
+        "frontend/src/pages/Subscriptions.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-95"
       ],
       "confidence": "high"
     }

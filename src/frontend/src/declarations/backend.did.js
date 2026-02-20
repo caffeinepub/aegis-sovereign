@@ -23,25 +23,68 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
-export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const Time = IDL.Int;
+export const SessionRecording = IDL.Record({
+  'id' : IDL.Text,
+  'recordingData' : IDL.Vec(IDL.Nat8),
+  'title' : IDL.Text,
+  'duration' : IDL.Int,
+  'owner' : User,
+  'metadata' : IDL.Text,
+  'bookmarks' : IDL.Vec(IDL.Int),
+  'timestamp' : Time,
+});
+export const AuditLogEntry = IDL.Record({
+  'action' : IDL.Text,
+  'user' : User,
+  'timestamp' : Time,
+  'details' : IDL.Text,
+  'success' : IDL.Bool,
+});
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const PanicEvent = IDL.Record({
   'user' : User,
   'triggerType' : IDL.Text,
   'timestamp' : Time,
+});
+export const SystemHealthMetrics = IDL.Record({
+  'updateCallCount' : IDL.Nat,
+  'stableMemory' : IDL.Nat,
+  'heapMemory' : IDL.Nat,
+  'queryCallCount' : IDL.Nat,
+  'cyclesBalance' : IDL.Nat,
 });
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addMeetingLog' : IDL.Func([MeetingLog], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'assignRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'clearPanicHistory' : IDL.Func([], [], []),
   'deleteMeetingLog' : IDL.Func([IDL.Text], [], []),
+  'deleteSessionRecording' : IDL.Func([IDL.Text], [], []),
   'getAllMeetingLogs' : IDL.Func([], [IDL.Vec(MeetingLog)], ['query']),
+  'getAllSessionRecordings' : IDL.Func(
+      [],
+      [IDL.Vec(SessionRecording)],
+      ['query'],
+    ),
+  'getAuditLog' : IDL.Func([], [IDL.Vec(AuditLogEntry)], ['query']),
+  'getAuditLogForUser' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Vec(AuditLogEntry)],
+      ['query'],
+    ),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getMeetingLog' : IDL.Func([IDL.Text], [IDL.Opt(MeetingLog)], ['query']),
   'getPanicHistory' : IDL.Func([], [IDL.Vec(PanicEvent)], ['query']),
+  'getSessionRecording' : IDL.Func(
+      [IDL.Text],
+      [IDL.Opt(SessionRecording)],
+      ['query'],
+    ),
+  'getSystemHealthMetrics' : IDL.Func([], [SystemHealthMetrics], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -49,6 +92,7 @@ export const idlService = IDL.Service({
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'saveSessionRecording' : IDL.Func([SessionRecording], [], []),
   'triggerPanic' : IDL.Func([IDL.Text], [], []),
   'updateMeetingLog' : IDL.Func([IDL.Text, MeetingLog], [], []),
 });
@@ -71,25 +115,68 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
-  const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const Time = IDL.Int;
+  const SessionRecording = IDL.Record({
+    'id' : IDL.Text,
+    'recordingData' : IDL.Vec(IDL.Nat8),
+    'title' : IDL.Text,
+    'duration' : IDL.Int,
+    'owner' : User,
+    'metadata' : IDL.Text,
+    'bookmarks' : IDL.Vec(IDL.Int),
+    'timestamp' : Time,
+  });
+  const AuditLogEntry = IDL.Record({
+    'action' : IDL.Text,
+    'user' : User,
+    'timestamp' : Time,
+    'details' : IDL.Text,
+    'success' : IDL.Bool,
+  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const PanicEvent = IDL.Record({
     'user' : User,
     'triggerType' : IDL.Text,
     'timestamp' : Time,
+  });
+  const SystemHealthMetrics = IDL.Record({
+    'updateCallCount' : IDL.Nat,
+    'stableMemory' : IDL.Nat,
+    'heapMemory' : IDL.Nat,
+    'queryCallCount' : IDL.Nat,
+    'cyclesBalance' : IDL.Nat,
   });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addMeetingLog' : IDL.Func([MeetingLog], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'assignRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'clearPanicHistory' : IDL.Func([], [], []),
     'deleteMeetingLog' : IDL.Func([IDL.Text], [], []),
+    'deleteSessionRecording' : IDL.Func([IDL.Text], [], []),
     'getAllMeetingLogs' : IDL.Func([], [IDL.Vec(MeetingLog)], ['query']),
+    'getAllSessionRecordings' : IDL.Func(
+        [],
+        [IDL.Vec(SessionRecording)],
+        ['query'],
+      ),
+    'getAuditLog' : IDL.Func([], [IDL.Vec(AuditLogEntry)], ['query']),
+    'getAuditLogForUser' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Vec(AuditLogEntry)],
+        ['query'],
+      ),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getMeetingLog' : IDL.Func([IDL.Text], [IDL.Opt(MeetingLog)], ['query']),
     'getPanicHistory' : IDL.Func([], [IDL.Vec(PanicEvent)], ['query']),
+    'getSessionRecording' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(SessionRecording)],
+        ['query'],
+      ),
+    'getSystemHealthMetrics' : IDL.Func([], [SystemHealthMetrics], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -97,6 +184,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'saveSessionRecording' : IDL.Func([SessionRecording], [], []),
     'triggerPanic' : IDL.Func([IDL.Text], [], []),
     'updateMeetingLog' : IDL.Func([IDL.Text, MeetingLog], [], []),
   });

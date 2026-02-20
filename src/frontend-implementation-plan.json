@@ -1,38 +1,100 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update Aegis Sovereign application logo",
+  "title": "Remove landing page pricing and add dashboard Subscriptions page",
   "requirements": [
     {
-      "id": "REQ-53",
-      "summary": "Replace the existing Aegis Sovereign logo with new logo design across all application instances including landing page header, dashboard sidebar, PWA manifest icons, and favicon",
+      "id": "REQ-91",
+      "summary": "Remove the existing 3-tier pricing table section from the landing page",
       "acceptanceCriteria": [
-        "New logo appears in the landing page header navigation",
-        "New logo displays in the collapsed and expanded sidebar states in DashboardLayout",
-        "PWA manifest icons are updated with the new logo design",
-        "Favicon reflects the new logo",
-        "Logo maintains visual consistency across all screen sizes and contexts"
+        "The pricing section is completely removed from LandingPage.tsx",
+        "The landing page layout remains clean and cohesive after removal",
+        "All references to the pricing tiers in the landing page are eliminated"
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Replace the existing logo in the header navigation with the new logo image located at frontend/public/assets/generated/aegis-logo.dim_256x256.png. Update the img src to reference the generated logo asset and ensure proper alt text and sizing for the header context."
+          "description": "Remove the pricing section that displays the 3-tier pricing table (Professional Free, Enterprise $49/mo, Sovereign $149/mo). Delete the entire pricing container div and all related JSX elements including tier cards, pricing details, and feature lists. Preserve all other sections of the landing page including hero, features, testimonials, and footer."
+        }
+      ]
+    },
+    {
+      "id": "REQ-92",
+      "summary": "Create a new Subscriptions page accessible from the dashboard sidebar after Analytics & Vault",
+      "acceptanceCriteria": [
+        "New route created for /subscriptions page",
+        "Subscriptions link appears in DashboardLayout sidebar after Analytics & Vault",
+        "Page is accessible to all authenticated users",
+        "Navigation follows the existing sidebar patterns with icons and labels"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Subscriptions.tsx",
+          "operation": "create",
+          "description": "Create a new Subscriptions page component that will display subscription pricing tiers. Include a page header with title 'Subscriptions' and subtitle explaining the subscription options. Set up the basic page structure using the same glassmorphism styling patterns found in other dashboard pages with midnight black backgrounds and grid layouts for tier cards."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the /subscriptions route in the router configuration. Add the route definition after the analytics-vault route and before the sentinel-protocol route. Import the Subscriptions component and wrap it with ProtectedRoute to ensure only authenticated users can access it."
         },
         {
           "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Replace the existing logo in both the collapsed and expanded sidebar states with the new logo image located at frontend/public/assets/generated/aegis-logo.dim_256x256.png. Ensure the logo displays correctly in both sidebar states while maintaining the existing glassmorphism styling and layout positioning."
-        },
+          "description": "Add a 'Subscriptions' navigation link in the sidebar menu items array after the 'Analytics & Vault' link. Use an appropriate icon from lucide-react (e.g., CreditCard or DollarSign) and set the href to '/subscriptions'. Follow the existing navigation item pattern with icon, label, and active state styling."
+        }
+      ]
+    },
+    {
+      "id": "REQ-93",
+      "summary": "Implement two subscription pricing tiers with glassmorphism card styling on the Subscriptions page",
+      "acceptanceCriteria": [
+        "Two pricing cards displayed side-by-side in a responsive grid layout",
+        "Each card shows tier name, monthly price in Indian Rupees (₹), and feature list",
+        "Cards use glassmorphism effects matching the existing bento grid cards",
+        "Hover effects and BorderBeam animations are applied for premium feel"
+      ],
+      "file_operations": [
         {
-          "path": "frontend/public/manifest.json",
+          "path": "frontend/src/pages/Subscriptions.tsx",
           "operation": "modify",
-          "description": "Update the icons array to reference the new PWA icon assets: frontend/public/assets/generated/aegis-icon-192.dim_192x192.png for the 192x192 icon and frontend/public/assets/generated/aegis-icon-512.dim_512x512.png for the 512x512 icon. Preserve the existing manifest structure and only update the icon src paths and sizes."
-        },
+          "description": "Add a responsive grid layout (grid-cols-1 md:grid-cols-2) containing two pricing tier cards. Each card should use the same glassmorphism styling as BentoCard components with backdrop-blur, border gradients, and hover effects. Include BorderBeam component on card hover for the premium animated border effect. Structure each card with: tier name heading, large price display showing '₹300' or '₹500' with '/month' suffix, feature list section (to be populated in REQ-94), and a CTA button placeholder (to be implemented in REQ-95). Apply consistent spacing, padding, and the midnight black background theme."
+        }
+      ]
+    },
+    {
+      "id": "REQ-94",
+      "summary": "Differentiate features between Basic (₹300/month) and Premium (₹500/month) tiers based on importance",
+      "acceptanceCriteria": [
+        "Basic tier (₹300/month) includes: Neural Frequency Visualizer, Sentiment Analysis, Meeting ROI Tracking, Speaker Identity Matrix, Voice Pattern Recognition, up to 10 meeting recordings per month",
+        "Premium tier (₹500/month) includes: All Basic features plus Sentinel Protocol access, Panic Mode, Environment Spoofing, Packet Jitter Simulator, Dark Web Monitoring, Threat Detection Matrix, Executive Briefing Generator, unlimited meeting recordings, priority support",
+        "Each feature is clearly listed under its respective tier",
+        "Visual indicators (checkmarks/icons) show which features are included in each tier",
+        "Feature descriptions are concise and emphasize value/benefits"
+      ],
+      "file_operations": [
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/pages/Subscriptions.tsx",
           "operation": "modify",
-          "description": "Update the favicon link tag to reference the new favicon located at frontend/public/assets/generated/aegis-favicon.dim_32x32.png. Ensure the link rel attribute is set to 'icon' and the type is 'image/png' with appropriate sizes attribute."
+          "description": "Populate the feature lists for both pricing tiers. For the Basic tier card, add a features array containing: Neural Frequency Visualizer, Sentiment Analysis, Meeting ROI Tracking, Speaker Identity Matrix, Voice Pattern Recognition, and 'Up to 10 meeting recordings/month'. For the Premium tier card, add a features array with all Basic features plus: Sentinel Protocol access, Panic Mode, Environment Spoofing, Packet Jitter Simulator, Dark Web Monitoring, Threat Detection Matrix, Executive Briefing Generator, 'Unlimited meeting recordings', and 'Priority support'. Render each feature as a list item with a checkmark icon from lucide-react (Check or CheckCircle2) in cyber emerald color. Use proper spacing and typography to make features scannable and emphasize value."
+        }
+      ]
+    },
+    {
+      "id": "REQ-95",
+      "summary": "Add Subscribe CTA buttons with simulated subscription flow toast notifications",
+      "acceptanceCriteria": [
+        "Each tier card has a prominent CTA button with Cyber Emerald glow effect matching landing page buttons",
+        "Button text reads 'Subscribe to Basic' or 'Subscribe to Premium' respectively",
+        "Clicking the button triggers a Sonner toast notification explaining this is a simulated subscription interface",
+        "Buttons are styled consistently with existing PrimaryCTA components"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Subscriptions.tsx",
+          "operation": "modify",
+          "description": "Add Subscribe buttons to both pricing tier cards using the PrimaryCTA component for consistent styling with cyber emerald glow effects. Set button text to 'Subscribe to Basic' for the ₹300/month tier and 'Subscribe to Premium' for the ₹500/month tier. Implement onClick handlers that trigger Sonner toast notifications with a message like 'Subscription flow is currently simulated. Stripe integration coming soon!' Use toast.info() from sonner with appropriate styling. Position buttons at the bottom of each card with proper margin and full-width styling on mobile."
         }
       ]
     }

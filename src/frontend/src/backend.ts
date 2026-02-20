@@ -89,6 +89,25 @@ export class ExternalBlob {
         return this;
     }
 }
+export type Time = bigint;
+export interface SessionRecording {
+    id: string;
+    recordingData: Uint8Array;
+    title: string;
+    duration: bigint;
+    owner: User;
+    metadata: string;
+    bookmarks: Array<bigint>;
+    timestamp: Time;
+}
+export interface SystemHealthMetrics {
+    updateCallCount: bigint;
+    stableMemory: bigint;
+    heapMemory: bigint;
+    queryCallCount: bigint;
+    cyclesBalance: bigint;
+}
+export type User = Principal;
 export interface PanicEvent {
     user: User;
     triggerType: string;
@@ -103,11 +122,16 @@ export interface MeetingLog {
     sentiment: number;
     summary: string;
 }
-export type Time = bigint;
+export interface AuditLogEntry {
+    action: string;
+    user: User;
+    timestamp: Time;
+    details: string;
+    success: boolean;
+}
 export interface UserProfile {
     name: string;
 }
-export type User = Principal;
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -117,20 +141,28 @@ export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addMeetingLog(log: MeetingLog): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    assignRole(user: Principal, role: UserRole): Promise<void>;
     clearPanicHistory(): Promise<void>;
     deleteMeetingLog(title: string): Promise<void>;
+    deleteSessionRecording(id: string): Promise<void>;
     getAllMeetingLogs(): Promise<Array<MeetingLog>>;
+    getAllSessionRecordings(): Promise<Array<SessionRecording>>;
+    getAuditLog(): Promise<Array<AuditLogEntry>>;
+    getAuditLogForUser(user: Principal): Promise<Array<AuditLogEntry>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getMeetingLog(title: string): Promise<MeetingLog | null>;
     getPanicHistory(): Promise<Array<PanicEvent>>;
+    getSessionRecording(id: string): Promise<SessionRecording | null>;
+    getSystemHealthMetrics(): Promise<SystemHealthMetrics>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    saveSessionRecording(recording: SessionRecording): Promise<void>;
     triggerPanic(triggerType: string): Promise<void>;
     updateMeetingLog(title: string, updatedLog: MeetingLog): Promise<void>;
 }
-import type { MeetingLog as _MeetingLog, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { MeetingLog as _MeetingLog, SessionRecording as _SessionRecording, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -175,6 +207,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async assignRole(arg0: Principal, arg1: UserRole): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.assignRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.assignRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
     async clearPanicHistory(): Promise<void> {
         if (this.processError) {
             try {
@@ -203,6 +249,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async deleteSessionRecording(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteSessionRecording(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteSessionRecording(arg0);
+            return result;
+        }
+    }
     async getAllMeetingLogs(): Promise<Array<MeetingLog>> {
         if (this.processError) {
             try {
@@ -214,6 +274,48 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllMeetingLogs();
+            return result;
+        }
+    }
+    async getAllSessionRecordings(): Promise<Array<SessionRecording>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllSessionRecordings();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllSessionRecordings();
+            return result;
+        }
+    }
+    async getAuditLog(): Promise<Array<AuditLogEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAuditLog();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAuditLog();
+            return result;
+        }
+    }
+    async getAuditLogForUser(arg0: Principal): Promise<Array<AuditLogEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAuditLogForUser(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAuditLogForUser(arg0);
             return result;
         }
     }
@@ -273,6 +375,34 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getSessionRecording(arg0: string): Promise<SessionRecording | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getSessionRecording(arg0);
+                return from_candid_opt_n7(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getSessionRecording(arg0);
+            return from_candid_opt_n7(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getSystemHealthMetrics(): Promise<SystemHealthMetrics> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getSystemHealthMetrics();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getSystemHealthMetrics();
+            return result;
+        }
+    }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
@@ -315,6 +445,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async saveSessionRecording(arg0: SessionRecording): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveSessionRecording(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveSessionRecording(arg0);
+            return result;
+        }
+    }
     async triggerPanic(arg0: string): Promise<void> {
         if (this.processError) {
             try {
@@ -351,6 +495,9 @@ function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Ar
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_MeetingLog]): MeetingLog | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_SessionRecording]): SessionRecording | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {

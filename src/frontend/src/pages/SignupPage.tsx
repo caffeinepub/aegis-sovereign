@@ -71,9 +71,9 @@ export default function SignupPage() {
     <div className="flex min-h-screen items-center justify-center bg-black p-4">
       <Card className="w-full max-w-md border-white/10 bg-white/5 backdrop-blur-xl">
         <CardHeader className="text-center">
-          <img src="/assets/generated/aegis-logo.dim_512x512.png" alt="Aegis" className="mx-auto mb-4 h-16 w-16" />
+          <img src="/assets/generated/aegis-logo.dim_512x512.png" alt="Axon" className="mx-auto mb-4 h-16 w-16" />
           <CardTitle className="text-2xl">Create Your Account</CardTitle>
-          <CardDescription>Join Aegis Sovereign and secure your meetings</CardDescription>
+          <CardDescription>Join Axon and secure your meetings</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">

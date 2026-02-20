@@ -1,24 +1,22 @@
 {
-  "name": "Aegis Sovereign Remote",
-  "short_name": "Aegis Remote",
-  "description": "Tactical remote control for Aegis Sovereign",
+  "name": "AXON Remote",
+  "short_name": "AXON",
+  "description": "Tactical remote control for AXON meeting intelligence",
   "start_url": "/remote",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "/assets/generated/aegis-icon-192.dim_192x192.png",
+      "src": "/assets/generated/axon-icon-192.dim_192x192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/assets/generated/aegis-icon-512.dim_512x512.png",
+      "src": "/assets/generated/axon-icon-512.dim_512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
