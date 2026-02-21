@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import ThreeBackground from '@/components/auth/ThreeBackground';
 import AuthPanel from '@/components/auth/AuthPanel';
@@ -8,8 +7,11 @@ import RegisterView from '@/components/auth/RegisterView';
 import { registerUser, signInUser, masterBypass } from '@/utils/localStorageAuth';
 import { Loader2 } from 'lucide-react';
 
-export default function LoginPage() {
-  const navigate = useNavigate();
+interface LoginPageProps {
+  onLoginSuccess: () => void;
+}
+
+export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [view, setView] = useState<'signin' | 'register'>('signin');
   const [shake, setShake] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +45,7 @@ export default function LoginPage() {
     if (newCount === 3) {
       // Trigger master bypass
       masterBypass();
-      toast.success('Master Bypass Activated', {
+      toast.success('Master Bypass Activated - Sovereign Administrator', {
         duration: 2000,
         style: {
           background: '#10b981',
@@ -53,16 +55,16 @@ export default function LoginPage() {
       });
       // Navigate to dashboard
       setTimeout(() => {
-        navigate({ to: '/command-center' });
+        onLoginSuccess();
       }, 500);
       setLogoClickCount(0);
       return;
     }
 
-    // Set timer to reset count after 1 second
+    // Set timer to reset count after 2 seconds
     const timer = setTimeout(() => {
       setLogoClickCount(0);
-    }, 1000);
+    }, 2000);
     setLogoClickTimer(timer);
   };
 
@@ -88,17 +90,17 @@ export default function LoginPage() {
       const user = signInUser(signInEmail, signInPassword);
 
       if (user) {
-        // Session is already set to 'ACTIVE' in signInUser
-        toast.success('Login successful!', { duration: 3000 });
-        // Navigate to command center
-        navigate({ to: '/command-center' });
+        toast.success('Login successful!', { duration: 2000 });
+        setIsLoading(false);
+        // Navigate to dashboard
+        onLoginSuccess();
       } else {
         // Trigger shake animation
         setShake(true);
         setTimeout(() => setShake(false), 500);
 
-        // Show red error toast with 3-second timeout
-        toast.error('Login Failed', {
+        // Show red error toast
+        toast.error('Invalid Credentials', {
           duration: 3000,
           style: {
             background: '#dc2626',
@@ -106,9 +108,8 @@ export default function LoginPage() {
             border: '1px solid #b91c1c',
           },
         });
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     }, 800);
   };
 
@@ -139,7 +140,7 @@ export default function LoginPage() {
         setIsLoading(false);
         setIsProvisioning(true);
 
-        // Wait 1.5 seconds then auto-login
+        // Wait 1.5 seconds then auto-login and navigate to dashboard
         setTimeout(() => {
           // Automatically sign in the user
           const user = signInUser(registerEmail, registerPassword);
@@ -147,10 +148,10 @@ export default function LoginPage() {
             toast.success('Registration successful!', {
               duration: 2000,
             });
-            // Navigate to command center
-            navigate({ to: '/command-center' });
+            setIsProvisioning(false);
+            // Navigate to dashboard immediately
+            onLoginSuccess();
           }
-          setIsProvisioning(false);
         }, 1500);
       } else {
         toast.error('Email already registered', { duration: 3000 });
@@ -178,17 +179,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
       <ThreeBackground />
 
-      <AuthPanel shake={shake}>
-        {/* AXON Logo with triple-click handler */}
-        <div className="text-center mb-8">
-          <h1 
-            className="text-4xl font-bold text-white cursor-pointer select-none"
-            onClick={handleLogoClick}
-          >
-            AXON
-          </h1>
-        </div>
-
+      <AuthPanel shake={shake} onLogoClick={handleLogoClick}>
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left Side - Sign In */}
           <div className={view === 'signin' ? 'block' : 'hidden md:block opacity-50'}>

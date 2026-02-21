@@ -1,35 +1,274 @@
 {
   "kind": "build_request",
-  "title": "Revert to Version 24",
+  "title": "Emergency System Restore: Fix Blank Screen and Rebuild AXON SOVEREIGN Application",
+  "projectName": "AXON SOVEREIGN",
   "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Restore the complete application state to Version 24, reverting all changes made in Versions 25, 26, 27, and 28",
-      "target": "both",
+      "text": "Fix all syntax errors causing blank screen by ensuring every curly brace { } and square bracket [ ] is properly closed throughout the codebase",
+      "target": "frontend",
       "source": {
         "messageIds": [
           "msg-6"
         ],
         "quotes": [
-          "Undo till 24 versions"
+          "Clear all syntax errors and ensure every { } bracket and [ ] array is properly closed."
         ]
       },
       "acceptanceCriteria": [
-        "All backend code matches Version 24 state",
-        "All frontend code matches Version 24 state",
-        "No artifacts from Versions 25-28 remain in the codebase",
-        "Application functionality matches Version 24 behavior"
+        "Application loads without blank screen",
+        "No console errors related to syntax",
+        "All code blocks have matching opening and closing brackets"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement Single Page Application (SPA) structure with two main view sections: <div id='auth-page'> for authentication and <div id='dashboard-page' style='display:none'> for the dashboard, toggling visibility based on authentication state",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Use a Single Page Application (SPA) structure: Define two main sections: <div id='auth-page'> and <div id='dashboard-page' style='display:none'>."
+        ]
+      },
+      "acceptanceCriteria": [
+        "App uses two main div sections with IDs 'auth-page' and 'dashboard-page'",
+        "Only one section is visible at a time",
+        "Dashboard page is hidden by default on initial load",
+        "View switching is handled through display style property"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Restore the glassmorphic login panel with a 'Full Name' registration field matching the design shown in images (4).jpeg",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Re-inject the glassmorphic login panel with the 'Full Name' registration field.",
+          "Ref: images (4).jpeg"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Login panel uses glassmorphism styling",
+        "Registration form includes Full Name field",
+        "Visual design matches reference image images (4).jpeg",
+        "Panel displays on auth-page section"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Fix registration flow to save user data to 'localStorage.AXON_MASTER_USER' and immediately set the view to 'dashboard' without any intermediate steps",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Ensure registration saves to 'localStorage.AXON_MASTER_USER' and IMMEDIATELY sets 'view' to 'dashboard'."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Registration saves to localStorage key 'AXON_MASTER_USER'",
+        "Dashboard view displays immediately after successful registration",
+        "No loading states or delays between registration and dashboard display",
+        "User data persists across page refreshes"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Restore dashboard sidebar navigation with five sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault, matching the layout shown in sc.png and the reference video",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "NAVIGATION: Sidebar with [Command Center, Neural Lab, Sentinel Protocol, Device Sync, Vault].",
+          "Ref: sc.png + Video"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Sidebar contains exactly five navigation items in order",
+        "Navigation items match reference design from sc.png",
+        "Each section is clickable and navigates to appropriate view",
+        "Active section is visually indicated"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement KPI row with three components: Asset Shield displaying ₹1,241,310 with live incrementing ticker, Neural Ingest with link input field, and Vocal Health gauge",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "KPI ROW: Asset Shield (₹1,241,310+ ticker), Neural Ingest (Link input), and Vocal Health gauge."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Asset Shield displays starting value of ₹1,241,310 in Indian Rupee format",
+        "Asset Shield value increments automatically in real-time",
+        "Neural Ingest includes a text input field for links",
+        "Vocal Health displays as a visual gauge component",
+        "All three components are positioned in a horizontal row"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add real-time animating Waveform visualization labeled 'Live Spectral Analysis' in the center of the dashboard",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "CENTER: Real-time animating Waveform (Live Spectral Analysis) and Synopsis Engine."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Waveform renders in the center dashboard area",
+        "Animation runs continuously in real-time",
+        "Component is labeled 'Live Spectral Analysis'",
+        "Waveform uses smooth, fluid animation"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add Synopsis Engine component in the center of the dashboard alongside the waveform visualization",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "CENTER: Real-time animating Waveform (Live Spectral Analysis) and Synopsis Engine."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Synopsis Engine displays in center dashboard area",
+        "Component is positioned near or with the waveform",
+        "Synopsis Engine has distinct visual identity"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add three-tier subscription pricing cards under the Vault section with Free, ₹299/month, and ₹499/month tiers",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "PRICING: The 3-tier subscription cards (Free, ₹299, ₹499) under the Vault section."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Vault section contains three subscription cards",
+        "Tiers are priced at Free, ₹299, and ₹499",
+        "Pricing displays in Indian Rupee format with /month suffix",
+        "Cards are visually distinct and comparable"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Display the registered user's Full Name dynamically in the dashboard sidebar, removing any hardcoded 'Nishant' references",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "On the dashboard sidebar, dynamically display the 'Full Name' of the user who just registered.",
+          "DYNAMIC IDENTITY (No More 'Nishant')"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User's Full Name from registration displays in sidebar",
+        "Name updates dynamically based on logged-in user",
+        "No hardcoded names like 'Nishant' appear anywhere",
+        "Name is retrieved from localStorage.AXON_MASTER_USER"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Add a Logout button to the dashboard that clears the session from localStorage and returns the view to 'auth-page'",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Add a 'Logout' button that clears the session and returns the view to 'auth-page'."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Logout button is visible in the dashboard",
+        "Clicking logout clears localStorage.AXON_MASTER_USER",
+        "View switches to auth-page after logout",
+        "User must re-authenticate after logout"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Implement login validation that displays an 'Invalid Credentials' toast notification when login fails",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "If the Login fails, show the 'Invalid Credentials' toast."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Failed login attempts trigger validation",
+        "Toast notification displays with text 'Invalid Credentials'",
+        "Toast appears on screen temporarily and dismisses",
+        "User remains on auth-page after failed login"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Implement secret bypass feature: clicking the 'AXON' logo 3 times immediately force-shows the Dashboard, sets the user as 'Sovereign Administrator', and unlocks the ₹499 subscription plan",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "SECRET BYPASS: If I click the 'AXON' logo 3 times, immediately force-show the Dashboard and set the user as 'Sovereign Administrator' with the ₹499 plan unlocked."
+        ]
+      },
+      "acceptanceCriteria": [
+        "AXON logo tracks click count",
+        "After exactly 3 clicks, dashboard view displays immediately",
+        "User identity is set to 'Sovereign Administrator'",
+        "Subscription tier is set to ₹499 plan",
+        "Bypass works from auth-page without requiring credentials",
+        "Click counter resets after successful bypass or timeout"
       ]
     }
   ],
   "constraints": [
-    "Must preserve Version 24 code exactly as it existed",
-    "Do not introduce any new features or modifications during revert"
+    "Must preserve existing backend/main.mo actor architecture",
+    "Must not modify immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "Must use localStorage for authentication state management as specified",
+    "Must use Indian Rupee (₹) currency format for all pricing",
+    "Pricing tiers must be exactly Free, ₹299, and ₹499 as specified"
   ],
   "nonGoals": [
-    "Keeping any features added in Versions 25-28",
-    "Selective cherry-picking of changes from later versions"
+    "Backend API integration for authentication (using localStorage instead)",
+    "Real payment processing for subscriptions",
+    "Actual audio processing for waveform (simulation acceptable)",
+    "Multi-page routing (using SPA with view toggling instead)",
+    "Server-side session management"
   ],
   "imageRequirements": {
     "required": [],

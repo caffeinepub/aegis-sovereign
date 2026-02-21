@@ -1,22 +1,183 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "New project",
-  "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "summary": "AXON SOVEREIGN application - a unified SPA with glassmorphic login portal, dynamic dashboard (Command Center, Neural Lab, Sentinel Protocol, Device Sync, Vault), real-time waveform visualization, KPI tracking (Asset Shield, Neural Ingest, Vocal Health), subscription tiers, and authentication system with secret bypass",
+  "architectural_notes": [
+    "Single Page Application (SPA) architecture with two main views: auth-page and dashboard-page",
+    "User data stored in localStorage.AXON_MASTER_USER",
+    "Glassmorphic design system for login portal",
+    "Real-time waveform visualization using spectral analysis",
+    "Dashboard sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, Vault",
+    "Three-tier subscription model: Free, ₹299, ₹499",
+    "Session management with logout functionality"
+  ],
+  "known_issues": [
+    "Blank screen issue - syntax errors with unclosed brackets/arrays"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-restore-the-complete-application-state-to-version-24-reverting-all-changes-made-in-versions-25-26-27-and-28",
-      "title": "Restore the complete application state to Version 24, reverting all changes made in Versions 25, 26, 27, and 28",
+      "id": "feature-fix-all-syntax-errors-causing-blank-screen-by-ensuring-every-curly-brace-and-square-bracket-is-properly-closed-throughout-the-codebase",
+      "title": "Fix all syntax errors causing blank screen by ensuring every curly brace { } and square bracket [ ] is properly closed throughout the codebase",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-implement-single-page-application-spa-structure-with-two-main-view-sections-div-id-auth-page-for-authentication-and-div-id-dashboard-page-style-display-none-for-the-dashboard-toggling-visibility-based-on-authentication-state",
+      "title": "Implement Single Page Application (SPA) structure with two main view sections: <div id='auth-page'> for authentication and <div id='dashboard-page' style='display:none'> for the dashboard, toggling visibility based on authentication state",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restore-the-glassmorphic-login-panel-with-a-full-name-registration-field-matching-the-design-shown-in-images-4-jpeg",
+      "title": "Restore the glassmorphic login panel with a 'Full Name' registration field matching the design shown in images (4).jpeg",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-registration-flow-to-save-user-data-to-localstorage-axon-master-user-and-immediately-set-the-view-to-dashboard-without-any-intermediate-steps",
+      "title": "Fix registration flow to save user data to 'localStorage.AXON_MASTER_USER' and immediately set the view to 'dashboard' without any intermediate steps",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restore-dashboard-sidebar-navigation-with-five-sections-command-center-neural-lab-sentinel-protocol-device-sync-and-vault-matching-the-layout-shown-in-sc-png-and-the-reference-video",
+      "title": "Restore dashboard sidebar navigation with five sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault, matching the layout shown in sc.png and the reference video",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-three-tier-subscription-pricing-cards-under-the-vault-section-with-free-299-month-and-499-month-tiers",
+      "title": "Add three-tier subscription pricing cards under the Vault section with Free, ₹299/month, and ₹499/month tiers",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-the-registered-user-s-full-name-dynamically-in-the-dashboard-sidebar-removing-any-hardcoded-nishant-references",
+      "title": "Display the registered user's Full Name dynamically in the dashboard sidebar, removing any hardcoded 'Nishant' references",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-logout-button-to-the-dashboard-that-clears-the-session-from-localstorage-and-returns-the-view-to-auth-page",
+      "title": "Add a Logout button to the dashboard that clears the session from localStorage and returns the view to 'auth-page'",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-login-validation-that-displays-an-invalid-credentials-toast-notification-when-login-fails",
+      "title": "Implement login validation that displays an 'Invalid Credentials' toast notification when login fails",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-secret-bypass-feature-clicking-the-axon-logo-3-times-immediately-force-shows-the-dashboard-sets-the-user-as-sovereign-administrator-and-unlocks-the-499-subscription-plan",
+      "title": "Implement secret bypass feature: clicking the 'AXON' logo 3 times immediately force-shows the Dashboard, sets the user as 'Sovereign Administrator', and unlocks the ₹499 subscription plan",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
     }
   ],
-  "new_feature_requests": [],
-  "projectName": "Revert to Version 24",
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Fix blank screen - clear syntax errors, ensure proper bracket/array closure, implement SPA structure with auth-page and dashboard-page sections",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Restore glassmorphic login portal with Full Name registration field, save to localStorage.AXON_MASTER_USER, immediately switch to dashboard view",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Restore dashboard with sidebar navigation (Command Center, Neural Lab, Sentinel Protocol, Device Sync, Vault)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Implement KPI row with Asset Shield (₹1,241,310+ ticker), Neural Ingest (link input), and Vocal Health gauge",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add real-time animating Waveform (Live Spectral Analysis) and Synopsis Engine to dashboard center",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add 3-tier subscription pricing cards (Free, ₹299, ₹499) under Vault section",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Display dynamic user Full Name in dashboard sidebar and add Logout button that clears session and returns to auth-page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Implement login validation with 'Invalid Credentials' toast on failure",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add secret bypass: 3 clicks on AXON logo force-shows Dashboard as 'Sovereign Administrator' with ₹499 plan unlocked",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Implement KPI row with three components: Asset Shield displaying ₹1,241,310 with live incrementing ticker, Neural Ingest with link input field, and Vocal Health gauge",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add real-time animating Waveform visualization labeled 'Live Spectral Analysis' in the center of the dashboard",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add Synopsis Engine component in the center of the dashboard alongside the waveform visualization",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "AXON SOVEREIGN",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

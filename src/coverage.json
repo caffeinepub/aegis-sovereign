@@ -1,140 +1,181 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T08:30:07.286Z",
+  "generatedAt": "2026-02-21T13:21:54.214Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 13,
+    "implemented": 10,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Restore the complete application state to Version 24, reverting all changes made in Versions 25, 26, 27, and 28",
+        "summary": "Fix all syntax errors causing blank screen by ensuring every curly brace { } and square bracket [ ] is properly closed throughout the codebase",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx",
           "frontend/src/main.tsx",
-          "frontend/index.html",
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/public/manifest.json",
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/pages/LoginPage.tsx",
-          "frontend/src/pages/CommandCenter.tsx",
-          "frontend/src/pages/UnifiedDashboard.tsx",
-          "frontend/src/pages/AdminPanel.tsx",
-          "frontend/src/pages/AnalyticsVault.tsx",
-          "frontend/src/pages/NeuralLab.tsx",
-          "frontend/src/pages/SentinelProtocol.tsx",
-          "frontend/src/pages/DeviceSync.tsx",
-          "frontend/src/pages/Settings.tsx",
-          "frontend/src/pages/Subscriptions.tsx",
-          "frontend/src/pages/TacticalRemote.tsx",
-          "frontend/src/pages/MobileBiometric.tsx",
-          "frontend/src/pages/TeamManagementPage.tsx",
-          "frontend/src/pages/DevMetrics.tsx",
-          "frontend/src/components/layout/DashboardLayout.tsx",
-          "frontend/src/components/layout/Footer.tsx",
-          "frontend/src/components/layout/BentoCard.tsx",
-          "frontend/src/components/auth/AuthPanel.tsx",
-          "frontend/src/components/auth/SignInView.tsx",
-          "frontend/src/components/auth/RegisterView.tsx",
-          "frontend/src/components/auth/ProtectedRoute.tsx",
-          "frontend/src/components/auth/RoleProtectedRoute.tsx",
-          "frontend/src/components/auth/ThreeBackground.tsx",
-          "frontend/src/components/dashboard/Overview.tsx",
-          "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-          "frontend/src/components/dashboard/QuantumInterlinkCard.tsx",
-          "frontend/src/components/dashboard/AssetShieldCard.tsx",
-          "frontend/src/components/dashboard/VocalHealthCard.tsx",
-          "frontend/src/components/dashboard/QuickActionsCard.tsx",
-          "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-          "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-          "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-          "frontend/src/components/dashboard/ControlPanel.tsx",
-          "frontend/src/components/dashboard/GlobalNodeMap.tsx",
-          "frontend/src/components/dashboard/SecurityTrafficTrend.tsx",
-          "frontend/src/components/dashboard/TeamManagement.tsx",
-          "frontend/src/components/dashboard/TeamStatusCard.tsx",
-          "frontend/src/components/dashboard/TelemetryFeed.tsx",
-          "frontend/src/components/dashboard/ActiveIdentitiesCard.tsx",
-          "frontend/src/components/dashboard/ActivePlanCard.tsx",
-          "frontend/src/components/dashboard/PricingTable.tsx",
-          "frontend/src/components/analytics/BiometricStressRadar.tsx",
-          "frontend/src/components/analytics/EmotionTracker.tsx",
-          "frontend/src/components/analytics/GlobalNodeMap.tsx",
-          "frontend/src/components/analytics/LiveTrafficChart.tsx",
-          "frontend/src/components/analytics/MeetingLogCard.tsx",
-          "frontend/src/components/analytics/MeetingROITicker.tsx",
-          "frontend/src/components/analytics/NeuralPacketStream.tsx",
-          "frontend/src/components/analytics/QuantumEncryptionMonitor.tsx",
-          "frontend/src/components/analytics/RecentFilesTable.tsx",
-          "frontend/src/components/analytics/SentimentRadar.tsx",
-          "frontend/src/components/analytics/SpeakerIdentityMatrix.tsx",
-          "frontend/src/components/analytics/SystemAuditTrail.tsx",
-          "frontend/src/components/analytics/ThreatDetectionMatrix.tsx",
-          "frontend/src/components/analytics/VoicePatternTimeline.tsx",
-          "frontend/src/components/admin/AuditLogViewer.tsx",
-          "frontend/src/components/admin/SystemHealthMonitor.tsx",
-          "frontend/src/components/vault/IntelSessionCard.tsx",
-          "frontend/src/components/vault/SubscriptionTierCard.tsx",
-          "frontend/src/components/vault/SubscriptionTiers.tsx",
-          "frontend/src/components/vault/SubscriptionToggle.tsx",
-          "frontend/src/components/neural/AIMirrorStatus.tsx",
-          "frontend/src/components/neural/NeuralProgress.tsx",
-          "frontend/src/components/neural/VocalDropZone.tsx",
-          "frontend/src/components/neural/VoiceHealthDashboard.tsx",
-          "frontend/src/components/sentinel/AcousticMatrixGrid.tsx",
-          "frontend/src/components/sentinel/EnvironmentMixer.tsx",
-          "frontend/src/components/sentinel/EnvironmentSpoofing.tsx",
-          "frontend/src/components/sentinel/HardwareMimicry.tsx",
-          "frontend/src/components/sentinel/PacketJitterSimulator.tsx",
-          "frontend/src/components/sentinel/PanicProtocol.tsx",
-          "frontend/src/components/security/DarkWebMonitor.tsx",
-          "frontend/src/components/mobile/BiometricScanner.tsx",
-          "frontend/src/components/video/VideoWelcomeWidget.tsx",
-          "frontend/src/components/visualizer/NetworkLatencyGlobe.tsx",
-          "frontend/src/components/visualizer/NeuralFrequencyVisualizer.tsx",
-          "frontend/src/components/visualizer/WaterfallSpectrogram.tsx",
-          "frontend/src/components/scheduling/SecurityAuditScheduler.tsx",
-          "frontend/src/components/settings/BandwidthOptimizer.tsx",
-          "frontend/src/components/sync/ConnectionLog.tsx",
-          "frontend/src/components/testimonials/TestimonialCard.tsx",
-          "frontend/src/components/transitions/NeuralScanTransition.tsx",
-          "frontend/src/components/transitions/PageTransition.tsx",
-          "frontend/src/components/effects/BorderBeam.tsx",
-          "frontend/src/components/effects/SovereignOrb.tsx",
-          "frontend/src/components/errors/ErrorBoundary.tsx",
-          "frontend/src/components/common/ActiveStatusIndicator.tsx",
-          "frontend/src/components/common/FeatureLockedOverlay.tsx",
-          "frontend/src/components/common/HotkeysReferenceModal.tsx",
-          "frontend/src/components/common/MetricCard.tsx",
-          "frontend/src/components/common/PrimaryCTA.tsx",
-          "frontend/src/components/common/SentinelPanicButton.tsx",
-          "frontend/src/components/MagneticButton.tsx",
-          "frontend/src/components/dev/PerformanceOverlay.tsx",
-          "frontend/src/hooks/useActor.ts",
-          "frontend/src/hooks/useInternetIdentity.ts",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/hooks/useSubscriptionTier.ts",
-          "frontend/src/hooks/useHapticFeedback.ts",
-          "frontend/src/hooks/useKeyboardShortcut.ts",
-          "frontend/src/hooks/useMousePosition.ts",
-          "frontend/src/contexts/GhostModeContext.tsx",
-          "frontend/src/contexts/TelemetryContext.tsx",
-          "frontend/src/utils/localStorageAuth.ts",
-          "frontend/src/utils/urlParams.ts",
-          "frontend/src/backend.d.ts"
+          "frontend/src/pages/LoginPage.tsx"
         ],
         "matchedFiles": [
           "frontend/src/App.tsx",
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-10",
+        "summary": "Display the registered user's Full Name dynamically in the dashboard sidebar, removing any hardcoded 'Nishant' references",
+        "status": "implemented",
+        "plannedFiles": [
           "frontend/src/components/layout/DashboardLayout.tsx",
-          "frontend/src/components/auth/ProtectedRoute.tsx"
+          "frontend/src/pages/UnifiedDashboard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/UnifiedDashboard.tsx"
+        ]
+      },
+      {
+        "id": "REQ-11",
+        "summary": "Add a Logout button to the dashboard that clears the session from localStorage and returns the view to 'auth-page'",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/dashboard/QuickActionsCard.tsx",
+          "frontend/src/components/layout/DashboardLayout.tsx",
+          "frontend/src/utils/localStorageAuth.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/localStorageAuth.ts"
+        ]
+      },
+      {
+        "id": "REQ-12",
+        "summary": "Implement login validation that displays an 'Invalid Credentials' toast notification when login fails",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/SignInView.tsx",
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-13",
+        "summary": "Implement secret bypass feature: clicking the 'AXON' logo 3 times immediately force-shows the Dashboard, sets the user as 'Sovereign Administrator', and unlocks the ₹499 subscription plan",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/components/auth/AuthPanel.tsx",
+          "frontend/src/utils/localStorageAuth.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/components/auth/AuthPanel.tsx",
+          "frontend/src/utils/localStorageAuth.ts"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Implement Single Page Application (SPA) structure with two main view sections: <div id='auth-page'> for authentication and <div id='dashboard-page' style='display:none'> for the dashboard, toggling visibility based on authentication state",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/pages/UnifiedDashboard.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/pages/UnifiedDashboard.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Restore the glassmorphic login panel with a 'Full Name' registration field matching the design shown in images (4).jpeg",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/RegisterView.tsx",
+          "frontend/src/components/auth/AuthPanel.tsx",
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/auth/AuthPanel.tsx",
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Fix registration flow to save user data to 'localStorage.AXON_MASTER_USER' and immediately set the view to 'dashboard' without any intermediate steps",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/RegisterView.tsx",
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Restore dashboard sidebar navigation with five sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault, matching the layout shown in sc.png and the reference video",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/layout/DashboardLayout.tsx",
+          "frontend/src/pages/UnifiedDashboard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/UnifiedDashboard.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Implement KPI row with three components: Asset Shield displaying ₹1,241,310 with live incrementing ticker, Neural Ingest with link input field, and Vocal Health gauge",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/dashboard/AssetShieldCard.tsx",
+          "frontend/src/components/dashboard/NeuralIngestInput.tsx",
+          "frontend/src/components/dashboard/VocalHealthCard.tsx",
+          "frontend/src/pages/CommandCenter.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Add real-time animating Waveform visualization labeled 'Live Spectral Analysis' in the center of the dashboard",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
+          "frontend/src/pages/CommandCenter.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Add Synopsis Engine component in the center of the dashboard alongside the waveform visualization",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
+          "frontend/src/pages/CommandCenter.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Add three-tier subscription pricing cards under the Vault section with Free, ₹299/month, and ₹499/month tiers",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/vault/SubscriptionTiers.tsx",
+          "frontend/src/components/vault/SubscriptionTierCard.tsx",
+          "frontend/src/pages/UnifiedDashboard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/UnifiedDashboard.tsx"
         ]
       }
     ]
@@ -145,10 +186,11 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/App.tsx",
-    "frontend/src/components/auth/ProtectedRoute.tsx",
-    "frontend/src/components/layout/DashboardLayout.tsx",
-    "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/components/auth/AuthPanel.tsx",
+    "frontend/src/components/dashboard/PricingTable.tsx",
     "frontend/src/pages/LoginPage.tsx",
+    "frontend/src/pages/UnifiedDashboard.tsx",
+    "frontend/src/utils/localStorageAuth.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -218,15 +218,15 @@ export function updateUserPlan(email: string, plan: 'free' | 'core' | 'shield'):
   }
 }
 
-// Master bypass function for pitch security
+// Master bypass function for pitch security - creates Sovereign Administrator with ₹499 plan
 export function masterBypass(): void {
   try {
     const masterUser: AxonUser = {
-      fullName: 'Sovereign Lead',
+      fullName: 'Sovereign Administrator',
       email: 'sovereign@axon.master',
       password: 'master_bypass_key',
       createdAt: Date.now(),
-      plan: 'shield',
+      plan: 'shield', // ₹499 plan
     };
 
     // Store in AXON_MASTER_USER

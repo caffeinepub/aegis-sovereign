@@ -1,581 +1,342 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Revert Frontend to Version 24",
+  "title": "Emergency System Restore: Fix Blank Screen and Rebuild AXON SOVEREIGN Application",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Restore all frontend files to Version 24 state, removing changes from Versions 25-28",
+      "summary": "Fix all syntax errors causing blank screen by ensuring proper bracket closure throughout the codebase",
       "acceptanceCriteria": [
-        "All frontend code matches Version 24 state",
-        "No artifacts from Versions 25-28 remain in the codebase",
-        "Application functionality matches Version 24 behavior"
+        "Application loads without blank screen",
+        "No console errors related to syntax",
+        "All code blocks have matching opening and closing brackets"
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Restore App.tsx to Version 24 state, reverting any routing, context providers, or component changes introduced in later versions"
+          "description": "Audit and fix any unclosed curly braces, square brackets, or parentheses in the router configuration and component structure"
         },
         {
           "path": "frontend/src/main.tsx",
           "operation": "modify",
-          "description": "Restore main.tsx entry point to Version 24 configuration, reverting any provider or initialization changes"
-        },
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Restore index.html to Version 24 state, reverting any meta tag, script, or link changes"
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Restore global styles and Tailwind configuration to Version 24, removing any custom animations, utilities, or theme changes from later versions"
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Restore Tailwind configuration to Version 24, reverting any theme extensions, color scheme changes, or plugin modifications"
-        },
-        {
-          "path": "frontend/public/manifest.json",
-          "operation": "modify",
-          "description": "Restore PWA manifest to Version 24 configuration"
-        },
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Restore landing page to Version 24 layout and content, removing any features added in later versions"
+          "description": "Verify all JSX tags, provider wrappers, and React.StrictMode blocks are properly closed"
         },
         {
           "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Restore login page to Version 24 authentication flow and UI"
-        },
+          "description": "Check and fix bracket closure in form state management, event handlers, and conditional rendering logic"
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement Single Page Application structure with auth-page and dashboard-page div sections that toggle visibility",
+      "acceptanceCriteria": [
+        "App uses two main div sections with IDs 'auth-page' and 'dashboard-page'",
+        "Only one section is visible at a time",
+        "Dashboard page is hidden by default on initial load",
+        "View switching is handled through display style property"
+      ],
+      "file_operations": [
         {
-          "path": "frontend/src/pages/CommandCenter.tsx",
+          "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Restore command center dashboard to Version 24 state, removing any KPI cards or features added later"
+          "description": "Restructure the page to use a root div with id='auth-page' wrapping all authentication content including sign-in and registration views"
         },
         {
           "path": "frontend/src/pages/UnifiedDashboard.tsx",
           "operation": "modify",
-          "description": "Restore unified dashboard to Version 24 layout and components"
+          "description": "Wrap the entire dashboard content in a div with id='dashboard-page' and style='display:none' as the default state. Add visibility toggle logic based on authentication state from localStorage.AXON_MASTER_USER"
         },
         {
-          "path": "frontend/src/pages/AdminPanel.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Restore admin panel to Version 24 functionality and UI"
-        },
+          "description": "Update routing logic to support SPA view toggling between auth-page and dashboard-page sections using display style changes instead of full route navigation"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Restore glassmorphic login panel with Full Name registration field matching reference design",
+      "acceptanceCriteria": [
+        "Login panel uses glassmorphism styling",
+        "Registration form includes Full Name field",
+        "Visual design matches reference image frontend/public/assets/generated/images (4).jpeg",
+        "Panel displays on auth-page section"
+      ],
+      "file_operations": [
         {
-          "path": "frontend/src/pages/AnalyticsVault.tsx",
+          "path": "frontend/src/components/auth/RegisterView.tsx",
           "operation": "modify",
-          "description": "Restore analytics vault to Version 24 meeting log display and filtering"
-        },
-        {
-          "path": "frontend/src/pages/NeuralLab.tsx",
-          "operation": "modify",
-          "description": "Restore neural lab to Version 24 vocal cloning interface"
-        },
-        {
-          "path": "frontend/src/pages/SentinelProtocol.tsx",
-          "operation": "modify",
-          "description": "Restore sentinel protocol page to Version 24 tactical features"
-        },
-        {
-          "path": "frontend/src/pages/DeviceSync.tsx",
-          "operation": "modify",
-          "description": "Restore device sync page to Version 24 QR code pairing functionality"
-        },
-        {
-          "path": "frontend/src/pages/Settings.tsx",
-          "operation": "modify",
-          "description": "Restore settings page to Version 24 configuration options"
-        },
-        {
-          "path": "frontend/src/pages/Subscriptions.tsx",
-          "operation": "modify",
-          "description": "Restore subscriptions page to Version 24 pricing tiers and features"
-        },
-        {
-          "path": "frontend/src/pages/TacticalRemote.tsx",
-          "operation": "modify",
-          "description": "Restore tactical remote mobile interface to Version 24 controls"
-        },
-        {
-          "path": "frontend/src/pages/MobileBiometric.tsx",
-          "operation": "modify",
-          "description": "Restore mobile biometric page to Version 24 authentication flow"
-        },
-        {
-          "path": "frontend/src/pages/TeamManagementPage.tsx",
-          "operation": "modify",
-          "description": "Restore team management page to Version 24 member management interface"
-        },
-        {
-          "path": "frontend/src/pages/DevMetrics.tsx",
-          "operation": "modify",
-          "description": "Restore dev metrics page to Version 24 system monitoring dashboard"
-        },
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Restore dashboard layout to Version 24 sidebar navigation and structure"
-        },
-        {
-          "path": "frontend/src/components/layout/Footer.tsx",
-          "operation": "modify",
-          "description": "Restore footer to Version 24 links and layout"
-        },
-        {
-          "path": "frontend/src/components/layout/BentoCard.tsx",
-          "operation": "modify",
-          "description": "Restore bento card wrapper to Version 24 styling"
+          "description": "Add Full Name input field as the first field in the registration form. Ensure the field is included in form state and validation logic"
         },
         {
           "path": "frontend/src/components/auth/AuthPanel.tsx",
           "operation": "modify",
-          "description": "Restore auth panel container to Version 24 styling and structure"
+          "description": "Apply glassmorphism styling with backdrop-blur, semi-transparent backgrounds, and tactical scanline overlay to match the reference image frontend/public/assets/generated/images (4).jpeg"
         },
         {
-          "path": "frontend/src/components/auth/SignInView.tsx",
+          "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Restore sign-in form to Version 24 fields and validation"
-        },
+          "description": "Ensure AuthPanel component wraps both SignInView and RegisterView, maintaining glassmorphic appearance throughout the authentication flow"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Fix registration flow to save user data to localStorage.AXON_MASTER_USER and immediately display dashboard",
+      "acceptanceCriteria": [
+        "Registration saves to localStorage key 'AXON_MASTER_USER'",
+        "Dashboard view displays immediately after successful registration",
+        "No loading states or delays between registration and dashboard display",
+        "User data persists across page refreshes"
+      ],
+      "file_operations": [
         {
           "path": "frontend/src/components/auth/RegisterView.tsx",
           "operation": "modify",
-          "description": "Restore registration form to Version 24 fields and validation"
-        },
-        {
-          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
-          "operation": "modify",
-          "description": "Restore protected route guard to Version 24 authentication checks"
-        },
-        {
-          "path": "frontend/src/components/auth/RoleProtectedRoute.tsx",
-          "operation": "modify",
-          "description": "Restore role-based route guard to Version 24 authorization logic"
-        },
-        {
-          "path": "frontend/src/components/auth/ThreeBackground.tsx",
-          "operation": "modify",
-          "description": "Restore Three.js animated background to Version 24 implementation"
-        },
-        {
-          "path": "frontend/src/components/dashboard/Overview.tsx",
-          "operation": "modify",
-          "description": "Restore dashboard overview card to Version 24 KPI display"
-        },
-        {
-          "path": "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-          "operation": "modify",
-          "description": "Restore KPI metrics row to Version 24 metric cards and charts"
-        },
-        {
-          "path": "frontend/src/components/dashboard/QuantumInterlinkCard.tsx",
-          "operation": "modify",
-          "description": "Restore quantum interlink card to Version 24 status display"
-        },
-        {
-          "path": "frontend/src/components/dashboard/AssetShieldCard.tsx",
-          "operation": "modify",
-          "description": "Restore asset shield card to Version 24 protected assets display"
-        },
-        {
-          "path": "frontend/src/components/dashboard/VocalHealthCard.tsx",
-          "operation": "modify",
-          "description": "Restore vocal health card to Version 24 progress indicator"
-        },
-        {
-          "path": "frontend/src/components/dashboard/QuickActionsCard.tsx",
-          "operation": "modify",
-          "description": "Restore quick actions card to Version 24 action buttons"
-        },
-        {
-          "path": "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-          "operation": "modify",
-          "description": "Restore neural ingest input to Version 24 URL verification interface"
-        },
-        {
-          "path": "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-          "operation": "modify",
-          "description": "Restore synopsis engine card to Version 24 loading state"
-        },
-        {
-          "path": "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-          "operation": "modify",
-          "description": "Restore spectral analysis card to Version 24 canvas visualization"
-        },
-        {
-          "path": "frontend/src/components/dashboard/ControlPanel.tsx",
-          "operation": "modify",
-          "description": "Restore control panel to Version 24 toggle switches and state management"
-        },
-        {
-          "path": "frontend/src/components/dashboard/GlobalNodeMap.tsx",
-          "operation": "modify",
-          "description": "Restore global node map to Version 24 canvas animation"
-        },
-        {
-          "path": "frontend/src/components/dashboard/SecurityTrafficTrend.tsx",
-          "operation": "modify",
-          "description": "Restore security traffic trend chart to Version 24 data visualization"
-        },
-        {
-          "path": "frontend/src/components/dashboard/TeamManagement.tsx",
-          "operation": "modify",
-          "description": "Restore team management component to Version 24 member list and controls"
-        },
-        {
-          "path": "frontend/src/components/dashboard/TeamStatusCard.tsx",
-          "operation": "modify",
-          "description": "Restore team status card to Version 24 status indicators"
-        },
-        {
-          "path": "frontend/src/components/dashboard/TelemetryFeed.tsx",
-          "operation": "modify",
-          "description": "Restore telemetry feed to Version 24 event display"
-        },
-        {
-          "path": "frontend/src/components/dashboard/ActiveIdentitiesCard.tsx",
-          "operation": "modify",
-          "description": "Restore active identities card to Version 24 team member management"
-        },
-        {
-          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
-          "operation": "modify",
-          "description": "Restore active plan card to Version 24 subscription display"
-        },
-        {
-          "path": "frontend/src/components/dashboard/PricingTable.tsx",
-          "operation": "modify",
-          "description": "Restore pricing table to Version 24 tier comparison"
-        },
-        {
-          "path": "frontend/src/components/analytics/BiometricStressRadar.tsx",
-          "operation": "modify",
-          "description": "Restore biometric stress radar chart to Version 24 visualization"
-        },
-        {
-          "path": "frontend/src/components/analytics/EmotionTracker.tsx",
-          "operation": "modify",
-          "description": "Restore emotion tracker chart to Version 24 data display"
-        },
-        {
-          "path": "frontend/src/components/analytics/GlobalNodeMap.tsx",
-          "operation": "modify",
-          "description": "Restore analytics global node map to Version 24 world visualization"
-        },
-        {
-          "path": "frontend/src/components/analytics/LiveTrafficChart.tsx",
-          "operation": "modify",
-          "description": "Restore live traffic chart to Version 24 real-time updates"
-        },
-        {
-          "path": "frontend/src/components/analytics/MeetingLogCard.tsx",
-          "operation": "modify",
-          "description": "Restore meeting log card to Version 24 session display"
-        },
-        {
-          "path": "frontend/src/components/analytics/MeetingROITicker.tsx",
-          "operation": "modify",
-          "description": "Restore meeting ROI ticker to Version 24 cost calculation"
-        },
-        {
-          "path": "frontend/src/components/analytics/NeuralPacketStream.tsx",
-          "operation": "modify",
-          "description": "Restore neural packet stream to Version 24 terminal log display"
-        },
-        {
-          "path": "frontend/src/components/analytics/QuantumEncryptionMonitor.tsx",
-          "operation": "modify",
-          "description": "Restore quantum encryption monitor to Version 24 metrics dashboard"
-        },
-        {
-          "path": "frontend/src/components/analytics/RecentFilesTable.tsx",
-          "operation": "modify",
-          "description": "Restore recent files table to Version 24 file listing"
-        },
-        {
-          "path": "frontend/src/components/analytics/SentimentRadar.tsx",
-          "operation": "modify",
-          "description": "Restore sentiment radar chart to Version 24 vocal stress visualization"
-        },
-        {
-          "path": "frontend/src/components/analytics/SpeakerIdentityMatrix.tsx",
-          "operation": "modify",
-          "description": "Restore speaker identity matrix to Version 24 profile display"
-        },
-        {
-          "path": "frontend/src/components/analytics/SystemAuditTrail.tsx",
-          "operation": "modify",
-          "description": "Restore system audit trail to Version 24 security event log"
-        },
-        {
-          "path": "frontend/src/components/analytics/ThreatDetectionMatrix.tsx",
-          "operation": "modify",
-          "description": "Restore threat detection matrix to Version 24 grid visualization"
-        },
-        {
-          "path": "frontend/src/components/analytics/VoicePatternTimeline.tsx",
-          "operation": "modify",
-          "description": "Restore voice pattern timeline to Version 24 speaker visualization"
-        },
-        {
-          "path": "frontend/src/components/admin/AuditLogViewer.tsx",
-          "operation": "modify",
-          "description": "Restore audit log viewer to Version 24 filtering and export functionality"
-        },
-        {
-          "path": "frontend/src/components/admin/SystemHealthMonitor.tsx",
-          "operation": "modify",
-          "description": "Restore system health monitor to Version 24 metrics display"
-        },
-        {
-          "path": "frontend/src/components/vault/IntelSessionCard.tsx",
-          "operation": "modify",
-          "description": "Restore intel session card to Version 24 meeting analysis display"
-        },
-        {
-          "path": "frontend/src/components/vault/SubscriptionTierCard.tsx",
-          "operation": "modify",
-          "description": "Restore subscription tier card to Version 24 pricing display"
-        },
-        {
-          "path": "frontend/src/components/vault/SubscriptionTiers.tsx",
-          "operation": "modify",
-          "description": "Restore subscription tiers selector to Version 24 tier management"
-        },
-        {
-          "path": "frontend/src/components/vault/SubscriptionToggle.tsx",
-          "operation": "modify",
-          "description": "Restore subscription toggle to Version 24 billing period switch"
-        },
-        {
-          "path": "frontend/src/components/neural/AIMirrorStatus.tsx",
-          "operation": "modify",
-          "description": "Restore AI mirror status to Version 24 readiness indicator"
-        },
-        {
-          "path": "frontend/src/components/neural/NeuralProgress.tsx",
-          "operation": "modify",
-          "description": "Restore neural progress indicator to Version 24 circular display"
-        },
-        {
-          "path": "frontend/src/components/neural/VocalDropZone.tsx",
-          "operation": "modify",
-          "description": "Restore vocal drop zone to Version 24 file upload interface"
-        },
-        {
-          "path": "frontend/src/components/neural/VoiceHealthDashboard.tsx",
-          "operation": "modify",
-          "description": "Restore voice health dashboard to Version 24 metrics display"
-        },
-        {
-          "path": "frontend/src/components/sentinel/AcousticMatrixGrid.tsx",
-          "operation": "modify",
-          "description": "Restore acoustic matrix grid to Version 24 environment cards"
-        },
-        {
-          "path": "frontend/src/components/sentinel/EnvironmentMixer.tsx",
-          "operation": "modify",
-          "description": "Restore environment mixer to Version 24 audio controls"
-        },
-        {
-          "path": "frontend/src/components/sentinel/EnvironmentSpoofing.tsx",
-          "operation": "modify",
-          "description": "Restore environment spoofing to Version 24 audio playback options"
-        },
-        {
-          "path": "frontend/src/components/sentinel/HardwareMimicry.tsx",
-          "operation": "modify",
-          "description": "Restore hardware mimicry to Version 24 fake update screens"
-        },
-        {
-          "path": "frontend/src/components/sentinel/PacketJitterSimulator.tsx",
-          "operation": "modify",
-          "description": "Restore packet jitter simulator to Version 24 network degradation controls"
-        },
-        {
-          "path": "frontend/src/components/sentinel/PanicProtocol.tsx",
-          "operation": "modify",
-          "description": "Restore panic protocol to Version 24 emergency overlay"
-        },
-        {
-          "path": "frontend/src/components/security/DarkWebMonitor.tsx",
-          "operation": "modify",
-          "description": "Restore dark web monitor to Version 24 threat tracking interface"
-        },
-        {
-          "path": "frontend/src/components/mobile/BiometricScanner.tsx",
-          "operation": "modify",
-          "description": "Restore biometric scanner to Version 24 authentication flow"
-        },
-        {
-          "path": "frontend/src/components/video/VideoWelcomeWidget.tsx",
-          "operation": "modify",
-          "description": "Restore video welcome widget to Version 24 floating player"
-        },
-        {
-          "path": "frontend/src/components/visualizer/NetworkLatencyGlobe.tsx",
-          "operation": "modify",
-          "description": "Restore network latency globe to Version 24 3D visualization"
-        },
-        {
-          "path": "frontend/src/components/visualizer/NeuralFrequencyVisualizer.tsx",
-          "operation": "modify",
-          "description": "Restore neural frequency visualizer to Version 24 waveform display"
-        },
-        {
-          "path": "frontend/src/components/visualizer/WaterfallSpectrogram.tsx",
-          "operation": "modify",
-          "description": "Restore waterfall spectrogram to Version 24 frequency analysis"
-        },
-        {
-          "path": "frontend/src/components/scheduling/SecurityAuditScheduler.tsx",
-          "operation": "modify",
-          "description": "Restore security audit scheduler to Version 24 booking interface"
-        },
-        {
-          "path": "frontend/src/components/settings/BandwidthOptimizer.tsx",
-          "operation": "modify",
-          "description": "Restore bandwidth optimizer to Version 24 quality presets"
-        },
-        {
-          "path": "frontend/src/components/sync/ConnectionLog.tsx",
-          "operation": "modify",
-          "description": "Restore connection log to Version 24 WebSocket event display"
-        },
-        {
-          "path": "frontend/src/components/testimonials/TestimonialCard.tsx",
-          "operation": "modify",
-          "description": "Restore testimonial card to Version 24 styling and layout"
-        },
-        {
-          "path": "frontend/src/components/transitions/NeuralScanTransition.tsx",
-          "operation": "modify",
-          "description": "Restore neural scan transition to Version 24 loading animation"
-        },
-        {
-          "path": "frontend/src/components/transitions/PageTransition.tsx",
-          "operation": "modify",
-          "description": "Restore page transition to Version 24 fade animation"
-        },
-        {
-          "path": "frontend/src/components/effects/BorderBeam.tsx",
-          "operation": "modify",
-          "description": "Restore border beam effect to Version 24 animation"
-        },
-        {
-          "path": "frontend/src/components/effects/SovereignOrb.tsx",
-          "operation": "modify",
-          "description": "Restore sovereign orb to Version 24 3D visualization"
-        },
-        {
-          "path": "frontend/src/components/errors/ErrorBoundary.tsx",
-          "operation": "modify",
-          "description": "Restore error boundary to Version 24 error handling"
-        },
-        {
-          "path": "frontend/src/components/common/ActiveStatusIndicator.tsx",
-          "operation": "modify",
-          "description": "Restore active status indicator to Version 24 display"
-        },
-        {
-          "path": "frontend/src/components/common/FeatureLockedOverlay.tsx",
-          "operation": "modify",
-          "description": "Restore feature locked overlay to Version 24 upgrade prompt"
-        },
-        {
-          "path": "frontend/src/components/common/HotkeysReferenceModal.tsx",
-          "operation": "modify",
-          "description": "Restore hotkeys reference modal to Version 24 keyboard shortcuts"
-        },
-        {
-          "path": "frontend/src/components/common/MetricCard.tsx",
-          "operation": "modify",
-          "description": "Restore metric card to Version 24 styling"
-        },
-        {
-          "path": "frontend/src/components/common/PrimaryCTA.tsx",
-          "operation": "modify",
-          "description": "Restore primary CTA button to Version 24 styling"
-        },
-        {
-          "path": "frontend/src/components/common/SentinelPanicButton.tsx",
-          "operation": "modify",
-          "description": "Restore sentinel panic button to Version 24 emergency control"
-        },
-        {
-          "path": "frontend/src/components/MagneticButton.tsx",
-          "operation": "modify",
-          "description": "Restore magnetic button to Version 24 hover effect"
-        },
-        {
-          "path": "frontend/src/components/dev/PerformanceOverlay.tsx",
-          "operation": "modify",
-          "description": "Restore performance overlay to Version 24 FPS monitoring"
-        },
-        {
-          "path": "frontend/src/hooks/useActor.ts",
-          "operation": "modify",
-          "description": "Restore useActor hook to Version 24 backend connection and authentication logic"
-        },
-        {
-          "path": "frontend/src/hooks/useInternetIdentity.ts",
-          "operation": "modify",
-          "description": "Restore Internet Identity hook to Version 24 authentication implementation"
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Restore React Query hooks to Version 24 data fetching and mutation logic"
-        },
-        {
-          "path": "frontend/src/hooks/useSubscriptionTier.ts",
-          "operation": "modify",
-          "description": "Restore subscription tier hook to Version 24 tier management"
-        },
-        {
-          "path": "frontend/src/hooks/useHapticFeedback.ts",
-          "operation": "modify",
-          "description": "Restore haptic feedback hook to Version 24 vibration implementation"
-        },
-        {
-          "path": "frontend/src/hooks/useKeyboardShortcut.ts",
-          "operation": "modify",
-          "description": "Restore keyboard shortcut hook to Version 24 event handling"
-        },
-        {
-          "path": "frontend/src/hooks/useMousePosition.ts",
-          "operation": "modify",
-          "description": "Restore mouse position hook to Version 24 tracking logic"
-        },
-        {
-          "path": "frontend/src/contexts/GhostModeContext.tsx",
-          "operation": "modify",
-          "description": "Restore ghost mode context to Version 24 state management"
-        },
-        {
-          "path": "frontend/src/contexts/TelemetryContext.tsx",
-          "operation": "modify",
-          "description": "Restore telemetry context to Version 24 event logging"
+          "description": "Update registration submission handler to save user data (including Full Name, email) to localStorage.AXON_MASTER_USER using JSON.stringify. Immediately trigger view change to dashboard by setting display style on auth-page to 'none' and dashboard-page to 'block'"
         },
         {
           "path": "frontend/src/utils/localStorageAuth.ts",
           "operation": "modify",
-          "description": "Restore local storage auth utilities to Version 24 implementation"
+          "description": "Update registerUser function to include fullName field in the user object structure and persist to localStorage.AXON_MASTER_USER"
         },
         {
-          "path": "frontend/src/utils/urlParams.ts",
+          "path": "frontend/src/pages/LoginPage.tsx",
           "operation": "modify",
-          "description": "Restore URL parameter utilities to Version 24 extraction logic"
+          "description": "Add view toggle function that sets document.getElementById('auth-page').style.display = 'none' and document.getElementById('dashboard-page').style.display = 'block' upon successful registration"
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Restore dashboard sidebar navigation with five sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault",
+      "acceptanceCriteria": [
+        "Sidebar contains exactly five navigation items in order",
+        "Navigation items match reference design from frontend/public/assets/generated/sc.png",
+        "Each section is clickable and navigates to appropriate view",
+        "Active section is visually indicated"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Update sidebar navigation array to include exactly five items in order: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault. Ensure each has appropriate icon, label, and route path. Add active state styling with emerald highlight matching frontend/public/assets/generated/sc.png"
         },
         {
-          "path": "frontend/src/backend.d.ts",
+          "path": "frontend/src/pages/UnifiedDashboard.tsx",
           "operation": "modify",
-          "description": "Restore backend TypeScript interface definitions to Version 24 type declarations"
+          "description": "Verify that all five navigation sections have corresponding content areas or component imports to display when selected"
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement KPI row with Asset Shield ticker, Neural Ingest input, and Vocal Health gauge",
+      "acceptanceCriteria": [
+        "Asset Shield displays starting value of ₹1,241,310 in Indian Rupee format",
+        "Asset Shield value increments automatically in real-time",
+        "Neural Ingest includes a text input field for links",
+        "Vocal Health displays as a visual gauge component",
+        "All three components are positioned in a horizontal row"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/AssetShieldCard.tsx",
+          "operation": "modify",
+          "description": "Set initial value to ₹1,241,310 formatted with Indian Rupee symbol. Ensure the auto-increment interval adds small random amounts every 2 seconds to create a live ticker effect"
+        },
+        {
+          "path": "frontend/src/components/dashboard/NeuralIngestInput.tsx",
+          "operation": "modify",
+          "description": "Verify the component contains a text input field for meeting links with verification button functionality"
+        },
+        {
+          "path": "frontend/src/components/dashboard/VocalHealthCard.tsx",
+          "operation": "modify",
+          "description": "Ensure the component displays as a circular gauge showing vocal health percentage (98.4/100) with SVG gradient ring"
+        },
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Position AssetShieldCard, NeuralIngestInput, and VocalHealthCard components in a horizontal row layout (flex or grid) as the KPI row section at the top of the dashboard"
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add real-time animating Waveform visualization labeled 'Live Spectral Analysis' in dashboard center",
+      "acceptanceCriteria": [
+        "Waveform renders in the center dashboard area",
+        "Animation runs continuously in real-time",
+        "Component is labeled 'Live Spectral Analysis'",
+        "Waveform uses smooth, fluid animation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
+          "operation": "modify",
+          "description": "Verify the component renders an animated canvas with sine wave visualization using requestAnimationFrame. Ensure the card title displays 'Live Spectral Analysis' prominently"
+        },
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Position SpectralAnalysisCard in the center section of the dashboard layout below the KPI row"
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add Synopsis Engine component in the center of the dashboard alongside waveform visualization",
+      "acceptanceCriteria": [
+        "Synopsis Engine displays in center dashboard area",
+        "Component is positioned near or with the waveform",
+        "Synopsis Engine has distinct visual identity"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
+          "operation": "modify",
+          "description": "Verify the component displays loading spinner and 'awaiting verified intel link' message with distinct styling to differentiate from SpectralAnalysisCard"
+        },
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Position SynopsisEngineCard adjacent to or below SpectralAnalysisCard in the center dashboard area, creating a two-column or stacked layout"
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add three-tier subscription pricing cards under Vault section with Free, ₹299/month, and ₹499/month tiers",
+      "acceptanceCriteria": [
+        "Vault section contains three subscription cards",
+        "Tiers are priced at Free, ₹299, and ₹499",
+        "Pricing displays in Indian Rupee format with /month suffix",
+        "Cards are visually distinct and comparable"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/vault/SubscriptionTiers.tsx",
+          "operation": "modify",
+          "description": "Update pricing tiers to display Free (₹0), Core (₹299/month), and Shield (₹499/month). Ensure Indian Rupee formatting is consistent across all tier cards"
+        },
+        {
+          "path": "frontend/src/components/vault/SubscriptionTierCard.tsx",
+          "operation": "modify",
+          "description": "Verify pricing display includes ₹ symbol and /month suffix. Ensure cards support Free tier with ₹0 pricing and special 'Get Started' or 'Current Plan' button text"
+        },
+        {
+          "path": "frontend/src/pages/UnifiedDashboard.tsx",
+          "operation": "modify",
+          "description": "Add navigation to Vault section that displays the SubscriptionTiers component or include PricingTable component with the three pricing tiers"
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Display registered user's Full Name dynamically in dashboard sidebar, removing hardcoded 'Nishant' references",
+      "acceptanceCriteria": [
+        "User's Full Name from registration displays in sidebar",
+        "Name updates dynamically based on logged-in user",
+        "No hardcoded names like 'Nishant' appear anywhere",
+        "Name is retrieved from localStorage.AXON_MASTER_USER"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Remove any hardcoded 'Nishant' references. Retrieve user data from localStorage.AXON_MASTER_USER using JSON.parse, extract the fullName or name field, and display it dynamically in the sidebar user profile section"
+        },
+        {
+          "path": "frontend/src/pages/UnifiedDashboard.tsx",
+          "operation": "modify",
+          "description": "Remove any hardcoded user names. Retrieve and display the Full Name from localStorage.AXON_MASTER_USER in the user profile display area"
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Add Logout button to dashboard that clears session and returns to auth-page",
+      "acceptanceCriteria": [
+        "Logout button is visible in the dashboard",
+        "Clicking logout clears localStorage.AXON_MASTER_USER",
+        "View switches to auth-page after logout",
+        "User must re-authenticate after logout"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/QuickActionsCard.tsx",
+          "operation": "modify",
+          "description": "Verify Tactical Exit button clears localStorage.AXON_MASTER_USER and triggers view switch by setting document.getElementById('dashboard-page').style.display = 'none' and document.getElementById('auth-page').style.display = 'block'"
+        },
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Add a logout button in the sidebar that calls localStorage.removeItem('AXON_MASTER_USER') and toggles view back to auth-page"
+        },
+        {
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Add or verify logout function that clears localStorage.AXON_MASTER_USER and any related session data"
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Implement login validation with 'Invalid Credentials' toast notification on failure",
+      "acceptanceCriteria": [
+        "Failed login attempts trigger validation",
+        "Toast notification displays with text 'Invalid Credentials'",
+        "Toast appears on screen temporarily and dismisses",
+        "User remains on auth-page after failed login"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/SignInView.tsx",
+          "operation": "modify",
+          "description": "Add login validation logic that checks credentials against localStorage.AXON_MASTER_USER. On validation failure, trigger toast notification with message 'Invalid Credentials' using the toast utility from shadcn/ui"
+        },
+        {
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Add or verify validateLogin function that compares submitted credentials with stored user data in localStorage.AXON_MASTER_USER and returns boolean success/failure result"
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Ensure login failure handling prevents view switching to dashboard-page and keeps user on auth-page until successful authentication"
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Implement secret bypass: clicking AXON logo 3 times force-shows Dashboard as Sovereign Administrator with ₹499 plan",
+      "acceptanceCriteria": [
+        "AXON logo tracks click count",
+        "After exactly 3 clicks, dashboard view displays immediately",
+        "User identity is set to 'Sovereign Administrator'",
+        "Subscription tier is set to ₹499 plan",
+        "Bypass works from auth-page without requiring credentials",
+        "Click counter resets after successful bypass or timeout"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Add click event handler to the AXON logo that tracks click count using useState. On the third click within a reasonable timeframe, create a bypass user object with fullName: 'Sovereign Administrator', save to localStorage.AXON_MASTER_USER, set subscription tier to 'shield' (₹499) in localStorage, and immediately toggle view to dashboard-page. Reset click counter after 2 seconds of inactivity or successful bypass"
+        },
+        {
+          "path": "frontend/src/components/auth/AuthPanel.tsx",
+          "operation": "modify",
+          "description": "Ensure the AXON logo is rendered as a clickable element (button or div with onClick) that propagates click events to parent LoginPage for bypass tracking"
+        },
+        {
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Add createBypassUser function that generates a master user object with fullName: 'Sovereign Administrator', email: 'admin@axon.sovereign', and subscription: 'shield', then saves to localStorage.AXON_MASTER_USER"
         }
       ]
     }
