@@ -3,32 +3,14 @@
   "projectStateVersion": 3,
   "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [
-    "Sidebar not visible in Version 19 dashboard despite being implemented"
-  ],
-  "isFixRequest": true,
+  "known_issues": [],
+  "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-ensure-the-dashboardlayout-sidebar-is-visible-and-properly-rendered-on-the-left-side-of-the-screen-with-deep-onyx-050505-background-and-emerald-10b981-accent-colors",
-      "title": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side of the screen with Deep Onyx (#050505) background and Emerald (#10b981) accent colors",
+      "id": "feature-remove-the-pricingtable-component-from-the-commandcenter-dashboard-page-that-displays-the-basic-plan-299-month-and-premium-plan-499-month",
+      "title": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
       "reqIds": [
         "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-verify-sidebar-is-not-hidden-by-css-display-visibility-opacity-z-index-or-overflow-properties-in-dashboardlayout-component-and-parent-containers",
-      "title": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties in DashboardLayout component and parent containers",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-check-responsive-behavior-to-ensure-sidebar-is-not-collapsed-or-hidden-on-the-current-viewport-size-being-used",
-      "title": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size being used",
-      "reqIds": [
-        "REQ-3"
       ],
       "version": 1
     }
@@ -36,12 +18,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Fix sidebar visibility issue - sidebar not appearing in dashboard",
+      "summary": "Remove Basic ($299) and Premium ($499) plans from dashboard",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "AXON Remote",
+  "projectName": "Remove Basic and Premium pricing plans from dashboard",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

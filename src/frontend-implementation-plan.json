@@ -1,61 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix sidebar visibility in dashboard",
+  "title": "Remove Basic and Premium pricing plans from dashboard",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side with Deep Onyx background and Emerald accents",
+      "summary": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
       "acceptanceCriteria": [
-        "Sidebar appears on the left side of the dashboard",
-        "Navigation links (Command Center, Security Vault, Team, Pricing, Settings) are visible",
-        "User identity section displays the logged-in user's name",
-        "Logout button is visible and fixed at the bottom",
-        "Sidebar uses Deep Onyx background with Emerald accents for active states"
+        "The pricing table with Basic and Premium plans is no longer visible on the dashboard",
+        "The dashboard layout adjusts appropriately without the pricing table section",
+        "No pricing plan information appears in the CommandCenter view"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "path": "frontend/src/pages/CommandCenter.tsx",
           "operation": "modify",
-          "description": "Review and fix sidebar rendering to ensure it is visible. Check that the sidebar container has proper display properties (not hidden by display:none, visibility:hidden, or opacity:0). Ensure the sidebar element has appropriate width (e.g., w-64 or fixed pixel width), proper positioning, and is not clipped by parent overflow settings. Verify that navigation items, user profile section with avatar and name, and logout button are all properly rendered. Confirm Deep Onyx (#050505) background color and Emerald (#10b981) accent colors are applied correctly for active states."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties",
-      "acceptanceCriteria": [
-        "Sidebar has visible display property",
-        "No parent container clips or hides the sidebar",
-        "Sidebar z-index allows it to appear above background elements",
-        "Sidebar width and positioning are correctly applied"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Inspect all CSS classes applied to the sidebar and its parent containers. Remove or fix any display:none, visibility:hidden, opacity:0, or similar properties that would hide the sidebar. Ensure parent containers do not have overflow:hidden that clips the sidebar. Verify z-index is set appropriately (e.g., z-10 or higher) so the sidebar appears above other elements. Confirm width classes (like w-64) are present and positioning classes (like fixed or absolute with left-0) are correctly applied."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Review global CSS and Tailwind configuration for any styles that might be affecting sidebar visibility. Check for conflicting global styles that override sidebar display properties. Ensure CSS custom properties for Deep Onyx and Emerald colors are correctly defined and accessible."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size",
-      "acceptanceCriteria": [
-        "Sidebar displays correctly on desktop viewports (≥1024px)",
-        "If viewport is mobile/tablet size, appropriate responsive behavior is applied",
-        "Media query breakpoints do not inadvertently hide the sidebar"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Review responsive classes (md:, lg:, xl: prefixes) applied to the sidebar to ensure it's visible on desktop viewports (≥1024px). If the sidebar has conditional rendering based on viewport size or a toggle state, ensure the default state shows the sidebar on desktop. Check for any hidden state management (useState, useEffect) that might be hiding the sidebar unintentionally. For mobile/tablet viewports, verify appropriate responsive behavior exists (drawer, toggle button, or similar pattern)."
+          "description": "Remove the PricingTable component import and its usage from the CommandCenter page. Remove the corresponding grid section that contains the PricingTable while preserving all other dashboard components (KPI metrics row, security traffic trends, active identities card, and control panel). Adjust the grid layout to ensure proper spacing and alignment of remaining components."
         }
       ]
     }

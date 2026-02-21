@@ -1,71 +1,35 @@
 {
   "kind": "build_request",
-  "title": "Fix sidebar visibility in dashboard",
-  "projectName": "AXON Remote",
-  "priority": "high",
+  "title": "Remove Basic and Premium pricing plans from dashboard",
+  "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side of the screen with Deep Onyx (#050505) background and Emerald (#10b981) accent colors",
+      "text": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-6"
         ],
         "quotes": [
-          "It is not visible",
-          "Where is the side panel bar"
+          "Remove the basic plan of 299$ and premium plan pf 499$ from the dashboard"
         ]
       },
       "acceptanceCriteria": [
-        "Sidebar appears on the left side of the dashboard",
-        "Navigation links (Command Center, Security Vault, Team, Pricing, Settings) are visible",
-        "User identity section displays the logged-in user's name",
-        "Logout button is visible and fixed at the bottom",
-        "Sidebar uses Deep Onyx background with Emerald accents for active states"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties in DashboardLayout component and parent containers",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Sidebar has visible display property",
-        "No parent container clips or hides the sidebar",
-        "Sidebar z-index allows it to appear above background elements",
-        "Sidebar width and positioning are correctly applied"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size being used",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Sidebar displays correctly on desktop viewports (≥1024px)",
-        "If viewport is mobile/tablet size, appropriate responsive behavior is applied",
-        "Media query breakpoints do not inadvertently hide the sidebar"
+        "The pricing table with Basic and Premium plans is no longer visible on the dashboard",
+        "The dashboard layout adjusts appropriately without the pricing table section",
+        "No pricing plan information appears in the CommandCenter view"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the overall architecture of DashboardLayout",
-    "Preserve existing navigation structure and user identity display",
-    "Maintain Deep Onyx (#050505) and Emerald (#10b981) color scheme"
+    "Do not modify the PricingTable component itself, only remove its usage from CommandCenter",
+    "Preserve all other dashboard components (KPI metrics, security traffic trends, active identities, control panel)"
   ],
   "nonGoals": [
-    "Changing the sidebar position from left to another location",
-    "Adding new navigation items or features to the sidebar",
-    "Modifying the backend or authentication logic"
+    "Modifying the Subscriptions page pricing display",
+    "Removing pricing-related backend data structures",
+    "Creating alternative pricing display options"
   ],
   "imageRequirements": {
     "required": [],

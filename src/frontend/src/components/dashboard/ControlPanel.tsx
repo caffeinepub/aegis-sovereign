@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Shield, EyeOff, Brain } from 'lucide-react';
+import { Shield, EyeOff } from 'lucide-react';
 import { useTelemetry } from '@/contexts/TelemetryContext';
 
 export default function ControlPanel() {
@@ -15,10 +15,6 @@ export default function ControlPanel() {
     const saved = sessionStorage.getItem('stealthMode');
     return saved ? JSON.parse(saved) : false;
   });
-  const [aiDetection, setAiDetection] = useState(() => {
-    const saved = sessionStorage.getItem('aiDetection');
-    return saved ? JSON.parse(saved) : false;
-  });
 
   useEffect(() => {
     sessionStorage.setItem('neuralShield', JSON.stringify(neuralShield));
@@ -27,10 +23,6 @@ export default function ControlPanel() {
   useEffect(() => {
     sessionStorage.setItem('stealthMode', JSON.stringify(stealthMode));
   }, [stealthMode]);
-
-  useEffect(() => {
-    sessionStorage.setItem('aiDetection', JSON.stringify(aiDetection));
-  }, [aiDetection]);
 
   const handleNeuralShieldToggle = (checked: boolean) => {
     setNeuralShield(checked);
@@ -48,24 +40,17 @@ export default function ControlPanel() {
     );
   };
 
-  const handleAiDetectionToggle = (checked: boolean) => {
-    setAiDetection(checked);
-    logEvent(
-      `AI Detection ${checked ? 'ENABLED' : 'DISABLED'}`,
-      checked ? 'success' : 'warning'
-    );
-  };
-
   return (
-    <Card className="bg-card border-border h-full">
+    <Card className="bg-white shadow-md rounded-lg border border-gray-200 h-full">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-foreground">Control Panel</CardTitle>
+        <CardTitle className="text-lg font-semibold text-[#001529]">Control Panel</CardTitle>
+        <p className="text-sm text-gray-500">Security toggles</p>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <div className="flex items-center gap-3">
-            <Shield className="h-5 w-5 text-emerald-500" />
-            <Label htmlFor="neural-shield" className="text-sm font-medium text-foreground cursor-pointer">
+            <Shield className="h-5 w-5 text-[#10b981]" />
+            <Label htmlFor="neural-shield" className="text-sm font-medium text-[#001529] cursor-pointer">
               Neural Shield
             </Label>
           </div>
@@ -73,13 +58,14 @@ export default function ControlPanel() {
             id="neural-shield"
             checked={neuralShield}
             onCheckedChange={handleNeuralShieldToggle}
+            className="data-[state=checked]:bg-[#10b981]"
           />
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <div className="flex items-center gap-3">
-            <EyeOff className="h-5 w-5 text-emerald-500" />
-            <Label htmlFor="stealth-mode" className="text-sm font-medium text-foreground cursor-pointer">
+            <EyeOff className="h-5 w-5 text-[#10b981]" />
+            <Label htmlFor="stealth-mode" className="text-sm font-medium text-[#001529] cursor-pointer">
               Stealth Mode
             </Label>
           </div>
@@ -87,20 +73,7 @@ export default function ControlPanel() {
             id="stealth-mode"
             checked={stealthMode}
             onCheckedChange={handleStealthModeToggle}
-          />
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Brain className="h-5 w-5 text-emerald-500" />
-            <Label htmlFor="ai-detection" className="text-sm font-medium text-foreground cursor-pointer">
-              AI Detection
-            </Label>
-          </div>
-          <Switch
-            id="ai-detection"
-            checked={aiDetection}
-            onCheckedChange={handleAiDetectionToggle}
+            className="data-[state=checked]:bg-[#10b981]"
           />
         </div>
       </CardContent>

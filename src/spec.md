@@ -1,12 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the dashboard sidebar visibility issue so it appears properly on the left side of the screen.
+**Goal:** Remove the pricing table displaying Basic and Premium plans from the CommandCenter dashboard.
 
 **Planned changes:**
-- Investigate and fix CSS properties that may be hiding the sidebar (display, visibility, opacity, z-index, overflow)
-- Ensure sidebar positioning and width are correctly applied
-- Verify responsive behavior doesn't inadvertently hide the sidebar at current viewport size
-- Confirm Deep Onyx background and Emerald accent colors are properly rendered
+- Remove the PricingTable component from the CommandCenter dashboard page
+- Adjust dashboard layout to accommodate the removal of the pricing section
 
-**User-visible outcome:** The sidebar with navigation links (Command Center, Security Vault, Team, Pricing, Settings), user identity section, and logout button is visible on the left side of the dashboard with proper styling.
+**User-visible outcome:** The CommandCenter dashboard no longer displays the Basic ($299/month) and Premium ($499/month) pricing plans, providing a cleaner view focused on operational metrics and controls.

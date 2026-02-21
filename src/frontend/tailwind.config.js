@@ -18,32 +18,32 @@ export default {
             colors: {
                 border: 'oklch(var(--border))',
                 input: 'oklch(var(--input))',
-                ring: 'oklch(var(--ring) / <alpha-value>)',
+                ring: 'oklch(var(--ring))',
                 background: 'oklch(var(--background))',
                 foreground: 'oklch(var(--foreground))',
                 primary: {
-                    DEFAULT: 'oklch(var(--primary) / <alpha-value>)',
+                    DEFAULT: 'oklch(var(--primary))',
                     foreground: 'oklch(var(--primary-foreground))'
                 },
                 secondary: {
-                    DEFAULT: 'oklch(var(--secondary) / <alpha-value>)',
+                    DEFAULT: 'oklch(var(--secondary))',
                     foreground: 'oklch(var(--secondary-foreground))'
                 },
                 destructive: {
-                    DEFAULT: 'oklch(var(--destructive) / <alpha-value>)',
+                    DEFAULT: 'oklch(var(--destructive))',
                     foreground: 'oklch(var(--destructive-foreground))'
                 },
-                success: {
-                    DEFAULT: 'oklch(var(--success) / <alpha-value>)',
-                    foreground: 'oklch(var(--success-foreground))'
-                },
                 muted: {
-                    DEFAULT: 'oklch(var(--muted) / <alpha-value>)',
-                    foreground: 'oklch(var(--muted-foreground) / <alpha-value>)'
+                    DEFAULT: 'oklch(var(--muted))',
+                    foreground: 'oklch(var(--muted-foreground))'
                 },
                 accent: {
-                    DEFAULT: 'oklch(var(--accent) / <alpha-value>)',
+                    DEFAULT: 'oklch(var(--accent))',
                     foreground: 'oklch(var(--accent-foreground))'
+                },
+                success: {
+                    DEFAULT: 'oklch(var(--success))',
+                    foreground: 'oklch(var(--success-foreground))'
                 },
                 popover: {
                     DEFAULT: 'oklch(var(--popover))',
@@ -52,13 +52,6 @@ export default {
                 card: {
                     DEFAULT: 'oklch(var(--card))',
                     foreground: 'oklch(var(--card-foreground))'
-                },
-                chart: {
-                    1: 'oklch(var(--chart-1))',
-                    2: 'oklch(var(--chart-2))',
-                    3: 'oklch(var(--chart-3))',
-                    4: 'oklch(var(--chart-4))',
-                    5: 'oklch(var(--chart-5))'
                 },
                 sidebar: {
                     DEFAULT: 'oklch(var(--sidebar))',
@@ -70,8 +63,12 @@ export default {
                     border: 'oklch(var(--sidebar-border))',
                     ring: 'oklch(var(--sidebar-ring))'
                 },
-                emerald: {
-                    500: '#10b981'
+                chart: {
+                    '1': 'oklch(var(--chart-1))',
+                    '2': 'oklch(var(--chart-2))',
+                    '3': 'oklch(var(--chart-3))',
+                    '4': 'oklch(var(--chart-4))',
+                    '5': 'oklch(var(--chart-5))'
                 }
             },
             borderRadius: {
@@ -79,21 +76,25 @@ export default {
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)'
             },
-            boxShadow: {
-                xs: '0 1px 2px 0 rgba(0,0,0,0.05)'
-            },
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
-                mono: ['JetBrains Mono', 'Consolas', 'monospace']
+                sans: ['Inter', 'system-ui', 'sans-serif']
             },
             keyframes: {
                 'accordion-down': {
-                    from: { height: '0' },
-                    to: { height: 'var(--radix-accordion-content-height)' }
+                    from: {
+                        height: '0'
+                    },
+                    to: {
+                        height: 'var(--radix-accordion-content-height)'
+                    }
                 },
                 'accordion-up': {
-                    from: { height: 'var(--radix-accordion-content-height)' },
-                    to: { height: '0' }
+                    from: {
+                        height: 'var(--radix-accordion-content-height)'
+                    },
+                    to: {
+                        height: '0'
+                    }
                 }
             },
             animation: {

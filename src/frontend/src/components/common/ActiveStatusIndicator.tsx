@@ -7,8 +7,8 @@ export default function ActiveStatusIndicator() {
         <TooltipTrigger asChild>
           <div className="flex items-center gap-2">
             <div className="relative h-3 w-3">
-              <div className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-75"></div>
-              <div className="relative h-3 w-3 rounded-full bg-green-400"></div>
+              <div className="absolute inset-0 animate-pulse-green rounded-full bg-[#10b981] opacity-75"></div>
+              <div className="relative h-3 w-3 rounded-full bg-[#10b981]"></div>
             </div>
           </div>
         </TooltipTrigger>

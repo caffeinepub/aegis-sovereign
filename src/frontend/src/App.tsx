@@ -2,9 +2,6 @@ import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } fr
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import { TelemetryProvider } from '@/contexts/TelemetryContext';
-import { useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import CommandCenter from './pages/CommandCenter';
@@ -17,6 +14,7 @@ import TacticalRemote from './pages/TacticalRemote';
 import AdminPanel from './pages/AdminPanel';
 import Settings from './pages/Settings';
 import MobileBiometric from './pages/MobileBiometric';
+import TeamManagementPage from './pages/TeamManagementPage';
 import DashboardLayout from './components/layout/DashboardLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PageTransition from './components/transitions/PageTransition';
@@ -31,28 +29,11 @@ const queryClient = new QueryClient({
   },
 });
 
-function SessionChecker() {
-  const navigate = useNavigate();
-  const { identity, isInitializing } = useInternetIdentity();
-
-  useEffect(() => {
-    if (!isInitializing) {
-      const axonSession = sessionStorage.getItem('AXON_SESSION');
-      if (axonSession && identity) {
-        navigate({ to: '/command-center' });
-      }
-    }
-  }, [identity, isInitializing, navigate]);
-
-  return null;
-}
-
 const rootRoute = createRootRoute({
   component: () => (
     <QueryClientProvider client={queryClient}>
       <TelemetryProvider>
         <ErrorBoundary>
-          <SessionChecker />
           <Outlet />
           <Toaster />
         </ErrorBoundary>
@@ -207,6 +188,16 @@ const adminPanelRoute = createRoute({
   ),
 });
 
+const teamManagementRoute = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/team-management',
+  component: () => (
+    <PageTransition>
+      <TeamManagementPage />
+    </PageTransition>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   loginRoute,
@@ -222,6 +213,7 @@ const routeTree = rootRoute.addChildren([
     subscriptionsRoute,
     settingsRoute,
     adminPanelRoute,
+    teamManagementRoute,
   ]),
 ]);
 

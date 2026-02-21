@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-ensure-the-dashboardlayout-sidebar-is-visible-and-properly-rendered-on-the-left-side-of-the-screen-with-deep-onyx-050505-background-and-emerald-10b981-accent-colors",
-      "featureTitle": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side of the screen with Deep Onyx (#050505) background and Emerald (#10b981) accent colors",
+      "featureId": "feature-remove-the-pricingtable-component-from-the-commandcenter-dashboard-page-that-displays-the-basic-plan-299-month-and-premium-plan-499-month",
+      "featureTitle": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
       "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx"
+        "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -17,44 +17,6 @@
       ],
       "testIds": [
         "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-verify-sidebar-is-not-hidden-by-css-display-visibility-opacity-z-index-or-overflow-properties-in-dashboardlayout-component-and-parent-containers",
-      "featureTitle": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties in DashboardLayout component and parent containers",
-      "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-check-responsive-behavior-to-ensure-sidebar-is-not-collapsed-or-hidden-on-the-current-viewport-size-being-used",
-      "featureTitle": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size being used",
-      "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
       ],
       "confidence": "high"
     }

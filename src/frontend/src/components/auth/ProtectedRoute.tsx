@@ -1,28 +1,37 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useInternetIdentity } from '../../hooks/useInternetIdentity';
-import { Loader2 } from 'lucide-react';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 
 interface ProtectedRouteProps {
   children: ReactNode;
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const navigate = useNavigate();
   const { identity, isInitializing } = useInternetIdentity();
+  const navigate = useNavigate();
 
-  // Show loading while checking authentication
+  useEffect(() => {
+    if (!isInitializing) {
+      const axonSession = localStorage.getItem('AXON_SESSION');
+      if (!identity || !axonSession) {
+        navigate({ to: '/login' });
+      }
+    }
+  }, [identity, isInitializing, navigate]);
+
   if (isInitializing) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+      <div className="min-h-screen bg-[#F0F2F5] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1890FF] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
       </div>
     );
   }
 
-  // Redirect to login if not authenticated
-  if (!identity) {
-    navigate({ to: '/login' });
+  const axonSession = localStorage.getItem('AXON_SESSION');
+  if (!identity || !axonSession) {
     return null;
   }
 
