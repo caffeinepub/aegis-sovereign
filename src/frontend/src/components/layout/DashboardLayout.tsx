@@ -1,131 +1,156 @@
-import { ReactNode, useState, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   LayoutDashboard,
-  Lock,
   FileText,
   Settings,
   Menu,
-  LogOut,
+  Power,
+  Shield,
+  Users,
+  CreditCard,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getCurrentSession, clearCurrentSession } from '@/utils/localStorageAuth';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
+import { useGetCallerUserProfile } from '@/hooks/useQueries';
+
+interface DashboardLayoutProps {
+  children: ReactNode;
+}
 
 interface NavItem {
-  name: string;
+  label: string;
   path: string;
   icon: React.ReactNode;
 }
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+const navItems: NavItem[] = [
+  { label: 'Command Center', path: '/command-center', icon: <LayoutDashboard className="h-5 w-5" /> },
+  { label: 'Security Vault', path: '/dashboard/analytics', icon: <Shield className="h-5 w-5" /> },
+  { label: 'Team', path: '/command-center', icon: <Users className="h-5 w-5" /> },
+  { label: 'Pricing', path: '/dashboard/subscriptions', icon: <CreditCard className="h-5 w-5" /> },
+  { label: 'Settings', path: '/dashboard/settings', icon: <Settings className="h-5 w-5" /> },
+];
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const navigate = useNavigate();
-  const router = useRouterState();
   const queryClient = useQueryClient();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [userName, setUserName] = useState<string>('User');
+  const routerState = useRouterState();
+  const currentPath = routerState.location.pathname;
+  const { clear, identity } = useInternetIdentity();
+  const { data: userProfile } = useGetCallerUserProfile();
 
-  useEffect(() => {
-    const session = getCurrentSession();
-    if (session) {
-      setUserName(session.name);
-    } else {
-      navigate({ to: '/login' });
-    }
-  }, [navigate]);
+  const userName = userProfile?.name || 'User';
 
-  const navItems: NavItem[] = [
-    { name: 'Command Center', path: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
-    { name: 'Analytics Vault', path: '/dashboard/analytics', icon: <Lock className="h-5 w-5" /> },
-    { name: 'Neural Lab', path: '/dashboard/neural-lab', icon: <FileText className="h-5 w-5" /> },
-    { name: 'Settings', path: '/dashboard/settings', icon: <Settings className="h-5 w-5" /> },
-  ];
-
-  const handleLogout = () => {
-    clearCurrentSession();
+  const handleLogout = async () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    await clear();
     queryClient.clear();
-    toast.success('Logged out successfully');
+    toast.success('Session terminated');
     navigate({ to: '/login' });
   };
 
-  const NavContent = () => (
-    <div className="flex h-full flex-col bg-background border-r border-border">
-      {/* Logo */}
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center gap-3">
-          <img src="/assets/generated/axon-logo.dim_800x800.png" alt="AXON" className="h-10 w-10" />
-          <div>
-            <h2 className="text-lg font-bold text-foreground">AXON</h2>
-            <p className="text-xs text-emerald-500">SOVEREIGN</p>
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  const SidebarContent = () => (
+    <div className="flex flex-col h-full bg-[#050505] border-r border-emerald-500/20">
+      {/* Welcome Section with User Profile */}
+      <div className="p-6 border-b border-emerald-500/20">
+        <div className="flex items-center gap-3 mb-2">
+          <Avatar className="h-10 w-10 border-2 border-emerald-500">
+            <AvatarFallback className="bg-emerald-500/20 text-emerald-500 font-semibold">
+              {getInitials(userName)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-muted-foreground">Welcome,</p>
+            <p className="text-sm font-semibold text-foreground truncate">{userName}</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
-          const isActive = router.location.pathname === item.path;
+          const isActive = currentPath === item.path;
           return (
             <button
               key={item.path}
-              onClick={() => {
-                navigate({ to: item.path });
-                setMobileOpen(false);
-              }}
-              className={`flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-all ${
+              onClick={() => navigate({ to: item.path })}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                 isActive
-                  ? 'bg-emerald-500/10 text-emerald-500'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                  ? 'bg-emerald-500/10 text-emerald-500 font-semibold'
+                  : 'text-muted-foreground hover:bg-emerald-500/5 hover:text-foreground'
               }`}
             >
               {item.icon}
-              <span>{item.name}</span>
+              <span className="text-sm">{item.label}</span>
             </button>
           );
         })}
       </nav>
 
-      {/* Logout */}
-      <div className="p-3 border-t border-border">
-        <button
+      {/* Logout Button - Fixed at Bottom */}
+      <div className="p-4 border-t border-emerald-500/20 mt-auto">
+        <Button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-all"
+          variant="outline"
+          className="w-full border-red-500/50 text-red-500 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500"
         >
-          <LogOut className="h-5 w-5" />
-          <span>Logout</span>
-        </button>
+          <Power className="h-4 w-4 mr-2" />
+          Logout
+        </Button>
       </div>
     </div>
   );
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:w-64 lg:flex-col">
-        <NavContent />
+    <div className="flex h-screen bg-background overflow-hidden">
+      {/* Desktop Sidebar - Now visible on md screens and above (≥768px) */}
+      <aside className="hidden md:flex w-64 flex-shrink-0">
+        <SidebarContent />
       </aside>
 
-      {/* Mobile Sidebar */}
-      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetTrigger asChild className="lg:hidden">
-          <Button variant="ghost" size="icon" className="fixed top-4 left-4 z-50 text-foreground">
-            <Menu className="h-6 w-6" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="p-0 w-64 bg-background">
-          <NavContent />
-        </SheetContent>
-      </Sheet>
+      {/* Mobile Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#050505] border-b border-emerald-500/20 p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Avatar className="h-8 w-8 border-2 border-emerald-500">
+              <AvatarFallback className="bg-emerald-500/20 text-emerald-500 text-xs font-semibold">
+                {getInitials(userName)}
+              </AvatarFallback>
+            </Avatar>
+            <span className="text-sm font-semibold text-foreground">{userName}</span>
+          </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-foreground">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64 p-0 bg-[#050505] border-emerald-500/20">
+              <SidebarContent />
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Page Content */}
-        <main className="flex-1 p-6">
-          <div className="animate-fade-in">{children}</div>
-        </main>
-      </div>
+      <main className="flex-1 overflow-y-auto md:pt-0 pt-16">
+        {children}
+      </main>
     </div>
   );
 }

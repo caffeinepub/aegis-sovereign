@@ -1,101 +1,34 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Dashboard application with authentication, clean UI featuring Deep Onyx (#050505) background with Emerald (#10b981) accents, control panel toggles, active plan display, telemetry feed, and team status",
-  "architectural_notes": [
-    "Deep Onyx (#050505) background with Emerald (#10b981) accent colors throughout UI",
-    "localStorage-based authentication using 'AXON_SESSION' key",
-    "Bento-style card layout for main dashboard components",
-    "Lucide icon library standardized across application"
+  "summary": "New project",
+  "architectural_notes": [],
+  "known_issues": [
+    "Sidebar not visible in Version 19 dashboard despite being implemented"
   ],
-  "known_issues": [],
   "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-restore-the-original-sidebar-and-main-content-spacing-from-the-nishant-dashboard-version-with-deep-onyx-050505-background-and-emerald-10b981-accents",
-      "title": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
+      "id": "feature-ensure-the-dashboardlayout-sidebar-is-visible-and-properly-rendered-on-the-left-side-of-the-screen-with-deep-onyx-050505-background-and-emerald-10b981-accent-colors",
+      "title": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side of the screen with Deep Onyx (#050505) background and Emerald (#10b981) accent colors",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-display-a-clean-and-prominent-welcome-back-header-at-the-top-of-the-dashboard",
-      "title": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
+      "id": "feature-verify-sidebar-is-not-hidden-by-css-display-visibility-opacity-z-index-or-overflow-properties-in-dashboardlayout-component-and-parent-containers",
+      "title": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties in DashboardLayout component and parent containers",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-create-a-control-panel-card-in-bento-style-with-toggles-for-neural-shield-and-stealth-mode-that-log-toggle-actions-to-the-telemetry-feed",
-      "title": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
+      "id": "feature-check-responsive-behavior-to-ensure-sidebar-is-not-collapsed-or-hidden-on-the-current-viewport-size-being-used",
+      "title": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size being used",
       "reqIds": [
         "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-active-plan-card-displaying-sovereign-enterprise-as-a-badge-with-a-log-out-button-positioned-nearby",
-      "title": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-compact-scrolling-telemetry-feed-on-the-right-side-of-the-dashboard-displaying-logged-events",
-      "title": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-team-status-card-showing-a-simple-list-of-active-users",
-      "title": "Add a Team Status card showing a simple list of active users",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-maintain-localstorage-authentication-logic-where-axon-session-existence-determines-dashboard-vs-sign-in-display",
-      "title": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-log-out-button-clears-axon-session-from-localstorage-and-redirects-user-to-sign-in-page",
-      "title": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-configure-neural-scan-transition-to-play-only-once-upon-successful-login-not-on-subsequent-page-loads",
-      "title": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-all-redundant-logos-and-initializing-screens-from-the-dashboard-interface",
-      "title": "Remove all redundant logos and Initializing screens from the dashboard interface",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-standardize-all-dashboard-icons-to-use-the-lucide-icon-set-with-emerald-10b981-color",
-      "title": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
-      "reqIds": [
-        "REQ-11"
       ],
       "version": 1
     }
@@ -103,66 +36,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Restore original clean, high-density dashboard UI with sidebar and main content spacing",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Integrate Control Panel with Neural Shield and Stealth Mode toggles that log to feed",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Add Active Plan card showing 'Sovereign Enterprise' with Log Out button",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Implement compact scrolling Telemetry Feed on the right side",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Add Team Status card showing list of active users",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Maintain localStorage authentication logic with AXON_SESSION",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Ensure Log Out clears session and returns to Sign-In",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Neural Scan transition plays only once upon successful login",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Remove redundant logos and Initializing screens",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Standardize all icons to Lucide icon set in Emerald color",
+      "summary": "Fix sidebar visibility issue - sidebar not appearing in dashboard",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Axon Sovereign",
+  "projectName": "AXON Remote",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

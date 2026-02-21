@@ -1,35 +1,30 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { Loader2 } from 'lucide-react';
-import ErrorBoundary from '../errors/ErrorBoundary';
-import { isAuthenticated } from '@/utils/localStorageAuth';
 
-export default function ProtectedRoute({ children }: { children: ReactNode }) {
+interface ProtectedRouteProps {
+  children: ReactNode;
+}
+
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
-  const [isChecking, setIsChecking] = useState(true);
+  const { identity, isInitializing } = useInternetIdentity();
 
-  useEffect(() => {
-    // Check authentication status
-    const authenticated = isAuthenticated();
-    
-    if (!authenticated) {
-      navigate({ to: '/login' });
-    } else {
-      setIsChecking(false);
-    }
-  }, [navigate]);
-
-  // Show loading state while checking authentication
-  if (isChecking) {
+  // Show loading while checking authentication
+  if (isInitializing) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="text-center">
-          <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-indigo-600" />
-          <p className="text-gray-600">Loading...</p>
-        </div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
       </div>
     );
   }
 
-  return <ErrorBoundary>{children}</ErrorBoundary>;
+  // Redirect to login if not authenticated
+  if (!identity) {
+    navigate({ to: '/login' });
+    return null;
+  }
+
+  return <>{children}</>;
 }

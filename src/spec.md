@@ -1,19 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Restore the original clean dashboard UI with Deep Onyx background, Emerald accents, and integrate functional components including Control Panel, Active Plan, Telemetry Feed, and Team Status.
+**Goal:** Fix the dashboard sidebar visibility issue so it appears properly on the left side of the screen.
 
 **Planned changes:**
-- Restore original sidebar and main content spacing with Deep Onyx (#050505) background and Emerald (#10b981) accents
-- Display clean and prominent 'Welcome back' header at the top
-- Add Control Panel card with Neural Shield and Stealth Mode toggles that log to telemetry feed
-- Add Active Plan card showing 'Sovereign Enterprise' badge with nearby Log Out button
-- Implement compact scrolling Telemetry Feed on the right side displaying logged events
-- Add Team Status card showing simple list of active users
-- Configure Neural Scan transition to play only once upon successful login
-- Remove redundant logos and Initializing screens
-- Standardize all dashboard icons to Lucide icon set with Emerald color
-- Ensure Log Out button clears AXON_SESSION and redirects to Sign-In
-- Maintain localStorage authentication logic (AXON_SESSION determines dashboard vs Sign-In display)
+- Investigate and fix CSS properties that may be hiding the sidebar (display, visibility, opacity, z-index, overflow)
+- Ensure sidebar positioning and width are correctly applied
+- Verify responsive behavior doesn't inadvertently hide the sidebar at current viewport size
+- Confirm Deep Onyx background and Emerald accent colors are properly rendered
 
-**User-visible outcome:** Users see a clean, high-density dashboard with the original spacing and color scheme, functional toggles that log to a telemetry feed, team status visibility, and proper session management with single-play Neural Scan transition on login.
+**User-visible outcome:** The sidebar with navigation links (Command Center, Security Vault, Team, Pricing, Settings), user identity section, and logout button is visible on the left side of the dashboard with proper styling.

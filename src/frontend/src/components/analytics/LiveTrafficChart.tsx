@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { useState, useEffect } from 'react';
 
 interface TrafficData {
@@ -35,35 +35,43 @@ export default function LiveTrafficChart() {
   }, []);
 
   return (
-    <Card className="bg-white border-slate-200 shadow-sm rounded-xl">
+    <Card className="bg-card border-emerald-500/20">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-slate-900">Live Traffic</CardTitle>
-        <p className="text-sm text-slate-600">Real-time network activity monitoring</p>
+        <CardTitle className="text-xl font-semibold text-foreground">Live Traffic</CardTitle>
+        <p className="text-sm text-muted-foreground">Real-time network activity</p>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={data}>
             <defs>
               <linearGradient id="colorTraffic" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#4F46E5" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#4F46E5" stopOpacity={0} />
+                <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
+                <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-            <XAxis dataKey="time" stroke="#64748B" style={{ fontSize: '12px' }} />
-            <YAxis stroke="#64748B" style={{ fontSize: '12px' }} />
+            <XAxis 
+              dataKey="time" 
+              stroke="#10b981" 
+              style={{ fontSize: '12px' }}
+              tick={{ fill: '#10b981' }}
+            />
+            <YAxis 
+              stroke="#10b981" 
+              style={{ fontSize: '12px' }}
+              tick={{ fill: '#10b981' }}
+            />
             <Tooltip
               contentStyle={{
-                backgroundColor: 'white',
-                border: '1px solid #E2E8F0',
+                backgroundColor: '#050505',
+                border: '1px solid rgba(16, 185, 129, 0.3)',
                 borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                color: '#10b981',
               }}
             />
             <Area
               type="monotone"
               dataKey="traffic"
-              stroke="#4F46E5"
+              stroke="#10b981"
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorTraffic)"

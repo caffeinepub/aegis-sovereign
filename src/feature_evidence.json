@@ -2,11 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-restore-the-original-sidebar-and-main-content-spacing-from-the-nishant-dashboard-version-with-deep-onyx-050505-background-and-emerald-10b981-accents",
-      "featureTitle": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
+      "featureId": "feature-ensure-the-dashboardlayout-sidebar-is-visible-and-properly-rendered-on-the-left-side-of-the-screen-with-deep-onyx-050505-background-and-emerald-10b981-accent-colors",
+      "featureTitle": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side of the screen with Deep Onyx (#050505) background and Emerald (#10b981) accent colors",
       "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx",
-        "frontend/src/index.css"
+        "frontend/src/components/layout/DashboardLayout.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,10 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-display-a-clean-and-prominent-welcome-back-header-at-the-top-of-the-dashboard",
-      "featureTitle": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
+      "featureId": "feature-verify-sidebar-is-not-hidden-by-css-display-visibility-opacity-z-index-or-overflow-properties-in-dashboardlayout-component-and-parent-containers",
+      "featureTitle": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties in DashboardLayout component and parent containers",
       "files": [
-        "frontend/src/pages/CommandCenter.tsx"
+        "frontend/src/components/layout/DashboardLayout.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -41,106 +40,9 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-control-panel-card-in-bento-style-with-toggles-for-neural-shield-and-stealth-mode-that-log-toggle-actions-to-the-telemetry-feed",
-      "featureTitle": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
+      "featureId": "feature-check-responsive-behavior-to-ensure-sidebar-is-not-collapsed-or-hidden-on-the-current-viewport-size-being-used",
+      "featureTitle": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size being used",
       "files": [
-        "frontend/src/components/dashboard/ControlPanel.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-active-plan-card-displaying-sovereign-enterprise-as-a-badge-with-a-log-out-button-positioned-nearby",
-      "featureTitle": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
-      "files": [
-        "frontend/src/components/dashboard/ActivePlanCard.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-a-compact-scrolling-telemetry-feed-on-the-right-side-of-the-dashboard-displaying-logged-events",
-      "featureTitle": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
-      "files": [
-        "frontend/src/components/dashboard/TelemetryFeed.tsx",
-        "frontend/src/contexts/TelemetryContext.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-team-status-card-showing-a-simple-list-of-active-users",
-      "featureTitle": "Add a Team Status card showing a simple list of active users",
-      "files": [
-        "frontend/src/components/dashboard/TeamStatusCard.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-maintain-localstorage-authentication-logic-where-axon-session-existence-determines-dashboard-vs-sign-in-display",
-      "featureTitle": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
-      "files": [
-        "frontend/src/App.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-log-out-button-clears-axon-session-from-localstorage-and-redirects-user-to-sign-in-page",
-      "featureTitle": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
-      "files": [
-        "frontend/src/components/dashboard/ActivePlanCard.tsx",
         "frontend/src/components/layout/DashboardLayout.tsx"
       ],
       "components": [
@@ -152,72 +54,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-8"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-configure-neural-scan-transition-to-play-only-once-upon-successful-login-not-on-subsequent-page-loads",
-      "featureTitle": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/transitions/NeuralScanTransition.tsx",
-        "frontend/src/pages/LoginPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-9"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-remove-all-redundant-logos-and-initializing-screens-from-the-dashboard-interface",
-      "featureTitle": "Remove all redundant logos and Initializing screens from the dashboard interface",
-      "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx",
-        "frontend/src/pages/CommandCenter.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-10"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-standardize-all-dashboard-icons-to-use-the-lucide-icon-set-with-emerald-10b981-color",
-      "featureTitle": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
-      "files": [
-        "frontend/src/components/dashboard/ActivePlanCard.tsx",
-        "frontend/src/components/dashboard/ControlPanel.tsx",
-        "frontend/src/components/dashboard/TeamStatusCard.tsx",
-        "frontend/src/components/dashboard/TelemetryFeed.tsx",
-        "frontend/src/components/layout/DashboardLayout.tsx",
-        "frontend/src/pages/CommandCenter.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-11"
+        "REQ-3"
       ],
       "confidence": "high"
     }

@@ -2,9 +2,11 @@ import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } fr
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import { TelemetryProvider } from '@/contexts/TelemetryContext';
+import { useEffect } from 'react';
+import { useNavigate } from '@tanstack/react-router';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
 import CommandCenter from './pages/CommandCenter';
 import NeuralLab from './pages/NeuralLab';
 import SentinelProtocol from './pages/SentinelProtocol';
@@ -29,11 +31,28 @@ const queryClient = new QueryClient({
   },
 });
 
+function SessionChecker() {
+  const navigate = useNavigate();
+  const { identity, isInitializing } = useInternetIdentity();
+
+  useEffect(() => {
+    if (!isInitializing) {
+      const axonSession = sessionStorage.getItem('AXON_SESSION');
+      if (axonSession && identity) {
+        navigate({ to: '/command-center' });
+      }
+    }
+  }, [identity, isInitializing, navigate]);
+
+  return null;
+}
+
 const rootRoute = createRootRoute({
   component: () => (
     <QueryClientProvider client={queryClient}>
       <TelemetryProvider>
         <ErrorBoundary>
+          <SessionChecker />
           <Outlet />
           <Toaster />
         </ErrorBoundary>
@@ -62,12 +81,12 @@ const loginRoute = createRoute({
   ),
 });
 
-const signupRoute = createRoute({
+const landingRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/signup',
+  path: '/landing',
   component: () => (
     <PageTransition>
-      <SignupPage />
+      <LandingPage />
     </PageTransition>
   ),
 });
@@ -105,12 +124,16 @@ const dashboardRoute = createRoute({
 });
 
 const commandCenterRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/',
+  getParentRoute: () => rootRoute,
+  path: '/command-center',
   component: () => (
-    <PageTransition>
-      <CommandCenter />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <PageTransition>
+          <CommandCenter />
+        </PageTransition>
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
@@ -187,11 +210,11 @@ const adminPanelRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   indexRoute,
   loginRoute,
-  signupRoute,
+  landingRoute,
   remoteRoute,
   mobileBiometricRoute,
+  commandCenterRoute,
   dashboardRoute.addChildren([
-    commandCenterRoute,
     neuralLabRoute,
     sentinelRoute,
     deviceSyncRoute,

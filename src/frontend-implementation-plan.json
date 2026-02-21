@@ -1,248 +1,61 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Restore original clean dashboard UI with integrated functional components",
+  "title": "Fix sidebar visibility in dashboard",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Restore the original sidebar and main content spacing from the 'Nishant' dashboard version with Deep Onyx (#050505) background and Emerald (#10b981) accents",
+      "summary": "Ensure the DashboardLayout sidebar is visible and properly rendered on the left side with Deep Onyx background and Emerald accents",
       "acceptanceCriteria": [
-        "Dashboard uses Deep Onyx (#050505) as the primary background color",
-        "Emerald (#10b981) accent color is applied consistently to interactive elements",
-        "Sidebar spacing matches the original clean, high-density layout",
-        "Main content area spacing provides adequate breathing room while maintaining density"
+        "Sidebar appears on the left side of the dashboard",
+        "Navigation links (Command Center, Security Vault, Team, Pricing, Settings) are visible",
+        "User identity section displays the logged-in user's name",
+        "Logout button is visible and fixed at the bottom",
+        "Sidebar uses Deep Onyx background with Emerald accents for active states"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Update CSS variables to use Deep Onyx (#050505) as the primary background color for both light and dark themes. Update accent colors to use Emerald (#10b981) consistently across interactive elements, buttons, and hover states."
-        },
-        {
           "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Restore original sidebar spacing with clean, high-density layout. Update background colors to Deep Onyx (#050505) and ensure Emerald (#10b981) accents are applied to sidebar navigation items, active states, and interactive elements. Adjust main content area padding to provide adequate breathing room while maintaining density."
+          "description": "Review and fix sidebar rendering to ensure it is visible. Check that the sidebar container has proper display properties (not hidden by display:none, visibility:hidden, or opacity:0). Ensure the sidebar element has appropriate width (e.g., w-64 or fixed pixel width), proper positioning, and is not clipped by parent overflow settings. Verify that navigation items, user profile section with avatar and name, and logout button are all properly rendered. Confirm Deep Onyx (#050505) background color and Emerald (#10b981) accent colors are applied correctly for active states."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Display a clean and prominent 'Welcome back' header at the top of the dashboard",
+      "summary": "Verify sidebar is not hidden by CSS display, visibility, opacity, z-index, or overflow properties",
       "acceptanceCriteria": [
-        "Welcome back header is visible at the top of the dashboard",
-        "Header text is legible with appropriate font size and weight",
-        "Header stands out visually without cluttering the interface"
+        "Sidebar has visible display property",
+        "No parent container clips or hides the sidebar",
+        "Sidebar z-index allows it to appear above background elements",
+        "Sidebar width and positioning are correctly applied"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CommandCenter.tsx",
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Add a clean and prominent 'Welcome back' header at the top of the dashboard page. Use appropriate font size (text-2xl or text-3xl) and weight (font-semibold) to make it stand out. Position it above the existing metric cards grid without cluttering the interface."
+          "description": "Inspect all CSS classes applied to the sidebar and its parent containers. Remove or fix any display:none, visibility:hidden, opacity:0, or similar properties that would hide the sidebar. Ensure parent containers do not have overflow:hidden that clips the sidebar. Verify z-index is set appropriately (e.g., z-10 or higher) so the sidebar appears above other elements. Confirm width classes (like w-64) are present and positioning classes (like fixed or absolute with left-0) are correctly applied."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review global CSS and Tailwind configuration for any styles that might be affecting sidebar visibility. Check for conflicting global styles that override sidebar display properties. Ensure CSS custom properties for Deep Onyx and Emerald colors are correctly defined and accessible."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Create a Control Panel card in bento style with toggles for Neural Shield and Stealth Mode that log toggle actions to the telemetry feed",
+      "summary": "Check responsive behavior to ensure sidebar is not collapsed or hidden on the current viewport size",
       "acceptanceCriteria": [
-        "Control Panel card is displayed as a clean, non-cluttered bento-style card",
-        "Neural Shield toggle is present and functional",
-        "Stealth Mode toggle is present and functional",
-        "Toggle state changes are logged to the telemetry feed with timestamps",
-        "Toggle states persist during the session"
+        "Sidebar displays correctly on desktop viewports (≥1024px)",
+        "If viewport is mobile/tablet size, appropriate responsive behavior is applied",
+        "Media query breakpoints do not inadvertently hide the sidebar"
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/ControlPanel.tsx",
-          "operation": "create",
-          "description": "Create a new ControlPanel component using BentoCard for styling. Include two toggle switches using shadcn/ui Switch component for Neural Shield and Stealth Mode. Use React state with useState to manage toggle states. Implement sessionStorage to persist toggle states during the session. When toggles change state, emit events that can be consumed by the TelemetryFeed component. Use Lucide icons (Shield and EyeOff) in Emerald (#10b981) color next to each toggle label."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Add an Active Plan card displaying 'Sovereign Enterprise' as a badge with a Log Out button positioned nearby",
-      "acceptanceCriteria": [
-        "Active Plan card is displayed as a small badge/card in bento style",
-        "Card shows 'Sovereign Enterprise' plan name clearly",
-        "Log Out button is positioned near the Active Plan display",
-        "Log Out button is visually distinct and easily accessible"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
-          "operation": "create",
-          "description": "Create a new ActivePlanCard component using BentoCard for styling. Display 'Sovereign Enterprise' as a badge using shadcn/ui Badge component with Emerald accent styling. Position a Log Out button nearby using shadcn/ui Button component with appropriate styling. The Log Out button should use the logout functionality from useInternetIdentity hook to clear AXON_SESSION and redirect to the login page. Use a Lucide icon (Crown or Sparkles) for the plan badge and LogOut icon for the button."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Implement a compact scrolling Telemetry Feed on the right side of the dashboard displaying logged events",
-      "acceptanceCriteria": [
-        "Telemetry Feed is positioned on the right side of the dashboard",
-        "Feed displays events in a compact, scrollable format",
-        "Feed auto-scrolls to show newest entries",
-        "Feed captures toggle actions from Control Panel",
-        "Feed entries include timestamps"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/TelemetryFeed.tsx",
-          "operation": "create",
-          "description": "Create a new TelemetryFeed component that displays a compact scrolling log of events. Use React state to maintain an array of log entries with timestamps. Implement a custom event listener or React context to receive toggle events from ControlPanel. Display entries in reverse chronological order with auto-scroll to bottom using useEffect and scrollIntoView. Style with Deep Onyx background, compact padding, and scrollable overflow. Format timestamps using toLocaleTimeString. Limit feed to last 50 entries to prevent memory issues."
-        },
-        {
-          "path": "frontend/src/contexts/TelemetryContext.tsx",
-          "operation": "create",
-          "description": "Create a React context to manage telemetry events across components. Provide a TelemetryProvider that maintains the event log state and exposes a logEvent function. Export a useTelemetry hook for components to add events to the feed. This allows ControlPanel to log toggle actions that TelemetryFeed can display."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Add a Team Status card showing a simple list of active users",
-      "acceptanceCriteria": [
-        "Team Status card is displayed in bento style within the main grid",
-        "Card shows a clean list of active users",
-        "User list is easy to scan and non-cluttered",
-        "Active status is visually indicated for each user"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/TeamStatusCard.tsx",
-          "operation": "create",
-          "description": "Create a new TeamStatusCard component using BentoCard for styling. Display a simple list of 3-4 mock active users (e.g., 'Alex Carter', 'Jordan Lee', 'Morgan Blake') with ActiveStatusIndicator component next to each name. Use a clean vertical list layout with appropriate spacing between users. Include Lucide Users icon in Emerald (#10b981) color as the card header icon."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Maintain localStorage authentication logic where AXON_SESSION existence determines dashboard vs Sign-In display",
-      "acceptanceCriteria": [
-        "When AXON_SESSION exists in localStorage, dashboard is displayed",
-        "When AXON_SESSION does not exist, Sign-In page is displayed",
-        "Session check occurs on app initialization",
-        "No changes to existing localStorage authentication flow"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Verify that ProtectedRoute components correctly check for AXON_SESSION in localStorage via the localStorageAuth utility. Ensure dashboard routes (/command-center, /analytics-vault, etc.) remain wrapped in ProtectedRoute. No modifications to the authentication logic itself - only verification that the existing flow is intact."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Ensure Log Out button clears AXON_SESSION from localStorage and redirects user to Sign-In page",
-      "acceptanceCriteria": [
-        "Clicking Log Out removes AXON_SESSION from localStorage",
-        "User is redirected to Sign-In page after logout",
-        "Session state is completely cleared on logout",
-        "No dashboard content remains accessible after logout"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
-          "operation": "modify",
-          "description": "Ensure the Log Out button in ActivePlanCard calls the logout function from localStorageAuth utility (imported from frontend/src/utils/localStorageAuth.ts) to clear AXON_SESSION from localStorage, then uses TanStack Router's useNavigate to redirect to the login page (/login). Clear any React Query cache using queryClient.clear() if applicable."
-        },
         {
           "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Verify that the existing logout functionality in DashboardLayout correctly clears AXON_SESSION using the localStorageAuth utility and redirects to /login. Ensure queryClient.clear() is called to remove any cached user data."
-        }
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "summary": "Configure Neural Scan transition to play only once upon successful login, not on subsequent page loads",
-      "acceptanceCriteria": [
-        "Neural Scan transition plays immediately after successful login",
-        "Transition does not replay on subsequent dashboard visits during the same session",
-        "Transition state is tracked to prevent duplicate playback",
-        "User sees smooth transition from login to dashboard exactly once per session"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "After successful login (when setCurrentUser is called and AXON_SESSION is created), set a sessionStorage flag 'NEURAL_SCAN_PLAYED' to 'true'. Before redirecting to /command-center, check if this flag exists. If it doesn't exist, trigger the Neural Scan transition animation. If it exists, skip the transition and redirect immediately."
-        },
-        {
-          "path": "frontend/src/components/transitions/NeuralScanTransition.tsx",
-          "operation": "create",
-          "description": "Create a NeuralScanTransition component that displays a fullscreen scanning animation (using animated SVG or canvas with scan lines effect and Emerald accent color). Component should check sessionStorage for 'NEURAL_SCAN_PLAYED' flag on mount. If flag is present, don't render. If absent, show the animation for 2-3 seconds, then set the flag and call an onComplete callback to proceed to the dashboard."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add conditional rendering logic to show NeuralScanTransition component immediately after login if the 'NEURAL_SCAN_PLAYED' sessionStorage flag is not set. Ensure the transition wraps the navigation from login to dashboard, preventing dashboard render until transition completes."
-        }
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "summary": "Remove all redundant logos and Initializing screens from the dashboard interface",
-      "acceptanceCriteria": [
-        "No duplicate logos appear on the dashboard",
-        "Initializing screens are removed from the dashboard flow",
-        "Dashboard loads directly without unnecessary loading states",
-        "Interface is clean without visual redundancy"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/CommandCenter.tsx",
-          "operation": "modify",
-          "description": "Remove any redundant logo displays (multiple instances of axon-logo.dim_800x800.png or aegis-logo variants) from the CommandCenter page. Remove any 'Initializing...' loading states or screens that appear after authentication. Keep only essential loading skeletons for async data fetching."
-        },
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Remove any redundant logo displays from the sidebar or header in DashboardLayout. Ensure only one logo instance appears in the sidebar if needed. Remove any 'Initializing' screens or unnecessary loading overlays from the layout component."
-        }
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "summary": "Standardize all dashboard icons to use the Lucide icon set with Emerald (#10b981) color",
-      "acceptanceCriteria": [
-        "All icons in the dashboard use the Lucide icon library",
-        "Icons are colored with Emerald (#10b981)",
-        "Icon set is consistent across all dashboard components",
-        "No mixed icon libraries or inconsistent icon styles remain"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/ControlPanel.tsx",
-          "operation": "modify",
-          "description": "Ensure all icons in ControlPanel use Lucide React icons (Shield, EyeOff) with className='text-emerald-500' or inline style color='#10b981' for consistent Emerald color."
-        },
-        {
-          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
-          "operation": "modify",
-          "description": "Ensure all icons in ActivePlanCard use Lucide React icons (Crown or Sparkles for plan, LogOut for logout button) with Emerald (#10b981) color styling."
-        },
-        {
-          "path": "frontend/src/components/dashboard/TeamStatusCard.tsx",
-          "operation": "modify",
-          "description": "Ensure the Users icon from Lucide React is used with Emerald (#10b981) color for the card header."
-        },
-        {
-          "path": "frontend/src/components/dashboard/TelemetryFeed.tsx",
-          "operation": "modify",
-          "description": "Use Lucide React icons (Activity or Radio) for the telemetry feed header with Emerald (#10b981) color. Ensure any event-type icons in the feed also use Lucide with consistent styling."
-        },
-        {
-          "path": "frontend/src/pages/CommandCenter.tsx",
-          "operation": "modify",
-          "description": "Review all icons used in CommandCenter page (metric cards, section headers) and replace with Lucide React equivalents (Shield, Database, Activity, etc.) using Emerald (#10b981) color. Remove any non-Lucide icon imports."
-        },
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Standardize sidebar navigation icons to use Lucide React (LayoutDashboard, Lock, FileText, Settings, LogOut) with Emerald (#10b981) color for active/hover states. Ensure consistent icon sizing and spacing."
+          "description": "Review responsive classes (md:, lg:, xl: prefixes) applied to the sidebar to ensure it's visible on desktop viewports (≥1024px). If the sidebar has conditional rendering based on viewport size or a toggle state, ensure the default state shows the sidebar on desktop. Check for any hidden state management (useState, useEffect) that might be hiding the sidebar unintentionally. For mobile/tablet viewports, verify appropriate responsive behavior exists (drawer, toggle button, or similar pattern)."
         }
       ]
     }
