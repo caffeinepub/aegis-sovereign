@@ -3,14 +3,22 @@ import EnvironmentSpoofing from '../components/sentinel/EnvironmentSpoofing';
 import PacketJitterSimulator from '../components/sentinel/PacketJitterSimulator';
 import HardwareMimicry from '../components/sentinel/HardwareMimicry';
 import EnvironmentMixer from '../components/sentinel/EnvironmentMixer';
+import AcousticMatrixGrid from '../components/sentinel/AcousticMatrixGrid';
+import FeatureLockedOverlay from '../components/common/FeatureLockedOverlay';
 import { AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
 import PanicProtocol from '../components/sentinel/PanicProtocol';
 import { useTriggerPanic } from '../hooks/useQueries';
+import { useSubscriptionTier } from '../hooks/useSubscriptionTier';
 
 export default function SentinelProtocol() {
   const [panicActive, setPanicActive] = useState(false);
   const triggerPanic = useTriggerPanic();
+  const { canAccessSentinel } = useSubscriptionTier();
+
+  if (!canAccessSentinel) {
+    return <FeatureLockedOverlay featureName="Sentinel Protocol" />;
+  }
 
   const handlePanicActivation = () => {
     triggerPanic.mutate('Windows Update');
@@ -33,6 +41,14 @@ export default function SentinelProtocol() {
       </div>
 
       <div className="grid gap-6">
+        {/* Acoustic Matrix */}
+        <BentoCard className="border-[#10b981]/30 bg-[#10b981]/5">
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-[#10b981] mb-4">ACOUSTIC MATRIX</h2>
+            <AcousticMatrixGrid />
+          </div>
+        </BentoCard>
+
         {/* Emergency Panic Button */}
         <BentoCard className="border-red-500/30 bg-red-500/5">
           <div className="p-8 text-center">

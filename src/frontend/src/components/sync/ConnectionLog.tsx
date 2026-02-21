@@ -12,6 +12,7 @@ export default function ConnectionLog() {
   const [logs, setLogs] = useState<LogEntry[]>([
     { timestamp: new Date().toLocaleTimeString(), message: 'WebSocket server initialized', type: 'info' },
     { timestamp: new Date().toLocaleTimeString(), message: 'Listening on port 8080', type: 'info' },
+    { timestamp: new Date().toLocaleTimeString(), message: 'Diffie-Hellman key exchange initiated', type: 'info' },
   ]);
 
   useEffect(() => {
@@ -21,6 +22,11 @@ export default function ConnectionLog() {
         'Device authentication successful',
         'Sync protocol established',
         'Latency: 28ms',
+        'Diffie-Hellman key exchange initiated',
+        'Public key received from client',
+        'Symmetric key established',
+        'Encrypted channel active',
+        'Key rotation scheduled',
       ];
 
       setLogs((prev) => [
@@ -34,6 +40,21 @@ export default function ConnectionLog() {
     }, 5000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const keyExchangeInterval = setInterval(() => {
+      setLogs((prev) => [
+        ...prev,
+        {
+          timestamp: new Date().toLocaleTimeString(),
+          message: 'Diffie-Hellman key exchange completed',
+          type: 'success',
+        },
+      ]);
+    }, 12000);
+
+    return () => clearInterval(keyExchangeInterval);
   }, []);
 
   return (

@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Remove the pricing table displaying Basic and Premium plans from the CommandCenter dashboard.
+**Goal:** Revert the application to Version 24 state by undoing all changes from Versions 25, 26, 27, and 28.
 
 **Planned changes:**
-- Remove the PricingTable component from the CommandCenter dashboard page
-- Adjust dashboard layout to accommodate the removal of the pricing section
+- Restore all backend code to Version 24
+- Restore all frontend code to Version 24
+- Remove all modifications introduced in Versions 25-28
 
-**User-visible outcome:** The CommandCenter dashboard no longer displays the Basic ($299/month) and Premium ($499/month) pricing plans, providing a cleaner view focused on operational metrics and controls.
+**User-visible outcome:** The application will function exactly as it did in Version 24, with all subsequent changes removed.

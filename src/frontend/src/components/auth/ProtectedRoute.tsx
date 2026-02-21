@@ -1,38 +1,34 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
+import { isSessionActive } from '@/utils/localStorageAuth';
+import { Loader2 } from 'lucide-react';
 
 interface ProtectedRouteProps {
   children: ReactNode;
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { identity, isInitializing } = useInternetIdentity();
   const navigate = useNavigate();
+  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    if (!isInitializing) {
-      const axonSession = localStorage.getItem('AXON_SESSION');
-      if (!identity || !axonSession) {
+    const checkAuth = () => {
+      if (!isSessionActive()) {
         navigate({ to: '/login' });
+      } else {
+        setIsChecking(false);
       }
-    }
-  }, [identity, isInitializing, navigate]);
+    };
 
-  if (isInitializing) {
+    checkAuth();
+  }, [navigate]);
+
+  if (isChecking) {
     return (
-      <div className="min-h-screen bg-[#F0F2F5] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1890FF] mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-[#F0F2F5]">
+        <Loader2 className="h-8 w-8 text-[#10b981] animate-spin" />
       </div>
     );
-  }
-
-  const axonSession = localStorage.getItem('AXON_SESSION');
-  if (!identity || !axonSession) {
-    return null;
   }
 
   return <>{children}</>;

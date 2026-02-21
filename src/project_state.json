@@ -7,23 +7,16 @@
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-remove-the-pricingtable-component-from-the-commandcenter-dashboard-page-that-displays-the-basic-plan-299-month-and-premium-plan-499-month",
-      "title": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
+      "id": "feature-restore-the-complete-application-state-to-version-24-reverting-all-changes-made-in-versions-25-26-27-and-28",
+      "title": "Restore the complete application state to Version 24, reverting all changes made in Versions 25, 26, 27, and 28",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Remove Basic ($299) and Premium ($499) plans from dashboard",
-      "reqIds": [],
-      "status": "pending"
-    }
-  ],
-  "projectName": "Remove Basic and Premium pricing plans from dashboard",
+  "new_feature_requests": [],
+  "projectName": "Revert to Version 24",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -1,8 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import { toast } from 'sonner';
+import { useSubscriptionTier } from '@/hooks/useSubscriptionTier';
 
 export default function PricingTable() {
+  const { tier, setTier } = useSubscriptionTier();
+
   const basicFeatures = [
     'Up to 50 meetings/month',
     'Basic encryption',
@@ -19,16 +23,32 @@ export default function PricingTable() {
     'Custom integrations',
     'Advanced analytics',
     'Dedicated account manager',
+    'Spectral Analysis unlocked',
+    'Sentinel Protocol unlocked',
   ];
+
+  const handleBasicSubscribe = () => {
+    setTier('core');
+    toast.success('Upgraded to SOVEREIGN CORE plan!', {
+      duration: 3000,
+    });
+  };
+
+  const handlePremiumSubscribe = () => {
+    setTier('shield');
+    toast.success('Upgraded to GLOBAL SHIELD plan! All features unlocked.', {
+      duration: 3000,
+    });
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Basic Tier */}
       <Card className="bg-white shadow-md rounded-lg border border-gray-200">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-[#001529]">Basic</CardTitle>
+          <CardTitle className="text-lg font-semibold text-[#001529]">SOVEREIGN CORE</CardTitle>
           <div className="mt-2">
-            <span className="text-3xl font-bold text-[#001529]">$299</span>
+            <span className="text-3xl font-bold text-[#001529]">₹299</span>
             <span className="text-gray-500 text-sm">/month</span>
           </div>
         </CardHeader>
@@ -41,8 +61,12 @@ export default function PricingTable() {
               </li>
             ))}
           </ul>
-          <Button className="w-full bg-[#1890FF] hover:bg-[#1890FF]/90 text-white">
-            Subscribe
+          <Button
+            onClick={handleBasicSubscribe}
+            disabled={tier === 'core' || tier === 'shield'}
+            className="w-full bg-[#1890FF] hover:bg-[#1890FF]/90 text-white disabled:opacity-50"
+          >
+            {tier === 'core' ? 'Current Plan' : tier === 'shield' ? 'Downgrade' : 'Subscribe'}
           </Button>
         </CardContent>
       </Card>
@@ -55,9 +79,9 @@ export default function PricingTable() {
           </span>
         </div>
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-[#001529]">Premium</CardTitle>
+          <CardTitle className="text-lg font-semibold text-[#001529]">GLOBAL SHIELD</CardTitle>
           <div className="mt-2">
-            <span className="text-3xl font-bold text-[#001529]">$499</span>
+            <span className="text-3xl font-bold text-[#001529]">₹499</span>
             <span className="text-gray-500 text-sm">/month</span>
           </div>
         </CardHeader>
@@ -70,8 +94,12 @@ export default function PricingTable() {
               </li>
             ))}
           </ul>
-          <Button className="w-full bg-[#10b981] hover:bg-[#10b981]/90 text-white">
-            Subscribe
+          <Button
+            onClick={handlePremiumSubscribe}
+            disabled={tier === 'shield'}
+            className="w-full bg-[#10b981] hover:bg-[#10b981]/90 text-white disabled:opacity-50"
+          >
+            {tier === 'shield' ? 'Current Plan' : 'Upgrade Now'}
           </Button>
         </CardContent>
       </Card>

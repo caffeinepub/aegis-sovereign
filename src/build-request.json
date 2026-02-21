@@ -1,35 +1,35 @@
 {
   "kind": "build_request",
-  "title": "Remove Basic and Premium pricing plans from dashboard",
-  "priority": "normal",
+  "title": "Revert to Version 24",
+  "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
-      "target": "frontend",
+      "text": "Restore the complete application state to Version 24, reverting all changes made in Versions 25, 26, 27, and 28",
+      "target": "both",
       "source": {
         "messageIds": [
           "msg-6"
         ],
         "quotes": [
-          "Remove the basic plan of 299$ and premium plan pf 499$ from the dashboard"
+          "Undo till 24 versions"
         ]
       },
       "acceptanceCriteria": [
-        "The pricing table with Basic and Premium plans is no longer visible on the dashboard",
-        "The dashboard layout adjusts appropriately without the pricing table section",
-        "No pricing plan information appears in the CommandCenter view"
+        "All backend code matches Version 24 state",
+        "All frontend code matches Version 24 state",
+        "No artifacts from Versions 25-28 remain in the codebase",
+        "Application functionality matches Version 24 behavior"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the PricingTable component itself, only remove its usage from CommandCenter",
-    "Preserve all other dashboard components (KPI metrics, security traffic trends, active identities, control panel)"
+    "Must preserve Version 24 code exactly as it existed",
+    "Do not introduce any new features or modifications during revert"
   ],
   "nonGoals": [
-    "Modifying the Subscriptions page pricing display",
-    "Removing pricing-related backend data structures",
-    "Creating alternative pricing display options"
+    "Keeping any features added in Versions 25-28",
+    "Selective cherry-picking of changes from later versions"
   ],
   "imageRequirements": {
     "required": [],

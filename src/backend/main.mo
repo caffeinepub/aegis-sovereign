@@ -11,8 +11,7 @@ import Principal "mo:core/Principal";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
-
-// Data migration via with clause referencing migration module
+// No changes required - all subscription logic handled in frontend/local JS.
 
 actor {
   public type User = Principal;

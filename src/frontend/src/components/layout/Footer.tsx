@@ -22,8 +22,8 @@ export default function Footer() {
             <h3 className="mb-4 font-semibold text-white">Product</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <Link to="/dashboard" className="hover:text-emerald-500 transition-colors">
-                  Dashboard
+                <Link to="/command-center" className="hover:text-emerald-500 transition-colors">
+                  Command Center
                 </Link>
               </li>
               <li>
@@ -42,8 +42,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/analytics" className="hover:text-emerald-500 transition-colors">
-                  Analytics Vault
+                <Link to="/dashboard/analytics-vault" className="hover:text-emerald-500 transition-colors">
+                  Secure Vault
                 </Link>
               </li>
             </ul>

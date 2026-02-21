@@ -1,7 +1,8 @@
-import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } from '@tanstack/react-router';
+import { RouterProvider, createRouter, createRootRoute, createRoute } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import { TelemetryProvider } from '@/contexts/TelemetryContext';
+import { GhostModeProvider } from '@/contexts/GhostModeContext';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import CommandCenter from './pages/CommandCenter';
@@ -9,15 +10,15 @@ import NeuralLab from './pages/NeuralLab';
 import SentinelProtocol from './pages/SentinelProtocol';
 import DeviceSync from './pages/DeviceSync';
 import AnalyticsVault from './pages/AnalyticsVault';
+import Settings from './pages/Settings';
 import Subscriptions from './pages/Subscriptions';
 import TacticalRemote from './pages/TacticalRemote';
-import AdminPanel from './pages/AdminPanel';
-import Settings from './pages/Settings';
 import MobileBiometric from './pages/MobileBiometric';
 import TeamManagementPage from './pages/TeamManagementPage';
+import AdminPanel from './pages/AdminPanel';
 import DashboardLayout from './components/layout/DashboardLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import PageTransition from './components/transitions/PageTransition';
+import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 import ErrorBoundary from './components/errors/ErrorBoundary';
 
 const queryClient = new QueryClient({
@@ -29,202 +30,181 @@ const queryClient = new QueryClient({
   },
 });
 
+// Root route
 const rootRoute = createRootRoute({
   component: () => (
-    <QueryClientProvider client={queryClient}>
-      <TelemetryProvider>
-        <ErrorBoundary>
-          <Outlet />
-          <Toaster />
-        </ErrorBoundary>
-      </TelemetryProvider>
-    </QueryClientProvider>
+    <>
+      <Toaster />
+    </>
   ),
 });
 
-const indexRoute = createRoute({
+// Public routes
+const landingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: () => (
-    <PageTransition>
-      <LandingPage />
-    </PageTransition>
-  ),
+  component: LandingPage,
 });
 
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/login',
-  component: () => (
-    <PageTransition>
-      <LoginPage />
-    </PageTransition>
-  ),
+  component: LoginPage,
 });
 
-const landingRoute = createRoute({
+const tacticalRemoteRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/landing',
-  component: () => (
-    <PageTransition>
-      <LandingPage />
-    </PageTransition>
-  ),
-});
-
-const remoteRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/remote',
-  component: () => (
-    <PageTransition>
-      <TacticalRemote />
-    </PageTransition>
-  ),
+  path: '/tactical-remote',
+  component: TacticalRemote,
 });
 
 const mobileBiometricRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/mobile-biometric',
-  component: () => (
-    <PageTransition>
-      <MobileBiometric />
-    </PageTransition>
-  ),
+  component: MobileBiometric,
 });
 
-const dashboardRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard',
-  component: () => (
-    <ProtectedRoute>
-      <DashboardLayout>
-        <Outlet />
-      </DashboardLayout>
-    </ProtectedRoute>
-  ),
-});
-
+// Protected dashboard routes
 const commandCenterRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/command-center',
   component: () => (
     <ProtectedRoute>
       <DashboardLayout>
-        <PageTransition>
-          <CommandCenter />
-        </PageTransition>
+        <CommandCenter />
       </DashboardLayout>
     </ProtectedRoute>
   ),
 });
 
 const neuralLabRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/neural-lab',
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/neural-lab',
   component: () => (
-    <PageTransition>
-      <NeuralLab />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <NeuralLab />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
 const sentinelRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/sentinel',
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/sentinel',
   component: () => (
-    <PageTransition>
-      <SentinelProtocol />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <SentinelProtocol />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
 const deviceSyncRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/device-sync',
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/device-sync',
   component: () => (
-    <PageTransition>
-      <DeviceSync />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <DeviceSync />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
-const analyticsRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/analytics',
+const analyticsVaultRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/analytics-vault',
   component: () => (
-    <PageTransition>
-      <AnalyticsVault />
-    </PageTransition>
-  ),
-});
-
-const subscriptionsRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/subscriptions',
-  component: () => (
-    <PageTransition>
-      <Subscriptions />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <AnalyticsVault />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
 const settingsRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/settings',
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/settings',
   component: () => (
-    <PageTransition>
-      <Settings />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <Settings />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
-const adminPanelRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/admin-panel',
+const subscriptionsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/subscriptions',
   component: () => (
-    <PageTransition>
-      <AdminPanel />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <Subscriptions />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
 const teamManagementRoute = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/team-management',
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/team-management',
   component: () => (
-    <PageTransition>
-      <TeamManagementPage />
-    </PageTransition>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <TeamManagementPage />
+      </DashboardLayout>
+    </ProtectedRoute>
   ),
 });
 
+const adminPanelRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/admin',
+  component: () => (
+    <ProtectedRoute>
+      <RoleProtectedRoute requiredRole="admin">
+        <DashboardLayout>
+          <AdminPanel />
+        </DashboardLayout>
+      </RoleProtectedRoute>
+    </ProtectedRoute>
+  ),
+});
+
+// Create route tree
 const routeTree = rootRoute.addChildren([
-  indexRoute,
-  loginRoute,
   landingRoute,
-  remoteRoute,
+  loginRoute,
+  tacticalRemoteRoute,
   mobileBiometricRoute,
   commandCenterRoute,
-  dashboardRoute.addChildren([
-    neuralLabRoute,
-    sentinelRoute,
-    deviceSyncRoute,
-    analyticsRoute,
-    subscriptionsRoute,
-    settingsRoute,
-    adminPanelRoute,
-    teamManagementRoute,
-  ]),
+  neuralLabRoute,
+  sentinelRoute,
+  deviceSyncRoute,
+  analyticsVaultRoute,
+  settingsRoute,
+  subscriptionsRoute,
+  teamManagementRoute,
+  adminPanelRoute,
 ]);
 
+// Create router
 const router = createRouter({ routeTree });
 
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
-
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TelemetryProvider>
+        <GhostModeProvider>
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
+        </GhostModeProvider>
+      </TelemetryProvider>
+    </QueryClientProvider>
+  );
 }

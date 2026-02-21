@@ -15,7 +15,7 @@ export default function DeviceSync() {
       <div className="grid gap-6 lg:grid-cols-2">
         <BentoCard>
           <div className="flex flex-col items-center p-8">
-            <h3 className="mb-6 text-lg font-semibold">Mobile Pairing</h3>
+            <h3 className="mb-6 text-lg font-semibold text-[#10b981]">SYNC TACTICAL MOBILE</h3>
             <div className="relative mb-6">
               <img
                 src="/assets/generated/qr-frame.dim_512x512.png"

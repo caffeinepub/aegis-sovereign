@@ -1,14 +1,33 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T03:14:28.786Z",
-  "summary": "The diff shows successful removal of the PricingTable component from CommandCenter.tsx. All acceptance criteria for REQ-1 appear to be satisfied: the pricing table is no longer imported or rendered, the dashboard layout has been adjusted to only show KPI metrics, Security Traffic Trend, Active Identities, and Control Panel components, and no pricing plan information remains in the CommandCenter view.",
-  "missing_requirements": [],
+  "generatedAt": "2026-02-21T08:30:07.281Z",
+  "summary": "The diff shows modifications to 7 files (mostly frontend routing, authentication, and layout components) but provides no evidence of a complete revert to Version 24. Without baseline comparison data showing what Version 24 looked like versus Versions 25-28, it is impossible to verify whether these changes constitute a proper revert or if they represent selective modifications, new features, or incomplete reversion.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Restore the complete application state to Version 24, reverting all changes made in Versions 25, 26, 27, and 28",
+      "reason": "The diff shows only 7 modified files with no context about what Version 24 actually contained or what changes were made in Versions 25-28. No baseline comparison is provided to verify that backend and frontend code match Version 24 state, or that no artifacts from later versions remain. The truncated file contents prevent full verification of whether these changes represent a true revert or new modifications.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProtectedRoute.tsx",
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/pages/LandingPage.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend-file-summaries.txt",
+        "project_state.json"
+      ]
+    }
+  ],
   "hallucinated_features": [],
-  "confidence": 0.95,
+  "confidence": 0.3,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/pages/CommandCenter.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProtectedRoute.tsx",
+    "frontend/src/components/layout/DashboardLayout.tsx",
+    "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/pages/LoginPage.tsx",
     "project_state.json"
   ]
 }

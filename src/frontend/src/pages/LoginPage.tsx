@@ -1,122 +1,242 @@
-import { useEffect, useState } from 'react';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
+import { useState, useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { SiGoogle } from 'react-icons/si';
+import ThreeBackground from '@/components/auth/ThreeBackground';
+import AuthPanel from '@/components/auth/AuthPanel';
+import SignInView from '@/components/auth/SignInView';
+import RegisterView from '@/components/auth/RegisterView';
+import { registerUser, signInUser, masterBypass } from '@/utils/localStorageAuth';
+import { Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
-  const { login, loginStatus, identity } = useInternetIdentity();
   const navigate = useNavigate();
-  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
+  const [view, setView] = useState<'signin' | 'register'>('signin');
+  const [shake, setShake] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isProvisioning, setIsProvisioning] = useState(false);
 
-  useEffect(() => {
-    const axonSession = localStorage.getItem('AXON_SESSION');
-    if (!axonSession && !identity) {
-      // Show sign in page
+  // Sign In state
+  const [signInEmail, setSignInEmail] = useState('');
+  const [signInPassword, setSignInPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+
+  // Register state
+  const [registerFullName, setRegisterFullName] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [registerConfirmPassword, setRegisterConfirmPassword] = useState('');
+
+  // Master bypass state
+  const [logoClickCount, setLogoClickCount] = useState(0);
+  const [logoClickTimer, setLogoClickTimer] = useState<NodeJS.Timeout | null>(null);
+
+  // Handle logo triple-click for master bypass
+  const handleLogoClick = () => {
+    // Clear existing timer
+    if (logoClickTimer) {
+      clearTimeout(logoClickTimer);
+    }
+
+    const newCount = logoClickCount + 1;
+    setLogoClickCount(newCount);
+
+    if (newCount === 3) {
+      // Trigger master bypass
+      masterBypass();
+      toast.success('Master Bypass Activated', {
+        duration: 2000,
+        style: {
+          background: '#10b981',
+          color: 'white',
+          border: '1px solid #059669',
+        },
+      });
+      // Navigate to dashboard
+      setTimeout(() => {
+        navigate({ to: '/command-center' });
+      }, 500);
+      setLogoClickCount(0);
       return;
     }
-    if (axonSession && identity) {
-      navigate({ to: '/command-center' });
-    }
-  }, [identity, navigate]);
 
-  const isLoggingIn = loginStatus === 'logging-in';
+    // Set timer to reset count after 1 second
+    const timer = setTimeout(() => {
+      setLogoClickCount(0);
+    }, 1000);
+    setLogoClickTimer(timer);
+  };
 
-  const handleLogin = async () => {
-    try {
-      await login();
-      localStorage.setItem('AXON_SESSION', JSON.stringify({
-        timestamp: Date.now(),
-        authenticated: true
-      }));
-      toast.success('Successfully authenticated');
-      navigate({ to: '/command-center' });
-    } catch (error: any) {
-      console.error('Login error:', error);
-      if (error.message === 'User is already authenticated') {
-        toast.error('Already authenticated. Please refresh the page.');
-      } else {
-        toast.error('Authentication failed. Please try again.');
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (logoClickTimer) {
+        clearTimeout(logoClickTimer);
       }
+    };
+  }, [logoClickTimer]);
+
+  const handleSignIn = () => {
+    if (!signInEmail || !signInPassword) {
+      toast.error('Please fill in all fields', { duration: 3000 });
+      return;
     }
+
+    setIsLoading(true);
+
+    // Simulate network delay
+    setTimeout(() => {
+      const user = signInUser(signInEmail, signInPassword);
+
+      if (user) {
+        // Session is already set to 'ACTIVE' in signInUser
+        toast.success('Login successful!', { duration: 3000 });
+        // Navigate to command center
+        navigate({ to: '/command-center' });
+      } else {
+        // Trigger shake animation
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+
+        // Show red error toast with 3-second timeout
+        toast.error('Login Failed', {
+          duration: 3000,
+          style: {
+            background: '#dc2626',
+            color: 'white',
+            border: '1px solid #b91c1c',
+          },
+        });
+      }
+
+      setIsLoading(false);
+    }, 800);
   };
 
-  const handleCreateAccount = async () => {
-    setIsCreatingAccount(true);
-    try {
-      await login();
-      localStorage.setItem('AXON_SESSION', JSON.stringify({
-        timestamp: Date.now(),
-        authenticated: true
-      }));
-      toast.success('Account created successfully');
-      navigate({ to: '/command-center' });
-    } catch (error: any) {
-      console.error('Account creation error:', error);
-      toast.error('Failed to create account. Please try again.');
-    } finally {
-      setIsCreatingAccount(false);
+  const handleRegister = () => {
+    if (!registerFullName || !registerEmail || !registerPassword || !registerConfirmPassword) {
+      toast.error('Please fill in all fields', { duration: 3000 });
+      return;
     }
+
+    if (registerPassword !== registerConfirmPassword) {
+      toast.error('Passwords do not match', { duration: 3000 });
+      return;
+    }
+
+    if (registerPassword.length < 6) {
+      toast.error('Password must be at least 6 characters', { duration: 3000 });
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate network delay
+    setTimeout(() => {
+      const success = registerUser(registerFullName, registerEmail, registerPassword);
+
+      if (success) {
+        // Show provisioning animation
+        setIsLoading(false);
+        setIsProvisioning(true);
+
+        // Wait 1.5 seconds then auto-login
+        setTimeout(() => {
+          // Automatically sign in the user
+          const user = signInUser(registerEmail, registerPassword);
+          if (user) {
+            toast.success('Registration successful!', {
+              duration: 2000,
+            });
+            // Navigate to command center
+            navigate({ to: '/command-center' });
+          }
+          setIsProvisioning(false);
+        }, 1500);
+      } else {
+        toast.error('Email already registered', { duration: 3000 });
+        setIsLoading(false);
+      }
+    }, 800);
   };
 
-  return (
-    <div className="min-h-screen bg-[#F0F2F5] flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg p-8 shadow-lg">
-          {/* Logo */}
-          <div className="flex justify-center mb-6">
-            <img
-              src="/assets/generated/axon-logo.dim_800x800.png"
-              alt="AXON"
-              className="h-16 w-16"
-            />
-          </div>
-
-          {/* Title */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-[#001529] mb-2">Welcome to AXON</h1>
-            <p className="text-sm text-gray-600">Secure your meetings with sovereign intelligence</p>
-          </div>
-
-          {/* Sign up with Google Button */}
-          <Button
-            onClick={handleCreateAccount}
-            disabled={isLoggingIn || isCreatingAccount}
-            className="w-full bg-[#1890FF] hover:bg-[#1890FF]/90 text-white font-semibold mb-3"
-          >
-            <SiGoogle className="mr-2 h-4 w-4" />
-            {isCreatingAccount ? 'Creating Account...' : 'Sign up with Google'}
-          </Button>
-
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">or</span>
-            </div>
-          </div>
-
-          {/* Login Button */}
-          <Button
-            onClick={handleLogin}
-            disabled={isLoggingIn || isCreatingAccount}
-            variant="outline"
-            className="w-full border-[#1890FF] text-[#1890FF] hover:bg-[#1890FF]/10 font-semibold"
-          >
-            {isLoggingIn ? 'Signing in...' : 'Sign in with Internet Identity'}
-          </Button>
-
-          {/* Info Text */}
-          <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
-              Secure, anonymous authentication powered by Internet Computer
-            </p>
+  // Show provisioning overlay
+  if (isProvisioning) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden bg-gradient-to-br from-[#001529] via-[#002140] to-[#001529]">
+        <div className="text-center space-y-6">
+          <Loader2 className="h-16 w-16 text-[#10b981] animate-spin mx-auto" />
+          <p className="text-2xl font-bold text-white">Provisioning Sovereign Identity...</p>
+          <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden mx-auto">
+            <div className="h-full bg-gradient-to-r from-[#10b981] to-[#059669] animate-pulse" style={{ width: '100%' }} />
           </div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      <ThreeBackground />
+
+      <AuthPanel shake={shake}>
+        {/* AXON Logo with triple-click handler */}
+        <div className="text-center mb-8">
+          <h1 
+            className="text-4xl font-bold text-white cursor-pointer select-none"
+            onClick={handleLogoClick}
+          >
+            AXON
+          </h1>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Left Side - Sign In */}
+          <div className={view === 'signin' ? 'block' : 'hidden md:block opacity-50'}>
+            <SignInView
+              email={signInEmail}
+              password={signInPassword}
+              rememberMe={rememberMe}
+              onEmailChange={setSignInEmail}
+              onPasswordChange={setSignInPassword}
+              onRememberMeChange={setRememberMe}
+              onSubmit={handleSignIn}
+              isLoading={isLoading}
+            />
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setView('register')}
+                className="text-white/70 hover:text-white text-sm md:hidden"
+              >
+                Don't have an account? Register
+              </button>
+            </div>
+          </div>
+
+          {/* Right Side - Register */}
+          <div className={view === 'register' ? 'block' : 'hidden md:block opacity-50'}>
+            <RegisterView
+              fullName={registerFullName}
+              email={registerEmail}
+              password={registerPassword}
+              confirmPassword={registerConfirmPassword}
+              onFullNameChange={setRegisterFullName}
+              onEmailChange={setRegisterEmail}
+              onPasswordChange={setRegisterPassword}
+              onConfirmPasswordChange={setRegisterConfirmPassword}
+              onSubmit={handleRegister}
+              isLoading={isLoading}
+            />
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setView('signin')}
+                className="text-white/70 hover:text-white text-sm md:hidden"
+              >
+                Already have an account? Sign In
+              </button>
+            </div>
+          </div>
+        </div>
+      </AuthPanel>
     </div>
   );
 }

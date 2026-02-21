@@ -1,21 +1,581 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove Basic and Premium pricing plans from dashboard",
+  "title": "Revert Frontend to Version 24",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Remove the PricingTable component from the CommandCenter dashboard page that displays the Basic plan ($299/month) and Premium plan ($499/month)",
+      "summary": "Restore all frontend files to Version 24 state, removing changes from Versions 25-28",
       "acceptanceCriteria": [
-        "The pricing table with Basic and Premium plans is no longer visible on the dashboard",
-        "The dashboard layout adjusts appropriately without the pricing table section",
-        "No pricing plan information appears in the CommandCenter view"
+        "All frontend code matches Version 24 state",
+        "No artifacts from Versions 25-28 remain in the codebase",
+        "Application functionality matches Version 24 behavior"
       ],
       "file_operations": [
         {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Restore App.tsx to Version 24 state, reverting any routing, context providers, or component changes introduced in later versions"
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Restore main.tsx entry point to Version 24 configuration, reverting any provider or initialization changes"
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Restore index.html to Version 24 state, reverting any meta tag, script, or link changes"
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Restore global styles and Tailwind configuration to Version 24, removing any custom animations, utilities, or theme changes from later versions"
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Restore Tailwind configuration to Version 24, reverting any theme extensions, color scheme changes, or plugin modifications"
+        },
+        {
+          "path": "frontend/public/manifest.json",
+          "operation": "modify",
+          "description": "Restore PWA manifest to Version 24 configuration"
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Restore landing page to Version 24 layout and content, removing any features added in later versions"
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Restore login page to Version 24 authentication flow and UI"
+        },
+        {
           "path": "frontend/src/pages/CommandCenter.tsx",
           "operation": "modify",
-          "description": "Remove the PricingTable component import and its usage from the CommandCenter page. Remove the corresponding grid section that contains the PricingTable while preserving all other dashboard components (KPI metrics row, security traffic trends, active identities card, and control panel). Adjust the grid layout to ensure proper spacing and alignment of remaining components."
+          "description": "Restore command center dashboard to Version 24 state, removing any KPI cards or features added later"
+        },
+        {
+          "path": "frontend/src/pages/UnifiedDashboard.tsx",
+          "operation": "modify",
+          "description": "Restore unified dashboard to Version 24 layout and components"
+        },
+        {
+          "path": "frontend/src/pages/AdminPanel.tsx",
+          "operation": "modify",
+          "description": "Restore admin panel to Version 24 functionality and UI"
+        },
+        {
+          "path": "frontend/src/pages/AnalyticsVault.tsx",
+          "operation": "modify",
+          "description": "Restore analytics vault to Version 24 meeting log display and filtering"
+        },
+        {
+          "path": "frontend/src/pages/NeuralLab.tsx",
+          "operation": "modify",
+          "description": "Restore neural lab to Version 24 vocal cloning interface"
+        },
+        {
+          "path": "frontend/src/pages/SentinelProtocol.tsx",
+          "operation": "modify",
+          "description": "Restore sentinel protocol page to Version 24 tactical features"
+        },
+        {
+          "path": "frontend/src/pages/DeviceSync.tsx",
+          "operation": "modify",
+          "description": "Restore device sync page to Version 24 QR code pairing functionality"
+        },
+        {
+          "path": "frontend/src/pages/Settings.tsx",
+          "operation": "modify",
+          "description": "Restore settings page to Version 24 configuration options"
+        },
+        {
+          "path": "frontend/src/pages/Subscriptions.tsx",
+          "operation": "modify",
+          "description": "Restore subscriptions page to Version 24 pricing tiers and features"
+        },
+        {
+          "path": "frontend/src/pages/TacticalRemote.tsx",
+          "operation": "modify",
+          "description": "Restore tactical remote mobile interface to Version 24 controls"
+        },
+        {
+          "path": "frontend/src/pages/MobileBiometric.tsx",
+          "operation": "modify",
+          "description": "Restore mobile biometric page to Version 24 authentication flow"
+        },
+        {
+          "path": "frontend/src/pages/TeamManagementPage.tsx",
+          "operation": "modify",
+          "description": "Restore team management page to Version 24 member management interface"
+        },
+        {
+          "path": "frontend/src/pages/DevMetrics.tsx",
+          "operation": "modify",
+          "description": "Restore dev metrics page to Version 24 system monitoring dashboard"
+        },
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Restore dashboard layout to Version 24 sidebar navigation and structure"
+        },
+        {
+          "path": "frontend/src/components/layout/Footer.tsx",
+          "operation": "modify",
+          "description": "Restore footer to Version 24 links and layout"
+        },
+        {
+          "path": "frontend/src/components/layout/BentoCard.tsx",
+          "operation": "modify",
+          "description": "Restore bento card wrapper to Version 24 styling"
+        },
+        {
+          "path": "frontend/src/components/auth/AuthPanel.tsx",
+          "operation": "modify",
+          "description": "Restore auth panel container to Version 24 styling and structure"
+        },
+        {
+          "path": "frontend/src/components/auth/SignInView.tsx",
+          "operation": "modify",
+          "description": "Restore sign-in form to Version 24 fields and validation"
+        },
+        {
+          "path": "frontend/src/components/auth/RegisterView.tsx",
+          "operation": "modify",
+          "description": "Restore registration form to Version 24 fields and validation"
+        },
+        {
+          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
+          "operation": "modify",
+          "description": "Restore protected route guard to Version 24 authentication checks"
+        },
+        {
+          "path": "frontend/src/components/auth/RoleProtectedRoute.tsx",
+          "operation": "modify",
+          "description": "Restore role-based route guard to Version 24 authorization logic"
+        },
+        {
+          "path": "frontend/src/components/auth/ThreeBackground.tsx",
+          "operation": "modify",
+          "description": "Restore Three.js animated background to Version 24 implementation"
+        },
+        {
+          "path": "frontend/src/components/dashboard/Overview.tsx",
+          "operation": "modify",
+          "description": "Restore dashboard overview card to Version 24 KPI display"
+        },
+        {
+          "path": "frontend/src/components/dashboard/KPIMetricsRow.tsx",
+          "operation": "modify",
+          "description": "Restore KPI metrics row to Version 24 metric cards and charts"
+        },
+        {
+          "path": "frontend/src/components/dashboard/QuantumInterlinkCard.tsx",
+          "operation": "modify",
+          "description": "Restore quantum interlink card to Version 24 status display"
+        },
+        {
+          "path": "frontend/src/components/dashboard/AssetShieldCard.tsx",
+          "operation": "modify",
+          "description": "Restore asset shield card to Version 24 protected assets display"
+        },
+        {
+          "path": "frontend/src/components/dashboard/VocalHealthCard.tsx",
+          "operation": "modify",
+          "description": "Restore vocal health card to Version 24 progress indicator"
+        },
+        {
+          "path": "frontend/src/components/dashboard/QuickActionsCard.tsx",
+          "operation": "modify",
+          "description": "Restore quick actions card to Version 24 action buttons"
+        },
+        {
+          "path": "frontend/src/components/dashboard/NeuralIngestInput.tsx",
+          "operation": "modify",
+          "description": "Restore neural ingest input to Version 24 URL verification interface"
+        },
+        {
+          "path": "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
+          "operation": "modify",
+          "description": "Restore synopsis engine card to Version 24 loading state"
+        },
+        {
+          "path": "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
+          "operation": "modify",
+          "description": "Restore spectral analysis card to Version 24 canvas visualization"
+        },
+        {
+          "path": "frontend/src/components/dashboard/ControlPanel.tsx",
+          "operation": "modify",
+          "description": "Restore control panel to Version 24 toggle switches and state management"
+        },
+        {
+          "path": "frontend/src/components/dashboard/GlobalNodeMap.tsx",
+          "operation": "modify",
+          "description": "Restore global node map to Version 24 canvas animation"
+        },
+        {
+          "path": "frontend/src/components/dashboard/SecurityTrafficTrend.tsx",
+          "operation": "modify",
+          "description": "Restore security traffic trend chart to Version 24 data visualization"
+        },
+        {
+          "path": "frontend/src/components/dashboard/TeamManagement.tsx",
+          "operation": "modify",
+          "description": "Restore team management component to Version 24 member list and controls"
+        },
+        {
+          "path": "frontend/src/components/dashboard/TeamStatusCard.tsx",
+          "operation": "modify",
+          "description": "Restore team status card to Version 24 status indicators"
+        },
+        {
+          "path": "frontend/src/components/dashboard/TelemetryFeed.tsx",
+          "operation": "modify",
+          "description": "Restore telemetry feed to Version 24 event display"
+        },
+        {
+          "path": "frontend/src/components/dashboard/ActiveIdentitiesCard.tsx",
+          "operation": "modify",
+          "description": "Restore active identities card to Version 24 team member management"
+        },
+        {
+          "path": "frontend/src/components/dashboard/ActivePlanCard.tsx",
+          "operation": "modify",
+          "description": "Restore active plan card to Version 24 subscription display"
+        },
+        {
+          "path": "frontend/src/components/dashboard/PricingTable.tsx",
+          "operation": "modify",
+          "description": "Restore pricing table to Version 24 tier comparison"
+        },
+        {
+          "path": "frontend/src/components/analytics/BiometricStressRadar.tsx",
+          "operation": "modify",
+          "description": "Restore biometric stress radar chart to Version 24 visualization"
+        },
+        {
+          "path": "frontend/src/components/analytics/EmotionTracker.tsx",
+          "operation": "modify",
+          "description": "Restore emotion tracker chart to Version 24 data display"
+        },
+        {
+          "path": "frontend/src/components/analytics/GlobalNodeMap.tsx",
+          "operation": "modify",
+          "description": "Restore analytics global node map to Version 24 world visualization"
+        },
+        {
+          "path": "frontend/src/components/analytics/LiveTrafficChart.tsx",
+          "operation": "modify",
+          "description": "Restore live traffic chart to Version 24 real-time updates"
+        },
+        {
+          "path": "frontend/src/components/analytics/MeetingLogCard.tsx",
+          "operation": "modify",
+          "description": "Restore meeting log card to Version 24 session display"
+        },
+        {
+          "path": "frontend/src/components/analytics/MeetingROITicker.tsx",
+          "operation": "modify",
+          "description": "Restore meeting ROI ticker to Version 24 cost calculation"
+        },
+        {
+          "path": "frontend/src/components/analytics/NeuralPacketStream.tsx",
+          "operation": "modify",
+          "description": "Restore neural packet stream to Version 24 terminal log display"
+        },
+        {
+          "path": "frontend/src/components/analytics/QuantumEncryptionMonitor.tsx",
+          "operation": "modify",
+          "description": "Restore quantum encryption monitor to Version 24 metrics dashboard"
+        },
+        {
+          "path": "frontend/src/components/analytics/RecentFilesTable.tsx",
+          "operation": "modify",
+          "description": "Restore recent files table to Version 24 file listing"
+        },
+        {
+          "path": "frontend/src/components/analytics/SentimentRadar.tsx",
+          "operation": "modify",
+          "description": "Restore sentiment radar chart to Version 24 vocal stress visualization"
+        },
+        {
+          "path": "frontend/src/components/analytics/SpeakerIdentityMatrix.tsx",
+          "operation": "modify",
+          "description": "Restore speaker identity matrix to Version 24 profile display"
+        },
+        {
+          "path": "frontend/src/components/analytics/SystemAuditTrail.tsx",
+          "operation": "modify",
+          "description": "Restore system audit trail to Version 24 security event log"
+        },
+        {
+          "path": "frontend/src/components/analytics/ThreatDetectionMatrix.tsx",
+          "operation": "modify",
+          "description": "Restore threat detection matrix to Version 24 grid visualization"
+        },
+        {
+          "path": "frontend/src/components/analytics/VoicePatternTimeline.tsx",
+          "operation": "modify",
+          "description": "Restore voice pattern timeline to Version 24 speaker visualization"
+        },
+        {
+          "path": "frontend/src/components/admin/AuditLogViewer.tsx",
+          "operation": "modify",
+          "description": "Restore audit log viewer to Version 24 filtering and export functionality"
+        },
+        {
+          "path": "frontend/src/components/admin/SystemHealthMonitor.tsx",
+          "operation": "modify",
+          "description": "Restore system health monitor to Version 24 metrics display"
+        },
+        {
+          "path": "frontend/src/components/vault/IntelSessionCard.tsx",
+          "operation": "modify",
+          "description": "Restore intel session card to Version 24 meeting analysis display"
+        },
+        {
+          "path": "frontend/src/components/vault/SubscriptionTierCard.tsx",
+          "operation": "modify",
+          "description": "Restore subscription tier card to Version 24 pricing display"
+        },
+        {
+          "path": "frontend/src/components/vault/SubscriptionTiers.tsx",
+          "operation": "modify",
+          "description": "Restore subscription tiers selector to Version 24 tier management"
+        },
+        {
+          "path": "frontend/src/components/vault/SubscriptionToggle.tsx",
+          "operation": "modify",
+          "description": "Restore subscription toggle to Version 24 billing period switch"
+        },
+        {
+          "path": "frontend/src/components/neural/AIMirrorStatus.tsx",
+          "operation": "modify",
+          "description": "Restore AI mirror status to Version 24 readiness indicator"
+        },
+        {
+          "path": "frontend/src/components/neural/NeuralProgress.tsx",
+          "operation": "modify",
+          "description": "Restore neural progress indicator to Version 24 circular display"
+        },
+        {
+          "path": "frontend/src/components/neural/VocalDropZone.tsx",
+          "operation": "modify",
+          "description": "Restore vocal drop zone to Version 24 file upload interface"
+        },
+        {
+          "path": "frontend/src/components/neural/VoiceHealthDashboard.tsx",
+          "operation": "modify",
+          "description": "Restore voice health dashboard to Version 24 metrics display"
+        },
+        {
+          "path": "frontend/src/components/sentinel/AcousticMatrixGrid.tsx",
+          "operation": "modify",
+          "description": "Restore acoustic matrix grid to Version 24 environment cards"
+        },
+        {
+          "path": "frontend/src/components/sentinel/EnvironmentMixer.tsx",
+          "operation": "modify",
+          "description": "Restore environment mixer to Version 24 audio controls"
+        },
+        {
+          "path": "frontend/src/components/sentinel/EnvironmentSpoofing.tsx",
+          "operation": "modify",
+          "description": "Restore environment spoofing to Version 24 audio playback options"
+        },
+        {
+          "path": "frontend/src/components/sentinel/HardwareMimicry.tsx",
+          "operation": "modify",
+          "description": "Restore hardware mimicry to Version 24 fake update screens"
+        },
+        {
+          "path": "frontend/src/components/sentinel/PacketJitterSimulator.tsx",
+          "operation": "modify",
+          "description": "Restore packet jitter simulator to Version 24 network degradation controls"
+        },
+        {
+          "path": "frontend/src/components/sentinel/PanicProtocol.tsx",
+          "operation": "modify",
+          "description": "Restore panic protocol to Version 24 emergency overlay"
+        },
+        {
+          "path": "frontend/src/components/security/DarkWebMonitor.tsx",
+          "operation": "modify",
+          "description": "Restore dark web monitor to Version 24 threat tracking interface"
+        },
+        {
+          "path": "frontend/src/components/mobile/BiometricScanner.tsx",
+          "operation": "modify",
+          "description": "Restore biometric scanner to Version 24 authentication flow"
+        },
+        {
+          "path": "frontend/src/components/video/VideoWelcomeWidget.tsx",
+          "operation": "modify",
+          "description": "Restore video welcome widget to Version 24 floating player"
+        },
+        {
+          "path": "frontend/src/components/visualizer/NetworkLatencyGlobe.tsx",
+          "operation": "modify",
+          "description": "Restore network latency globe to Version 24 3D visualization"
+        },
+        {
+          "path": "frontend/src/components/visualizer/NeuralFrequencyVisualizer.tsx",
+          "operation": "modify",
+          "description": "Restore neural frequency visualizer to Version 24 waveform display"
+        },
+        {
+          "path": "frontend/src/components/visualizer/WaterfallSpectrogram.tsx",
+          "operation": "modify",
+          "description": "Restore waterfall spectrogram to Version 24 frequency analysis"
+        },
+        {
+          "path": "frontend/src/components/scheduling/SecurityAuditScheduler.tsx",
+          "operation": "modify",
+          "description": "Restore security audit scheduler to Version 24 booking interface"
+        },
+        {
+          "path": "frontend/src/components/settings/BandwidthOptimizer.tsx",
+          "operation": "modify",
+          "description": "Restore bandwidth optimizer to Version 24 quality presets"
+        },
+        {
+          "path": "frontend/src/components/sync/ConnectionLog.tsx",
+          "operation": "modify",
+          "description": "Restore connection log to Version 24 WebSocket event display"
+        },
+        {
+          "path": "frontend/src/components/testimonials/TestimonialCard.tsx",
+          "operation": "modify",
+          "description": "Restore testimonial card to Version 24 styling and layout"
+        },
+        {
+          "path": "frontend/src/components/transitions/NeuralScanTransition.tsx",
+          "operation": "modify",
+          "description": "Restore neural scan transition to Version 24 loading animation"
+        },
+        {
+          "path": "frontend/src/components/transitions/PageTransition.tsx",
+          "operation": "modify",
+          "description": "Restore page transition to Version 24 fade animation"
+        },
+        {
+          "path": "frontend/src/components/effects/BorderBeam.tsx",
+          "operation": "modify",
+          "description": "Restore border beam effect to Version 24 animation"
+        },
+        {
+          "path": "frontend/src/components/effects/SovereignOrb.tsx",
+          "operation": "modify",
+          "description": "Restore sovereign orb to Version 24 3D visualization"
+        },
+        {
+          "path": "frontend/src/components/errors/ErrorBoundary.tsx",
+          "operation": "modify",
+          "description": "Restore error boundary to Version 24 error handling"
+        },
+        {
+          "path": "frontend/src/components/common/ActiveStatusIndicator.tsx",
+          "operation": "modify",
+          "description": "Restore active status indicator to Version 24 display"
+        },
+        {
+          "path": "frontend/src/components/common/FeatureLockedOverlay.tsx",
+          "operation": "modify",
+          "description": "Restore feature locked overlay to Version 24 upgrade prompt"
+        },
+        {
+          "path": "frontend/src/components/common/HotkeysReferenceModal.tsx",
+          "operation": "modify",
+          "description": "Restore hotkeys reference modal to Version 24 keyboard shortcuts"
+        },
+        {
+          "path": "frontend/src/components/common/MetricCard.tsx",
+          "operation": "modify",
+          "description": "Restore metric card to Version 24 styling"
+        },
+        {
+          "path": "frontend/src/components/common/PrimaryCTA.tsx",
+          "operation": "modify",
+          "description": "Restore primary CTA button to Version 24 styling"
+        },
+        {
+          "path": "frontend/src/components/common/SentinelPanicButton.tsx",
+          "operation": "modify",
+          "description": "Restore sentinel panic button to Version 24 emergency control"
+        },
+        {
+          "path": "frontend/src/components/MagneticButton.tsx",
+          "operation": "modify",
+          "description": "Restore magnetic button to Version 24 hover effect"
+        },
+        {
+          "path": "frontend/src/components/dev/PerformanceOverlay.tsx",
+          "operation": "modify",
+          "description": "Restore performance overlay to Version 24 FPS monitoring"
+        },
+        {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Restore useActor hook to Version 24 backend connection and authentication logic"
+        },
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Restore Internet Identity hook to Version 24 authentication implementation"
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Restore React Query hooks to Version 24 data fetching and mutation logic"
+        },
+        {
+          "path": "frontend/src/hooks/useSubscriptionTier.ts",
+          "operation": "modify",
+          "description": "Restore subscription tier hook to Version 24 tier management"
+        },
+        {
+          "path": "frontend/src/hooks/useHapticFeedback.ts",
+          "operation": "modify",
+          "description": "Restore haptic feedback hook to Version 24 vibration implementation"
+        },
+        {
+          "path": "frontend/src/hooks/useKeyboardShortcut.ts",
+          "operation": "modify",
+          "description": "Restore keyboard shortcut hook to Version 24 event handling"
+        },
+        {
+          "path": "frontend/src/hooks/useMousePosition.ts",
+          "operation": "modify",
+          "description": "Restore mouse position hook to Version 24 tracking logic"
+        },
+        {
+          "path": "frontend/src/contexts/GhostModeContext.tsx",
+          "operation": "modify",
+          "description": "Restore ghost mode context to Version 24 state management"
+        },
+        {
+          "path": "frontend/src/contexts/TelemetryContext.tsx",
+          "operation": "modify",
+          "description": "Restore telemetry context to Version 24 event logging"
+        },
+        {
+          "path": "frontend/src/utils/localStorageAuth.ts",
+          "operation": "modify",
+          "description": "Restore local storage auth utilities to Version 24 implementation"
+        },
+        {
+          "path": "frontend/src/utils/urlParams.ts",
+          "operation": "modify",
+          "description": "Restore URL parameter utilities to Version 24 extraction logic"
+        },
+        {
+          "path": "frontend/src/backend.d.ts",
+          "operation": "modify",
+          "description": "Restore backend TypeScript interface definitions to Version 24 type declarations"
         }
       ]
     }
