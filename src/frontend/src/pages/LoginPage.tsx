@@ -1,230 +1,170 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
+import { useGetCallerUserProfile, useSaveCallerUserProfile } from '@/hooks/useQueries';
 import ThreeBackground from '@/components/auth/ThreeBackground';
 import AuthPanel from '@/components/auth/AuthPanel';
-import SignInView from '@/components/auth/SignInView';
-import RegisterView from '@/components/auth/RegisterView';
-import { registerUser, signInUser, masterBypass } from '@/utils/localStorageAuth';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
 
-interface LoginPageProps {
-  onLoginSuccess: () => void;
-}
+export default function LoginPage() {
+  const navigate = useNavigate();
+  const { login, loginStatus, identity, isInitializing } = useInternetIdentity();
+  const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
+  const saveProfileMutation = useSaveCallerUserProfile();
 
-export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
-  const [view, setView] = useState<'signin' | 'register'>('signin');
-  const [shake, setShake] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isProvisioning, setIsProvisioning] = useState(false);
+  const [showProfileSetup, setShowProfileSetup] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Sign In state
-  const [signInEmail, setSignInEmail] = useState('');
-  const [signInPassword, setSignInPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const isAuthenticated = !!identity;
 
-  // Register state
-  const [registerFullName, setRegisterFullName] = useState('');
-  const [registerEmail, setRegisterEmail] = useState('');
-  const [registerPassword, setRegisterPassword] = useState('');
-  const [registerConfirmPassword, setRegisterConfirmPassword] = useState('');
-
-  // Master bypass state
-  const [logoClickCount, setLogoClickCount] = useState(0);
-  const [logoClickTimer, setLogoClickTimer] = useState<NodeJS.Timeout | null>(null);
-
-  // Handle logo triple-click for master bypass
-  const handleLogoClick = () => {
-    // Clear existing timer
-    if (logoClickTimer) {
-      clearTimeout(logoClickTimer);
+  // Check if user needs to set up profile
+  useEffect(() => {
+    if (isAuthenticated && !profileLoading && isFetched) {
+      if (userProfile === null) {
+        setShowProfileSetup(true);
+      } else {
+        // User has profile, navigate to dashboard
+        navigate({ to: '/command-center' });
+      }
     }
+  }, [isAuthenticated, userProfile, profileLoading, isFetched, navigate]);
 
-    const newCount = logoClickCount + 1;
-    setLogoClickCount(newCount);
-
-    if (newCount === 3) {
-      // Trigger master bypass
-      masterBypass();
-      toast.success('Master Bypass Activated - Sovereign Administrator', {
-        duration: 2000,
+  const handleLogin = async () => {
+    try {
+      await login();
+    } catch (error: any) {
+      console.error('Login error:', error);
+      toast.error('Login failed. Please try again.', {
+        duration: 3000,
         style: {
-          background: '#10b981',
+          background: '#dc2626',
           color: 'white',
-          border: '1px solid #059669',
+          border: '1px solid #b91c1c',
         },
       });
-      // Navigate to dashboard
-      setTimeout(() => {
-        onLoginSuccess();
-      }, 500);
-      setLogoClickCount(0);
-      return;
     }
-
-    // Set timer to reset count after 2 seconds
-    const timer = setTimeout(() => {
-      setLogoClickCount(0);
-    }, 2000);
-    setLogoClickTimer(timer);
   };
 
-  // Cleanup timer on unmount
-  useEffect(() => {
-    return () => {
-      if (logoClickTimer) {
-        clearTimeout(logoClickTimer);
-      }
-    };
-  }, [logoClickTimer]);
-
-  const handleSignIn = () => {
-    if (!signInEmail || !signInPassword) {
-      toast.error('Please fill in all fields', { duration: 3000 });
+  const handleProfileSetup = async () => {
+    if (!fullName.trim()) {
+      toast.error('Please enter your name', { duration: 3000 });
       return;
     }
 
-    setIsLoading(true);
-
-    // Simulate network delay
-    setTimeout(() => {
-      const user = signInUser(signInEmail, signInPassword);
-
-      if (user) {
-        toast.success('Login successful!', { duration: 2000 });
-        setIsLoading(false);
-        // Navigate to dashboard
-        onLoginSuccess();
-      } else {
-        // Trigger shake animation
-        setShake(true);
-        setTimeout(() => setShake(false), 500);
-
-        // Show red error toast
-        toast.error('Invalid Credentials', {
-          duration: 3000,
-          style: {
-            background: '#dc2626',
-            color: 'white',
-            border: '1px solid #b91c1c',
-          },
-        });
-        setIsLoading(false);
-      }
-    }, 800);
+    setIsSubmitting(true);
+    try {
+      await saveProfileMutation.mutateAsync({ name: fullName.trim() });
+      toast.success('Profile created successfully!', { duration: 2000 });
+      navigate({ to: '/command-center' });
+    } catch (error) {
+      console.error('Profile setup error:', error);
+      toast.error('Failed to create profile. Please try again.', { duration: 3000 });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleRegister = () => {
-    if (!registerFullName || !registerEmail || !registerPassword || !registerConfirmPassword) {
-      toast.error('Please fill in all fields', { duration: 3000 });
-      return;
-    }
-
-    if (registerPassword !== registerConfirmPassword) {
-      toast.error('Passwords do not match', { duration: 3000 });
-      return;
-    }
-
-    if (registerPassword.length < 6) {
-      toast.error('Password must be at least 6 characters', { duration: 3000 });
-      return;
-    }
-
-    setIsLoading(true);
-
-    // Simulate network delay
-    setTimeout(() => {
-      const success = registerUser(registerFullName, registerEmail, registerPassword);
-
-      if (success) {
-        // Show provisioning animation
-        setIsLoading(false);
-        setIsProvisioning(true);
-
-        // Wait 1.5 seconds then auto-login and navigate to dashboard
-        setTimeout(() => {
-          // Automatically sign in the user
-          const user = signInUser(registerEmail, registerPassword);
-          if (user) {
-            toast.success('Registration successful!', {
-              duration: 2000,
-            });
-            setIsProvisioning(false);
-            // Navigate to dashboard immediately
-            onLoginSuccess();
-          }
-        }, 1500);
-      } else {
-        toast.error('Email already registered', { duration: 3000 });
-        setIsLoading(false);
-      }
-    }, 800);
-  };
-
-  // Show provisioning overlay
-  if (isProvisioning) {
+  // Show loading while initializing
+  if (isInitializing || (isAuthenticated && profileLoading)) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden bg-gradient-to-br from-[#001529] via-[#002140] to-[#001529]">
         <div className="text-center space-y-6">
           <Loader2 className="h-16 w-16 text-[#10b981] animate-spin mx-auto" />
-          <p className="text-2xl font-bold text-white">Provisioning Sovereign Identity...</p>
-          <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden mx-auto">
-            <div className="h-full bg-gradient-to-r from-[#10b981] to-[#059669] animate-pulse" style={{ width: '100%' }} />
-          </div>
+          <p className="text-2xl font-bold text-white">Initializing Sovereign Identity...</p>
         </div>
       </div>
     );
   }
 
+  // Show profile setup if needed
+  if (showProfileSetup) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
+        <ThreeBackground />
+        <AuthPanel shake={false} onLogoClick={() => {}}>
+          <div className="max-w-md mx-auto space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-2">Welcome to AXON</h2>
+              <p className="text-white/70">Please set up your profile to continue</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="fullname" className="text-white/90 mb-2 block">
+                  Full Name
+                </Label>
+                <Input
+                  id="fullname"
+                  type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Enter your full name"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  disabled={isSubmitting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleProfileSetup();
+                    }
+                  }}
+                />
+              </div>
+
+              <Button
+                onClick={handleProfileSetup}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-6"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating Profile...
+                  </>
+                ) : (
+                  'Continue to Dashboard'
+                )}
+              </Button>
+            </div>
+          </div>
+        </AuthPanel>
+      </div>
+    );
+  }
+
+  // Show login screen
   return (
     <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
       <ThreeBackground />
-
-      <AuthPanel shake={shake} onLogoClick={handleLogoClick}>
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Left Side - Sign In */}
-          <div className={view === 'signin' ? 'block' : 'hidden md:block opacity-50'}>
-            <SignInView
-              email={signInEmail}
-              password={signInPassword}
-              rememberMe={rememberMe}
-              onEmailChange={setSignInEmail}
-              onPasswordChange={setSignInPassword}
-              onRememberMeChange={setRememberMe}
-              onSubmit={handleSignIn}
-              isLoading={isLoading}
-            />
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => setView('register')}
-                className="text-white/70 hover:text-white text-sm md:hidden"
-              >
-                Don't have an account? Register
-              </button>
-            </div>
+      <AuthPanel shake={false} onLogoClick={() => {}}>
+        <div className="max-w-md mx-auto space-y-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
+            <p className="text-white/70">Secure authentication with Internet Identity</p>
           </div>
 
-          {/* Right Side - Register */}
-          <div className={view === 'register' ? 'block' : 'hidden md:block opacity-50'}>
-            <RegisterView
-              fullName={registerFullName}
-              email={registerEmail}
-              password={registerPassword}
-              confirmPassword={registerConfirmPassword}
-              onFullNameChange={setRegisterFullName}
-              onEmailChange={setRegisterEmail}
-              onPasswordChange={setRegisterPassword}
-              onConfirmPasswordChange={setRegisterConfirmPassword}
-              onSubmit={handleRegister}
-              isLoading={isLoading}
-            />
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => setView('signin')}
-                className="text-white/70 hover:text-white text-sm md:hidden"
-              >
-                Already have an account? Sign In
-              </button>
-            </div>
+          <div className="space-y-4">
+            <Button
+              onClick={handleLogin}
+              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-6"
+              disabled={loginStatus === 'logging-in'}
+            >
+              {loginStatus === 'logging-in' ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Connecting...
+                </>
+              ) : (
+                'Login with Internet Identity'
+              )}
+            </Button>
+
+            <p className="text-xs text-white/50 text-center">
+              Powered by Internet Computer's decentralized authentication
+            </p>
           </div>
         </div>
       </AuthPanel>

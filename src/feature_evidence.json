@@ -2,11 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-fix-all-syntax-errors-causing-blank-screen-by-ensuring-every-curly-brace-and-square-bracket-is-properly-closed-throughout-the-codebase",
-      "featureTitle": "Fix all syntax errors causing blank screen by ensuring every curly brace { } and square bracket [ ] is properly closed throughout the codebase",
+      "featureId": "feature-transform-the-commandcenter-page-to-match-the-layout-and-visual-style-of-the-reference-application-at-https-ai-studio-apps-a97f3825-5282-4ea0-bd66-c18737521df6-including-grid-structure-card-arrangements-and-spacing",
+      "featureTitle": "Transform the CommandCenter page to match the layout and visual style of the reference application at https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6, including grid structure, card arrangements, and spacing",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/LoginPage.tsx"
+        "frontend/src/components/dashboard/KPIMetricsRow.tsx",
+        "frontend/src/components/dashboard/Overview.tsx",
+        "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -24,12 +25,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-single-page-application-spa-structure-with-two-main-view-sections-div-id-auth-page-for-authentication-and-div-id-dashboard-page-style-display-none-for-the-dashboard-toggling-visibility-based-on-authentication-state",
-      "featureTitle": "Implement Single Page Application (SPA) structure with two main view sections: <div id='auth-page'> for authentication and <div id='dashboard-page' style='display:none'> for the dashboard, toggling visibility based on authentication state",
+      "featureId": "feature-update-color-scheme-and-visual-theming-to-match-the-reference-application-s-aesthetic-including-card-backgrounds-text-colors-accent-colors-and-overall-color-palette",
+      "featureTitle": "Update color scheme and visual theming to match the reference application's aesthetic, including card backgrounds, text colors, accent colors, and overall color palette",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/LoginPage.tsx",
-        "frontend/src/pages/UnifiedDashboard.tsx"
+        "frontend/src/components/common/MetricCard.tsx",
+        "frontend/src/components/layout/BentoCard.tsx",
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -47,11 +48,13 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-restore-the-glassmorphic-login-panel-with-a-full-name-registration-field-matching-the-design-shown-in-images-4-jpeg",
-      "featureTitle": "Restore the glassmorphic login panel with a 'Full Name' registration field matching the design shown in images (4).jpeg",
+      "featureId": "feature-redesign-or-replace-existing-dashboard-cards-kpimetricsrow-neuralingestinput-synopsisenginecard-spectralanalysiscard-to-match-the-content-structure-and-visual-presentation-of-equivalent-cards-in-the-reference-application",
+      "featureTitle": "Redesign or replace existing dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match the content structure and visual presentation of equivalent cards in the reference application",
       "files": [
-        "frontend/src/components/auth/AuthPanel.tsx",
-        "frontend/src/pages/LoginPage.tsx"
+        "frontend/src/components/dashboard/KPIMetricsRow.tsx",
+        "frontend/src/components/dashboard/NeuralIngestInput.tsx",
+        "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
+        "frontend/src/components/dashboard/SynopsisEngineCard.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -69,11 +72,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-fix-registration-flow-to-save-user-data-to-localstorage-axon-master-user-and-immediately-set-the-view-to-dashboard-without-any-intermediate-steps",
-      "featureTitle": "Fix registration flow to save user data to 'localStorage.AXON_MASTER_USER' and immediately set the view to 'dashboard' without any intermediate steps",
+      "featureId": "feature-update-the-dashboardlayout-sidebar-navigation-to-match-the-reference-application-s-navigation-structure-including-menu-items-icons-and-visual-styling",
+      "featureTitle": "Update the DashboardLayout sidebar navigation to match the reference application's navigation structure, including menu items, icons, and visual styling",
       "files": [
-        "frontend/src/pages/LoginPage.tsx",
-        "frontend/src/utils/localStorageAuth.ts"
+        "frontend/src/components/layout/DashboardLayout.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -91,10 +93,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-restore-dashboard-sidebar-navigation-with-five-sections-command-center-neural-lab-sentinel-protocol-device-sync-and-vault-matching-the-layout-shown-in-sc-png-and-the-reference-video",
-      "featureTitle": "Restore dashboard sidebar navigation with five sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault, matching the layout shown in sc.png and the reference video",
+      "featureId": "feature-adjust-responsive-behavior-and-mobile-layout-to-match-how-the-reference-application-handles-different-screen-sizes-and-breakpoints",
+      "featureTitle": "Adjust responsive behavior and mobile layout to match how the reference application handles different screen sizes and breakpoints",
       "files": [
-        "frontend/src/pages/UnifiedDashboard.tsx"
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -108,114 +111,6 @@
       ],
       "testIds": [
         "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-three-tier-subscription-pricing-cards-under-the-vault-section-with-free-299-month-and-499-month-tiers",
-      "featureTitle": "Add three-tier subscription pricing cards under the Vault section with Free, ₹299/month, and ₹499/month tiers",
-      "files": [
-        "frontend/src/pages/UnifiedDashboard.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "qr-code@1.0.0",
-        "camera@1.0.0"
-      ],
-      "testIds": [
-        "REQ-9"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-display-the-registered-user-s-full-name-dynamically-in-the-dashboard-sidebar-removing-any-hardcoded-nishant-references",
-      "featureTitle": "Display the registered user's Full Name dynamically in the dashboard sidebar, removing any hardcoded 'Nishant' references",
-      "files": [
-        "frontend/src/pages/UnifiedDashboard.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "qr-code@1.0.0",
-        "camera@1.0.0"
-      ],
-      "testIds": [
-        "REQ-10"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-logout-button-to-the-dashboard-that-clears-the-session-from-localstorage-and-returns-the-view-to-auth-page",
-      "featureTitle": "Add a Logout button to the dashboard that clears the session from localStorage and returns the view to 'auth-page'",
-      "files": [
-        "frontend/src/utils/localStorageAuth.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "qr-code@1.0.0",
-        "camera@1.0.0"
-      ],
-      "testIds": [
-        "REQ-11"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-login-validation-that-displays-an-invalid-credentials-toast-notification-when-login-fails",
-      "featureTitle": "Implement login validation that displays an 'Invalid Credentials' toast notification when login fails",
-      "files": [
-        "frontend/src/pages/LoginPage.tsx",
-        "frontend/src/utils/localStorageAuth.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "qr-code@1.0.0",
-        "camera@1.0.0"
-      ],
-      "testIds": [
-        "REQ-12"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-secret-bypass-feature-clicking-the-axon-logo-3-times-immediately-force-shows-the-dashboard-sets-the-user-as-sovereign-administrator-and-unlocks-the-499-subscription-plan",
-      "featureTitle": "Implement secret bypass feature: clicking the 'AXON' logo 3 times immediately force-shows the Dashboard, sets the user as 'Sovereign Administrator', and unlocks the ₹499 subscription plan",
-      "files": [
-        "frontend/src/components/auth/AuthPanel.tsx",
-        "frontend/src/pages/LoginPage.tsx",
-        "frontend/src/utils/localStorageAuth.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "qr-code@1.0.0",
-        "camera@1.0.0"
-      ],
-      "testIds": [
-        "REQ-13"
       ],
       "confidence": "high"
     }

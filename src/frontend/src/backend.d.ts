@@ -58,7 +58,6 @@ export enum UserRole {
 export interface backendInterface {
     addMeetingLog(log: MeetingLog): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
-    assignRole(user: Principal, role: UserRole): Promise<void>;
     clearPanicHistory(): Promise<void>;
     deleteMeetingLog(title: string): Promise<void>;
     deleteSessionRecording(id: string): Promise<void>;

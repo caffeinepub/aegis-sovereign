@@ -25,7 +25,7 @@ export default function RoleProtectedRoute({ children, requiredRole }: RoleProte
     if (error) {
       console.error('Role check error:', error);
       toast.error('Failed to verify permissions');
-      navigate({ to: '/dashboard' });
+      navigate({ to: '/command-center' });
       setHasCheckedAccess(true);
       return;
     }
@@ -39,7 +39,7 @@ export default function RoleProtectedRoute({ children, requiredRole }: RoleProte
 
       if (!hasAccess) {
         toast.error('Access Denied: Insufficient permissions');
-        navigate({ to: '/dashboard' });
+        navigate({ to: '/command-center' });
         setHasCheckedAccess(true);
       } else {
         setHasCheckedAccess(true);

@@ -1,342 +1,135 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Emergency System Restore: Fix Blank Screen and Rebuild AXON SOVEREIGN Application",
+  "title": "Redesign Dashboard to Match Reference Application",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Fix all syntax errors causing blank screen by ensuring proper bracket closure throughout the codebase",
+      "summary": "Transform CommandCenter page layout to match reference application's grid structure, card arrangements, and spacing",
       "acceptanceCriteria": [
-        "Application loads without blank screen",
-        "No console errors related to syntax",
-        "All code blocks have matching opening and closing brackets"
+        "Dashboard layout matches the reference application's grid structure",
+        "Card components are arranged in the same visual hierarchy as the reference",
+        "Spacing and proportions align with the reference design"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/pages/CommandCenter.tsx",
           "operation": "modify",
-          "description": "Audit and fix any unclosed curly braces, square brackets, or parentheses in the router configuration and component structure"
+          "description": "Restructure the CommandCenter component to match the reference application's grid layout. Replace the current three-section layout (Overview, KPI row, grid of cards) with a new grid structure that matches the reference's visual hierarchy. Update container classes, grid configurations (columns, gaps, responsive breakpoints), and card placement to align with the reference design. Maintain existing component imports and functionality while reorganizing their placement and sizing."
         },
         {
-          "path": "frontend/src/main.tsx",
+          "path": "frontend/src/components/dashboard/Overview.tsx",
           "operation": "modify",
-          "description": "Verify all JSX tags, provider wrappers, and React.StrictMode blocks are properly closed"
+          "description": "Adjust the Overview card's dimensions, padding, and internal grid layout to match its position and size in the reference application. Update spacing between metric items and ensure responsive behavior matches the reference."
         },
         {
-          "path": "frontend/src/pages/LoginPage.tsx",
+          "path": "frontend/src/components/dashboard/KPIMetricsRow.tsx",
           "operation": "modify",
-          "description": "Check and fix bracket closure in form state management, event handlers, and conditional rendering logic"
+          "description": "Modify the KPI metrics grid structure to match the reference application's card arrangement. Adjust grid columns, gap spacing, and card proportions to align with the reference layout."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Implement Single Page Application structure with auth-page and dashboard-page div sections that toggle visibility",
+      "summary": "Update color scheme and visual theming to match reference application's aesthetic including card backgrounds, text colors, and accent colors",
       "acceptanceCriteria": [
-        "App uses two main div sections with IDs 'auth-page' and 'dashboard-page'",
-        "Only one section is visible at a time",
-        "Dashboard page is hidden by default on initial load",
-        "View switching is handled through display style property"
+        "Color scheme matches the reference application",
+        "Card styling and backgrounds align with reference design",
+        "Text hierarchy and typography match the reference"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/LoginPage.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Restructure the page to use a root div with id='auth-page' wrapping all authentication content including sign-in and registration views"
+          "description": "Update CSS custom properties and color variables to match the reference application's color palette. Modify background colors, text colors, accent colors (currently emerald-based), border colors, and shadow definitions. Adjust the tactical glass effect styling to match the reference's card backgrounds. Update color values in both light and dark theme sections to ensure consistency with the reference design."
         },
         {
-          "path": "frontend/src/pages/UnifiedDashboard.tsx",
+          "path": "frontend/tailwind.config.js",
           "operation": "modify",
-          "description": "Wrap the entire dashboard content in a div with id='dashboard-page' and style='display:none' as the default state. Add visibility toggle logic based on authentication state from localStorage.AXON_MASTER_USER"
+          "description": "Update Tailwind theme configuration to match the reference application's color system. Modify custom color definitions in the extend.colors section to align with the reference palette. Adjust primary, secondary, accent, and utility color values using OKLCH color space to match the reference aesthetic."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/layout/BentoCard.tsx",
           "operation": "modify",
-          "description": "Update routing logic to support SPA view toggling between auth-page and dashboard-page sections using display style changes instead of full route navigation"
+          "description": "Update the BentoCard component's glassmorphism styling to match the reference application's card background treatment. Adjust background opacity, blur values, border styling, and shadow effects to align with the reference design."
+        },
+        {
+          "path": "frontend/src/components/common/MetricCard.tsx",
+          "operation": "modify",
+          "description": "Update MetricCard component styling to match the reference application's metric presentation. Adjust text colors, icon colors (currently emerald), background treatments, and trend indicator styling to align with the reference color scheme."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Restore glassmorphic login panel with Full Name registration field matching reference design",
+      "summary": "Redesign dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match reference application's content structure and visual presentation",
       "acceptanceCriteria": [
-        "Login panel uses glassmorphism styling",
-        "Registration form includes Full Name field",
-        "Visual design matches reference image frontend/public/assets/generated/images (4).jpeg",
-        "Panel displays on auth-page section"
+        "Each card component's content and layout matches its counterpart in the reference",
+        "Card interactions and animations align with reference behavior",
+        "Data visualization components match the reference style"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/auth/RegisterView.tsx",
+          "path": "frontend/src/components/dashboard/NeuralIngestInput.tsx",
           "operation": "modify",
-          "description": "Add Full Name input field as the first field in the registration form. Ensure the field is included in form state and validation logic"
+          "description": "Redesign the NeuralIngestInput card to match the reference application's equivalent input component. Update the card's internal layout, input field styling, button placement, and visual feedback mechanisms. Adjust spacing, typography, and interactive states (hover, focus, loading) to align with the reference design while maintaining the existing URL verification functionality."
         },
         {
-          "path": "frontend/src/components/auth/AuthPanel.tsx",
+          "path": "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
           "operation": "modify",
-          "description": "Apply glassmorphism styling with backdrop-blur, semi-transparent backgrounds, and tactical scanline overlay to match the reference image frontend/public/assets/generated/images (4).jpeg"
+          "description": "Redesign the SynopsisEngineCard to match the reference application's equivalent status/loading component. Update the loading spinner styling, message presentation, and overall card layout to match the reference design. Adjust typography, icon styling, and animation effects to align with the reference aesthetic."
         },
         {
-          "path": "frontend/src/pages/LoginPage.tsx",
+          "path": "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
           "operation": "modify",
-          "description": "Ensure AuthPanel component wraps both SignInView and RegisterView, maintaining glassmorphic appearance throughout the authentication flow"
+          "description": "Redesign the SpectralAnalysisCard canvas visualization to match the reference application's equivalent data visualization component. Update the canvas drawing style, wave form appearance, color scheme (currently using emerald gradient), animation parameters, and card wrapper styling to align with the reference design."
+        },
+        {
+          "path": "frontend/src/components/dashboard/KPIMetricsRow.tsx",
+          "operation": "modify",
+          "description": "Redesign the individual metric cards within KPIMetricsRow to match the reference application's metric presentation style. Update chart visualizations (bar chart for threats, radial gauge for health score), metric value formatting, label styling, and icon treatments to align with the reference design."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Fix registration flow to save user data to localStorage.AXON_MASTER_USER and immediately display dashboard",
+      "summary": "Update DashboardLayout sidebar navigation to match reference application's navigation structure, icons, and visual styling",
       "acceptanceCriteria": [
-        "Registration saves to localStorage key 'AXON_MASTER_USER'",
-        "Dashboard view displays immediately after successful registration",
-        "No loading states or delays between registration and dashboard display",
-        "User data persists across page refreshes"
+        "Sidebar navigation structure matches the reference",
+        "Navigation icons and labels align with reference design",
+        "Active state styling matches the reference application"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/auth/RegisterView.tsx",
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Update registration submission handler to save user data (including Full Name, email) to localStorage.AXON_MASTER_USER using JSON.stringify. Immediately trigger view change to dashboard by setting display style on auth-page to 'none' and dashboard-page to 'block'"
-        },
-        {
-          "path": "frontend/src/utils/localStorageAuth.ts",
-          "operation": "modify",
-          "description": "Update registerUser function to include fullName field in the user object structure and persist to localStorage.AXON_MASTER_USER"
-        },
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Add view toggle function that sets document.getElementById('auth-page').style.display = 'none' and document.getElementById('dashboard-page').style.display = 'block' upon successful registration"
+          "description": "Redesign the sidebar navigation section to match the reference application's navigation structure and styling. Update navigation item arrangement, icon selections, label text formatting, spacing between items, and active state indicators. Adjust sidebar width, background styling, and hover effects to align with the reference design. Update the mobile menu implementation to match the reference's mobile navigation behavior. Maintain existing routing functionality and subscription tier-based feature gating while applying the new visual style."
         }
       ]
     },
     {
       "id": "REQ-5",
-      "summary": "Restore dashboard sidebar navigation with five sections: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault",
+      "summary": "Adjust responsive behavior and mobile layout to match reference application's screen size handling and breakpoints",
       "acceptanceCriteria": [
-        "Sidebar contains exactly five navigation items in order",
-        "Navigation items match reference design from frontend/public/assets/generated/sc.png",
-        "Each section is clickable and navigates to appropriate view",
-        "Active section is visually indicated"
+        "Responsive breakpoints match the reference application",
+        "Mobile layout and stacking order align with reference",
+        "Touch interactions work consistently with reference"
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Update sidebar navigation array to include exactly five items in order: Command Center, Neural Lab, Sentinel Protocol, Device Sync, and Vault. Ensure each has appropriate icon, label, and route path. Add active state styling with emerald highlight matching frontend/public/assets/generated/sc.png"
-        },
-        {
-          "path": "frontend/src/pages/UnifiedDashboard.tsx",
-          "operation": "modify",
-          "description": "Verify that all five navigation sections have corresponding content areas or component imports to display when selected"
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Implement KPI row with Asset Shield ticker, Neural Ingest input, and Vocal Health gauge",
-      "acceptanceCriteria": [
-        "Asset Shield displays starting value of ₹1,241,310 in Indian Rupee format",
-        "Asset Shield value increments automatically in real-time",
-        "Neural Ingest includes a text input field for links",
-        "Vocal Health displays as a visual gauge component",
-        "All three components are positioned in a horizontal row"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/AssetShieldCard.tsx",
-          "operation": "modify",
-          "description": "Set initial value to ₹1,241,310 formatted with Indian Rupee symbol. Ensure the auto-increment interval adds small random amounts every 2 seconds to create a live ticker effect"
-        },
-        {
-          "path": "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-          "operation": "modify",
-          "description": "Verify the component contains a text input field for meeting links with verification button functionality"
-        },
-        {
-          "path": "frontend/src/components/dashboard/VocalHealthCard.tsx",
-          "operation": "modify",
-          "description": "Ensure the component displays as a circular gauge showing vocal health percentage (98.4/100) with SVG gradient ring"
-        },
         {
           "path": "frontend/src/pages/CommandCenter.tsx",
           "operation": "modify",
-          "description": "Position AssetShieldCard, NeuralIngestInput, and VocalHealthCard components in a horizontal row layout (flex or grid) as the KPI row section at the top of the dashboard"
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add real-time animating Waveform visualization labeled 'Live Spectral Analysis' in dashboard center",
-      "acceptanceCriteria": [
-        "Waveform renders in the center dashboard area",
-        "Animation runs continuously in real-time",
-        "Component is labeled 'Live Spectral Analysis'",
-        "Waveform uses smooth, fluid animation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-          "operation": "modify",
-          "description": "Verify the component renders an animated canvas with sine wave visualization using requestAnimationFrame. Ensure the card title displays 'Live Spectral Analysis' prominently"
-        },
-        {
-          "path": "frontend/src/pages/CommandCenter.tsx",
-          "operation": "modify",
-          "description": "Position SpectralAnalysisCard in the center section of the dashboard layout below the KPI row"
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Add Synopsis Engine component in the center of the dashboard alongside waveform visualization",
-      "acceptanceCriteria": [
-        "Synopsis Engine displays in center dashboard area",
-        "Component is positioned near or with the waveform",
-        "Synopsis Engine has distinct visual identity"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-          "operation": "modify",
-          "description": "Verify the component displays loading spinner and 'awaiting verified intel link' message with distinct styling to differentiate from SpectralAnalysisCard"
-        },
-        {
-          "path": "frontend/src/pages/CommandCenter.tsx",
-          "operation": "modify",
-          "description": "Position SynopsisEngineCard adjacent to or below SpectralAnalysisCard in the center dashboard area, creating a two-column or stacked layout"
-        }
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "summary": "Add three-tier subscription pricing cards under Vault section with Free, ₹299/month, and ₹499/month tiers",
-      "acceptanceCriteria": [
-        "Vault section contains three subscription cards",
-        "Tiers are priced at Free, ₹299, and ₹499",
-        "Pricing displays in Indian Rupee format with /month suffix",
-        "Cards are visually distinct and comparable"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/vault/SubscriptionTiers.tsx",
-          "operation": "modify",
-          "description": "Update pricing tiers to display Free (₹0), Core (₹299/month), and Shield (₹499/month). Ensure Indian Rupee formatting is consistent across all tier cards"
-        },
-        {
-          "path": "frontend/src/components/vault/SubscriptionTierCard.tsx",
-          "operation": "modify",
-          "description": "Verify pricing display includes ₹ symbol and /month suffix. Ensure cards support Free tier with ₹0 pricing and special 'Get Started' or 'Current Plan' button text"
-        },
-        {
-          "path": "frontend/src/pages/UnifiedDashboard.tsx",
-          "operation": "modify",
-          "description": "Add navigation to Vault section that displays the SubscriptionTiers component or include PricingTable component with the three pricing tiers"
-        }
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "summary": "Display registered user's Full Name dynamically in dashboard sidebar, removing hardcoded 'Nishant' references",
-      "acceptanceCriteria": [
-        "User's Full Name from registration displays in sidebar",
-        "Name updates dynamically based on logged-in user",
-        "No hardcoded names like 'Nishant' appear anywhere",
-        "Name is retrieved from localStorage.AXON_MASTER_USER"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
-          "operation": "modify",
-          "description": "Remove any hardcoded 'Nishant' references. Retrieve user data from localStorage.AXON_MASTER_USER using JSON.parse, extract the fullName or name field, and display it dynamically in the sidebar user profile section"
-        },
-        {
-          "path": "frontend/src/pages/UnifiedDashboard.tsx",
-          "operation": "modify",
-          "description": "Remove any hardcoded user names. Retrieve and display the Full Name from localStorage.AXON_MASTER_USER in the user profile display area"
-        }
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "summary": "Add Logout button to dashboard that clears session and returns to auth-page",
-      "acceptanceCriteria": [
-        "Logout button is visible in the dashboard",
-        "Clicking logout clears localStorage.AXON_MASTER_USER",
-        "View switches to auth-page after logout",
-        "User must re-authenticate after logout"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/dashboard/QuickActionsCard.tsx",
-          "operation": "modify",
-          "description": "Verify Tactical Exit button clears localStorage.AXON_MASTER_USER and triggers view switch by setting document.getElementById('dashboard-page').style.display = 'none' and document.getElementById('auth-page').style.display = 'block'"
+          "description": "Update responsive breakpoint classes and mobile-specific layout adjustments to match the reference application's behavior. Modify grid column configurations for different screen sizes (sm, md, lg, xl breakpoints), adjust card stacking order on mobile, and ensure proper spacing at all breakpoints to align with the reference design."
         },
         {
           "path": "frontend/src/components/layout/DashboardLayout.tsx",
           "operation": "modify",
-          "description": "Add a logout button in the sidebar that calls localStorage.removeItem('AXON_MASTER_USER') and toggles view back to auth-page"
+          "description": "Update responsive behavior for sidebar collapse/expansion, mobile menu transitions, and touch interactions to match the reference application. Adjust breakpoint-specific styling and ensure mobile navigation patterns align with the reference design."
         },
         {
-          "path": "frontend/src/utils/localStorageAuth.ts",
+          "path": "frontend/tailwind.config.js",
           "operation": "modify",
-          "description": "Add or verify logout function that clears localStorage.AXON_MASTER_USER and any related session data"
-        }
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "summary": "Implement login validation with 'Invalid Credentials' toast notification on failure",
-      "acceptanceCriteria": [
-        "Failed login attempts trigger validation",
-        "Toast notification displays with text 'Invalid Credentials'",
-        "Toast appears on screen temporarily and dismisses",
-        "User remains on auth-page after failed login"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/auth/SignInView.tsx",
-          "operation": "modify",
-          "description": "Add login validation logic that checks credentials against localStorage.AXON_MASTER_USER. On validation failure, trigger toast notification with message 'Invalid Credentials' using the toast utility from shadcn/ui"
-        },
-        {
-          "path": "frontend/src/utils/localStorageAuth.ts",
-          "operation": "modify",
-          "description": "Add or verify validateLogin function that compares submitted credentials with stored user data in localStorage.AXON_MASTER_USER and returns boolean success/failure result"
-        },
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Ensure login failure handling prevents view switching to dashboard-page and keeps user on auth-page until successful authentication"
-        }
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "summary": "Implement secret bypass: clicking AXON logo 3 times force-shows Dashboard as Sovereign Administrator with ₹499 plan",
-      "acceptanceCriteria": [
-        "AXON logo tracks click count",
-        "After exactly 3 clicks, dashboard view displays immediately",
-        "User identity is set to 'Sovereign Administrator'",
-        "Subscription tier is set to ₹499 plan",
-        "Bypass works from auth-page without requiring credentials",
-        "Click counter resets after successful bypass or timeout"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "modify",
-          "description": "Add click event handler to the AXON logo that tracks click count using useState. On the third click within a reasonable timeframe, create a bypass user object with fullName: 'Sovereign Administrator', save to localStorage.AXON_MASTER_USER, set subscription tier to 'shield' (₹499) in localStorage, and immediately toggle view to dashboard-page. Reset click counter after 2 seconds of inactivity or successful bypass"
-        },
-        {
-          "path": "frontend/src/components/auth/AuthPanel.tsx",
-          "operation": "modify",
-          "description": "Ensure the AXON logo is rendered as a clickable element (button or div with onClick) that propagates click events to parent LoginPage for bypass tracking"
-        },
-        {
-          "path": "frontend/src/utils/localStorageAuth.ts",
-          "operation": "modify",
-          "description": "Add createBypassUser function that generates a master user object with fullName: 'Sovereign Administrator', email: 'admin@axon.sovereign', and subscription: 'shield', then saves to localStorage.AXON_MASTER_USER"
+          "description": "Review and adjust responsive breakpoint definitions if needed to match the reference application's screen size thresholds. Ensure breakpoint values align with the reference design system."
         }
       ]
     }

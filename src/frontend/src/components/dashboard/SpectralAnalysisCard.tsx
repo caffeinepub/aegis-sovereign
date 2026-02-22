@@ -28,11 +28,17 @@ export default function SpectralAnalysisCard() {
       const width = canvas.offsetWidth;
       const height = canvas.offsetHeight;
 
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.fillStyle = 'rgba(248, 250, 252, 0.3)';
       ctx.fillRect(0, 0, width, height);
 
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 2;
+      // Draw gradient waveform
+      const gradient = ctx.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, '#3b82f6');
+      gradient.addColorStop(0.5, '#8b5cf6');
+      gradient.addColorStop(1, '#3b82f6');
+
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 3;
       ctx.beginPath();
 
       const points = 100;
@@ -65,19 +71,21 @@ export default function SpectralAnalysisCard() {
   }, []);
 
   return (
-    <Card className="bg-white/80 backdrop-blur-md border-[#10b981]/30">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Radio className="h-6 w-6 text-[#10b981]" />
-          SPECTRAL ANALYSIS
+    <Card className="bg-white/80 backdrop-blur-sm border-slate-200 shadow-lg h-full">
+      <CardHeader className="border-b border-slate-100 pb-4">
+        <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+          <div className="p-2 rounded-lg bg-indigo-100">
+            <Radio className="h-5 w-5 text-indigo-600" />
+          </div>
+          Spectral Analysis
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="relative h-48 bg-gray-50 rounded-lg overflow-hidden">
+      <CardContent className="pt-6">
+        <div className="relative h-48 bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl overflow-hidden border border-slate-200">
           <canvas ref={canvasRef} className="w-full h-full" />
-          <div className="absolute top-2 right-2 flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-            <span className="text-xs font-mono text-gray-600">SIGNAL_LINK: STABLE</span>
+          <div className="absolute top-3 right-3 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-200">
+            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-mono text-slate-700 font-medium">SIGNAL: STABLE</span>
           </div>
         </div>
       </CardContent>

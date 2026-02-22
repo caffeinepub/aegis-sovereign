@@ -135,22 +135,6 @@ actor {
     logAuditEvent("SAVE_PROFILE", caller, "Profile saved", true);
   };
 
-  // Override assignRole to add audit logging
-  public shared ({ caller }) func assignRole(user : Principal, role : AccessControl.UserRole) : async () {
-    updateCallCount += 1;
-    if (not AccessControl.isAdmin(accessControlState, caller)) {
-      logAuditEvent("ASSIGN_ROLE", caller, "Unauthorized role assignment attempt for: " # user.toText(), false);
-      Runtime.trap("Unauthorized: Only admins can assign roles");
-    };
-    AccessControl.assignRole(accessControlState, caller, user, role);
-    let roleText = switch (role) {
-      case (#admin) { "admin" };
-      case (#user) { "user" };
-      case (#guest) { "guest" };
-    };
-    logAuditEvent("ASSIGN_ROLE", caller, "Assigned role " # roleText # " to: " # user.toText(), true);
-  };
-
   // Meeting Log Management
   public shared ({ caller }) func addMeetingLog(log : MeetingLog) : async () {
     updateCallCount += 1;

@@ -16,16 +16,14 @@ export default function AuthPanel({ children, shake, onLogoClick }: AuthPanelPro
       {/* Tactical scanlines overlay */}
       <div className="absolute inset-0 tactical-scanlines pointer-events-none rounded-[20px] opacity-30" />
       
-      {/* AXON Logo with triple-click handler */}
+      {/* AXON Logo */}
       <div className="text-center mb-8 relative z-10">
-        <h1 
-          className="text-4xl font-bold text-white cursor-pointer select-none"
+        <img 
+          src="/assets/generated/axon-logo.dim_400x120.png" 
+          alt="AXON SOVEREIGN" 
+          className="h-16 mx-auto cursor-pointer select-none"
           onClick={onLogoClick}
-          title="AXON SOVEREIGN"
-        >
-          AXON
-        </h1>
-        <p className="text-xs text-white/50 mt-1">SOVEREIGN</p>
+        />
       </div>
 
       {/* Content */}

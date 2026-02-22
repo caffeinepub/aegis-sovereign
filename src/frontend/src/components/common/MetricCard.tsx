@@ -13,19 +13,19 @@ export default function MetricCard({ title, value, icon, trend, trendUp = true }
   const TrendIcon = trendUp ? TrendingUp : TrendingDown;
 
   return (
-    <Card className="bg-card border-emerald-500/10 transition-all hover:border-emerald-500/30">
+    <Card className="bg-white/80 backdrop-blur-sm border-slate-200 shadow-lg transition-all hover:shadow-xl hover:border-blue-300">
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <div className="text-emerald-500">{icon}</div>
-              <p className="text-sm font-medium text-muted-foreground">{title}</p>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-2 rounded-lg bg-blue-100 text-blue-600">{icon}</div>
+              <p className="text-sm font-medium text-slate-600">{title}</p>
             </div>
-            <p className="text-3xl font-bold text-foreground">{value}</p>
+            <p className="text-3xl font-bold text-slate-900">{value}</p>
             {trend && (
               <div className="flex items-center gap-1 mt-2">
-                <TrendIcon className={`h-4 w-4 ${trendUp ? 'text-emerald-500' : 'text-red-500'}`} />
-                <p className={`text-sm font-medium ${trendUp ? 'text-emerald-500' : 'text-red-500'}`}>
+                <TrendIcon className={`h-4 w-4 ${trendUp ? 'text-emerald-600' : 'text-red-500'}`} />
+                <p className={`text-sm font-semibold ${trendUp ? 'text-emerald-600' : 'text-red-500'}`}>
                   {trend}
                 </p>
               </div>

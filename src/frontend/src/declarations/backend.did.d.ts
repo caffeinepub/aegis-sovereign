@@ -58,7 +58,6 @@ export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addMeetingLog' : ActorMethod<[MeetingLog], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
-  'assignRole' : ActorMethod<[Principal, UserRole], undefined>,
   'clearPanicHistory' : ActorMethod<[], undefined>,
   'deleteMeetingLog' : ActorMethod<[string], undefined>,
   'deleteSessionRecording' : ActorMethod<[string], undefined>,

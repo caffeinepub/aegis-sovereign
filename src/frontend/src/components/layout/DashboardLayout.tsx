@@ -9,20 +9,18 @@ import {
   Menu,
   Power,
   Cpu,
-  Radio,
   Smartphone,
   Lock as LockIcon,
   Users,
-  Settings as SettingsIcon,
   CreditCard,
-  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
+import { useGetCallerUserProfile } from '@/hooks/useQueries';
 import { useSubscriptionTier } from '@/hooks/useSubscriptionTier';
 import SentinelPanicButton from '@/components/common/SentinelPanicButton';
-import { getCurrentUser, clearSession } from '@/utils/localStorageAuth';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -37,14 +35,13 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'COMMAND CENTER', path: '/command-center', icon: <LayoutDashboard className="h-5 w-5" /> },
-  { label: 'NEURAL LAB', path: '/dashboard/neural-lab', icon: <Cpu className="h-5 w-5" />, requiresCore: true },
-  { label: 'SENTINEL PROTOCOL', path: '/dashboard/sentinel', icon: <Shield className="h-5 w-5" />, requiresShield: true },
-  { label: 'DEVICE SYNC', path: '/dashboard/device-sync', icon: <Smartphone className="h-5 w-5" /> },
-  { label: 'SECURE VAULT', path: '/dashboard/analytics-vault', icon: <LockIcon className="h-5 w-5" /> },
-  { label: 'TEAM MANAGEMENT', path: '/dashboard/team-management', icon: <Users className="h-5 w-5" /> },
-  { label: 'SUBSCRIPTIONS', path: '/dashboard/subscriptions', icon: <CreditCard className="h-5 w-5" /> },
-  { label: 'SETTINGS', path: '/dashboard/settings', icon: <SettingsIcon className="h-5 w-5" /> },
+  { label: 'Command Center', path: '/command-center', icon: <LayoutDashboard className="h-5 w-5" /> },
+  { label: 'Neural Lab', path: '/dashboard/neural-lab', icon: <Cpu className="h-5 w-5" />, requiresCore: true },
+  { label: 'Sentinel Protocol', path: '/dashboard/sentinel', icon: <Shield className="h-5 w-5" />, requiresShield: true },
+  { label: 'Device Sync', path: '/dashboard/device-sync', icon: <Smartphone className="h-5 w-5" /> },
+  { label: 'Secure Vault', path: '/dashboard/analytics-vault', icon: <LockIcon className="h-5 w-5" /> },
+  { label: 'Team Management', path: '/dashboard/team-management', icon: <Users className="h-5 w-5" /> },
+  { label: 'Subscriptions', path: '/dashboard/subscriptions', icon: <CreditCard className="h-5 w-5" /> },
 ];
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
@@ -52,24 +49,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const queryClient = useQueryClient();
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
-  const { isNeuralLabUnlocked, isSentinelProtocolUnlocked } = useSubscriptionTier();
+  const { clear, identity } = useInternetIdentity();
+  const { data: userProfile } = useGetCallerUserProfile();
+  const { tier, isNeuralLabUnlocked, isSentinelProtocolUnlocked } = useSubscriptionTier();
 
-  // Get user name from AXON_MASTER_USER
-  const [userName, setUserName] = useState('User');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const user = getCurrentUser();
-    if (user && user.fullName) {
-      setUserName(user.fullName);
+    if (!identity) {
+      navigate({ to: '/login' });
     }
-  }, []);
+  }, [identity, navigate]);
 
   const handleLogout = async () => {
-    localStorage.removeItem('AXON_SESSION');
-    localStorage.removeItem('AXON_MASTER_USER');
-    sessionStorage.clear();
-    clearSession();
+    await clear();
     queryClient.clear();
     toast.success('Signed out successfully');
     navigate({ to: '/login' });
@@ -84,6 +77,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       .slice(0, 2);
   };
 
+  const userName = userProfile?.name || 'User';
+
   const handleNavClick = (item: NavItem) => {
     if (item.requiresCore && !isNeuralLabUnlocked) {
       toast.error('Neural Lab requires SOVEREIGN CORE tier', { duration: 3000 });
@@ -97,33 +92,39 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     setMobileMenuOpen(false);
   };
 
+  const getTierBadgeColor = () => {
+    if (tier === 'shield') return 'bg-gradient-to-r from-blue-600 to-indigo-600';
+    if (tier === 'core') return 'bg-gradient-to-r from-emerald-600 to-teal-600';
+    return 'bg-gradient-to-r from-slate-500 to-slate-600';
+  };
+
   const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-[#001529]">
+    <div className="flex flex-col h-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
       {/* Logo */}
       <div className="p-6 border-b border-white/10">
-        <h1 className="text-2xl font-bold text-white">AXON</h1>
-        <p className="text-xs text-white/50 mt-1">SOVEREIGN</p>
+        <h1 className="text-2xl font-bold text-white tracking-tight">AXON</h1>
+        <p className="text-xs text-slate-400 mt-1 font-medium">SOVEREIGN</p>
       </div>
 
       {/* User Profile Section */}
       <div className="p-6 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10 border-2 border-[#10b981]">
-            <AvatarFallback className="bg-[#10b981] text-white font-semibold">
+          <Avatar className="h-11 w-11 border-2 border-blue-500 shadow-lg">
+            <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-sm">
               {getInitials(userName)}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-white truncate">{userName}</p>
-            <Badge className="mt-1 bg-gradient-to-r from-[#10b981] to-[#059669] text-white text-xs font-bold border-0">
-              SOVEREIGN
+            <Badge className={`mt-1.5 ${getTierBadgeColor()} text-white text-xs font-bold border-0 shadow-md`}>
+              {tier === 'free' ? 'FREE' : tier === 'core' ? 'CORE' : 'SHIELD'}
             </Badge>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = currentPath === item.path;
           const isLocked = (item.requiresCore && !isNeuralLabUnlocked) || (item.requiresShield && !isSentinelProtocolUnlocked);
@@ -132,12 +133,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <button
               key={item.path}
               onClick={() => handleNavClick(item)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left ${
                 isActive
-                  ? 'bg-[#10b981] text-white'
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
                   : isLocked
-                  ? 'text-white/30 cursor-not-allowed'
-                  : 'text-white/70 hover:bg-white/10 hover:text-white'
+                  ? 'text-slate-500 cursor-not-allowed'
+                  : 'text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
               disabled={isLocked}
             >
@@ -149,12 +150,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         })}
       </nav>
 
-      {/* Sign Out Button - Fixed at Bottom */}
+      {/* Sign Out Button */}
       <div className="p-4 border-t border-white/10">
         <Button
           onClick={handleLogout}
           variant="outline"
-          className="w-full border-white/20 text-white hover:bg-white/10 hover:text-white hover:border-white/40"
+          className="w-full border-white/20 text-white hover:bg-white/10 hover:text-white hover:border-white/40 transition-all"
         >
           <Power className="h-4 w-4 mr-2" />
           Sign Out
@@ -164,18 +165,18 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   );
 
   return (
-    <div className="flex h-screen bg-[#F0F2F5] overflow-hidden">
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex w-64 flex-shrink-0">
+      <aside className="hidden md:flex w-64 flex-shrink-0 shadow-2xl">
         <SidebarContent />
       </aside>
 
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#001529] border-b border-white/10 p-4">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900 border-b border-white/10 p-4 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Avatar className="h-8 w-8 border-2 border-[#10b981]">
-              <AvatarFallback className="bg-[#10b981] text-white text-xs font-semibold">
+            <Avatar className="h-9 w-9 border-2 border-blue-500">
+              <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold">
                 {getInitials(userName)}
               </AvatarFallback>
             </Avatar>
@@ -183,11 +184,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white">
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-64 p-0 bg-[#001529] border-white/10">
+            <SheetContent side="left" className="w-64 p-0 bg-slate-900 border-white/10">
               <SidebarContent />
             </SheetContent>
           </Sheet>

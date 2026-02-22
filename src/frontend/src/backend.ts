@@ -141,7 +141,6 @@ export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addMeetingLog(log: MeetingLog): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
-    assignRole(user: Principal, role: UserRole): Promise<void>;
     clearPanicHistory(): Promise<void>;
     deleteMeetingLog(title: string): Promise<void>;
     deleteSessionRecording(id: string): Promise<void>;
@@ -204,20 +203,6 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
-            return result;
-        }
-    }
-    async assignRole(arg0: Principal, arg1: UserRole): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.assignRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.assignRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
             return result;
         }
     }

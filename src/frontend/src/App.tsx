@@ -1,47 +1,177 @@
-import { useState, useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet } from '@tanstack/react-router';
 import { Toaster } from '@/components/ui/sonner';
 import { TelemetryProvider } from '@/contexts/TelemetryContext';
 import { GhostModeProvider } from '@/contexts/GhostModeContext';
 import ErrorBoundary from './components/errors/ErrorBoundary';
 import LoginPage from './pages/LoginPage';
-import UnifiedDashboard from './pages/UnifiedDashboard';
-import { isSessionActive } from './utils/localStorageAuth';
+import DashboardLayout from './components/layout/DashboardLayout';
+import CommandCenter from './pages/CommandCenter';
+import NeuralLab from './pages/NeuralLab';
+import SentinelProtocol from './pages/SentinelProtocol';
+import DeviceSync from './pages/DeviceSync';
+import AnalyticsVault from './pages/AnalyticsVault';
+import TeamManagementPage from './pages/TeamManagementPage';
+import Subscriptions from './pages/Subscriptions';
+import AdminPanel from './pages/AdminPanel';
+import TacticalRemote from './pages/TacticalRemote';
+import MobileBiometric from './pages/MobileBiometric';
+import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-      refetchOnWindowFocus: false,
-    },
+// Root route with Outlet
+const rootRoute = createRootRoute({
+  component: () => (
+    <TelemetryProvider>
+      <GhostModeProvider>
+        <ErrorBoundary>
+          <Toaster />
+          <Outlet />
+        </ErrorBoundary>
+      </GhostModeProvider>
+    </TelemetryProvider>
+  ),
+});
+
+// Login route
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/login',
+  component: LoginPage,
+});
+
+// Mobile routes
+const remoteRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/remote',
+  component: TacticalRemote,
+});
+
+const mobileBiometricRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/mobile-biometric',
+  component: MobileBiometric,
+});
+
+// Dashboard routes
+const commandCenterRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/command-center',
+  component: () => (
+    <DashboardLayout>
+      <CommandCenter />
+    </DashboardLayout>
+  ),
+});
+
+const neuralLabRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/neural-lab',
+  component: () => (
+    <DashboardLayout>
+      <NeuralLab />
+    </DashboardLayout>
+  ),
+});
+
+const sentinelRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/sentinel',
+  component: () => (
+    <DashboardLayout>
+      <SentinelProtocol />
+    </DashboardLayout>
+  ),
+});
+
+const deviceSyncRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/device-sync',
+  component: () => (
+    <DashboardLayout>
+      <DeviceSync />
+    </DashboardLayout>
+  ),
+});
+
+const analyticsVaultRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/analytics-vault',
+  component: () => (
+    <DashboardLayout>
+      <AnalyticsVault />
+    </DashboardLayout>
+  ),
+});
+
+const teamManagementRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/team-management',
+  component: () => (
+    <DashboardLayout>
+      <TeamManagementPage />
+    </DashboardLayout>
+  ),
+});
+
+const subscriptionsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/subscriptions',
+  component: () => (
+    <DashboardLayout>
+      <Subscriptions />
+    </DashboardLayout>
+  ),
+});
+
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard/admin',
+  component: () => (
+    <DashboardLayout>
+      <RoleProtectedRoute requiredRole="admin">
+        <AdminPanel />
+      </RoleProtectedRoute>
+    </DashboardLayout>
+  ),
+});
+
+// Index route redirects to command center
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/command-center';
+    }
+    return null;
   },
 });
 
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  loginRoute,
+  remoteRoute,
+  mobileBiometricRoute,
+  commandCenterRoute,
+  neuralLabRoute,
+  sentinelRoute,
+  deviceSyncRoute,
+  analyticsVaultRoute,
+  teamManagementRoute,
+  subscriptionsRoute,
+  adminRoute,
+]);
+
+const router = createRouter({ 
+  routeTree,
+  defaultPreload: 'intent',
+});
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
 export default function App() {
-  const [currentView, setCurrentView] = useState<'auth' | 'dashboard'>('auth');
-
-  useEffect(() => {
-    // Check if user is already logged in
-    if (isSessionActive()) {
-      setCurrentView('dashboard');
-    }
-  }, []);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TelemetryProvider>
-        <GhostModeProvider>
-          <ErrorBoundary>
-            <Toaster />
-            <div id="auth-page" style={{ display: currentView === 'auth' ? 'block' : 'none' }}>
-              <LoginPage onLoginSuccess={() => setCurrentView('dashboard')} />
-            </div>
-            <div id="dashboard-page" style={{ display: currentView === 'dashboard' ? 'block' : 'none' }}>
-              <UnifiedDashboard onLogout={() => setCurrentView('auth')} />
-            </div>
-          </ErrorBoundary>
-        </GhostModeProvider>
-      </TelemetryProvider>
-    </QueryClientProvider>
-  );
+  return <RouterProvider router={router} />;
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Link2, CheckCircle2 } from 'lucide-react';
+import { Link2, CheckCircle2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function NeuralIngestInput() {
@@ -25,7 +25,6 @@ export default function NeuralIngestInput() {
 
     setIsVerifying(true);
     
-    // Simulate verification
     setTimeout(() => {
       setIsVerifying(false);
       setIsVerified(true);
@@ -34,40 +33,47 @@ export default function NeuralIngestInput() {
   };
 
   return (
-    <Card className="bg-white/95 backdrop-blur-sm border-[#10b981]/30">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Link2 className="h-6 w-6 text-[#10b981]" />
-          NEURAL INGEST
+    <Card className="bg-white/80 backdrop-blur-sm border-slate-200 shadow-lg">
+      <CardHeader className="border-b border-slate-100 pb-4">
+        <CardTitle className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+          <div className="p-2 rounded-lg bg-blue-100">
+            <Link2 className="h-5 w-5 text-blue-600" />
+          </div>
+          Neural Ingest
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <Input
-          type="url"
-          placeholder="SECURE_MEETING_LINK"
-          value={url}
-          onChange={(e) => {
-            setUrl(e.target.value);
-            setIsVerified(false);
-          }}
-          className="font-mono text-sm border-[#10b981]/30 focus:border-[#10b981]"
-        />
-        <Button
-          onClick={handleVerify}
-          disabled={isVerifying || !url}
-          className="w-full bg-gradient-to-r from-[#10b981] to-[#059669] hover:from-[#059669] hover:to-[#047857] text-white font-semibold"
-        >
-          {isVerifying ? (
-            'VERIFYING...'
-          ) : isVerified ? (
-            <>
-              <CheckCircle2 className="h-4 w-4 mr-2" />
-              VERIFIED
-            </>
-          ) : (
-            'VERIFY INTELLIGENCE LINK'
-          )}
-        </Button>
+      <CardContent className="pt-6">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Input
+            type="url"
+            placeholder="Enter secure meeting link..."
+            value={url}
+            onChange={(e) => {
+              setUrl(e.target.value);
+              setIsVerified(false);
+            }}
+            className="flex-1 h-12 border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+          />
+          <Button
+            onClick={handleVerify}
+            disabled={isVerifying || !url}
+            className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md hover:shadow-lg transition-all"
+          >
+            {isVerifying ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Verifying...
+              </>
+            ) : isVerified ? (
+              <>
+                <CheckCircle2 className="h-4 w-4 mr-2" />
+                Verified
+              </>
+            ) : (
+              'Verify Link'
+            )}
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

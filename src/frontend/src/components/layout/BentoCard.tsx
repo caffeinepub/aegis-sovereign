@@ -10,7 +10,7 @@ interface BentoCardProps {
 
 export default function BentoCard({ children, className = '', showBeam = true }: BentoCardProps) {
   return (
-    <Card className={`relative overflow-hidden border-white/10 bg-white/5 backdrop-blur-xl ${className}`}>
+    <Card className={`relative overflow-hidden border-slate-200 bg-white/80 backdrop-blur-xl shadow-lg ${className}`}>
       {showBeam && <BorderBeam />}
       {children}
     </Card>

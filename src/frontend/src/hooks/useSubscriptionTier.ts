@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getCurrentUser, updateUserPlan, getCurrentUserEmail } from '@/utils/localStorageAuth';
 
 export type SubscriptionTier = 'free' | 'core' | 'shield';
 
@@ -18,45 +17,18 @@ interface SubscriptionTierInfo {
 
 export function useSubscriptionTier(): SubscriptionTierInfo {
   const [tier, setTierState] = useState<SubscriptionTier>(() => {
-    const user = getCurrentUser();
-    return user?.plan || 'free';
+    const stored = localStorage.getItem('AXON_SUBSCRIPTION_TIER');
+    return (stored as SubscriptionTier) || 'free';
   });
 
   useEffect(() => {
-    // Listen for storage changes
-    const handleStorageChange = () => {
-      const user = getCurrentUser();
-      if (user) {
-        setTierState(user.plan);
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Also check periodically for changes in the same tab
-    const interval = setInterval(() => {
-      const user = getCurrentUser();
-      if (user && user.plan !== tier) {
-        setTierState(user.plan);
-      }
-    }, 500);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
-    };
+    localStorage.setItem('AXON_SUBSCRIPTION_TIER', tier);
   }, [tier]);
 
   const setTier = (newTier: SubscriptionTier) => {
-    const email = getCurrentUserEmail();
-    if (email) {
-      const success = updateUserPlan(email, newTier);
-      if (success) {
-        setTierState(newTier);
-        // Trigger storage event for other components
-        window.dispatchEvent(new Event('storage'));
-      }
-    }
+    setTierState(newTier);
+    localStorage.setItem('AXON_SUBSCRIPTION_TIER', newTier);
+    window.dispatchEvent(new Event('storage'));
   };
 
   return {
