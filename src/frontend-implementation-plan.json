@@ -1,135 +1,168 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Redesign Dashboard to Match Reference Application",
+  "title": "Fix store initialization error and restore dashboard components",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Transform CommandCenter page layout to match reference application's grid structure, card arrangements, and spacing",
+      "summary": "Add null-check guard in global state store initialization to prevent '__store' null reference errors",
       "acceptanceCriteria": [
-        "Dashboard layout matches the reference application's grid structure",
-        "Card components are arranged in the same visual hierarchy as the reference",
-        "Spacing and proportions align with the reference design"
+        "Store initialization includes explicit null check before any component render",
+        "Default tier is 'free' when store is re-initialized",
+        "User profile defaults to empty object structure",
+        "No '__store' null reference errors occur during app initialization"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CommandCenter.tsx",
+          "path": "frontend/src/hooks/useSubscriptionTier.ts",
           "operation": "modify",
-          "description": "Restructure the CommandCenter component to match the reference application's grid layout. Replace the current three-section layout (Overview, KPI row, grid of cards) with a new grid structure that matches the reference's visual hierarchy. Update container classes, grid configurations (columns, gaps, responsive breakpoints), and card placement to align with the reference design. Maintain existing component imports and functionality while reorganizing their placement and sizing."
+          "description": "Add null-check guard at the beginning of the useSubscriptionTier hook. If '__store' or tier state is null/undefined, immediately re-initialize with default values: subscription tier 'free' and empty user profile object. Ensure this validation runs before any component attempts to access the store."
         },
         {
-          "path": "frontend/src/components/dashboard/Overview.tsx",
+          "path": "frontend/src/utils/localStorageAuth.ts",
           "operation": "modify",
-          "description": "Adjust the Overview card's dimensions, padding, and internal grid layout to match its position and size in the reference application. Update spacing between metric items and ensure responsive behavior matches the reference."
-        },
-        {
-          "path": "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-          "operation": "modify",
-          "description": "Modify the KPI metrics grid structure to match the reference application's card arrangement. Adjust grid columns, gap spacing, and card proportions to align with the reference layout."
+          "description": "Add defensive null checks in all functions that access localStorage. If AXON_MASTER_USER or related keys return null, initialize with default structure including 'free' tier and empty profile before proceeding."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Update color scheme and visual theming to match reference application's aesthetic including card backgrounds, text colors, and accent colors",
+      "summary": "Force-reset application view to 'homepage-view' as primary entry point",
       "acceptanceCriteria": [
-        "Color scheme matches the reference application",
-        "Card styling and backgrounds align with reference design",
-        "Text hierarchy and typography match the reference"
+        "App.tsx initializes with 'homepage-view' as the default view",
+        "No other view attempts to render before homepage is ready",
+        "View state correctly persists and transitions to login/dashboard when appropriate"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update CSS custom properties and color variables to match the reference application's color palette. Modify background colors, text colors, accent colors (currently emerald-based), border colors, and shadow definitions. Adjust the tactical glass effect styling to match the reference's card backgrounds. Update color values in both light and dark theme sections to ensure consistency with the reference design."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Update Tailwind theme configuration to match the reference application's color system. Modify custom color definitions in the extend.colors section to align with the reference palette. Adjust primary, secondary, accent, and utility color values using OKLCH color space to match the reference aesthetic."
-        },
-        {
-          "path": "frontend/src/components/layout/BentoCard.tsx",
-          "operation": "modify",
-          "description": "Update the BentoCard component's glassmorphism styling to match the reference application's card background treatment. Adjust background opacity, blur values, border styling, and shadow effects to align with the reference design."
-        },
-        {
-          "path": "frontend/src/components/common/MetricCard.tsx",
-          "operation": "modify",
-          "description": "Update MetricCard component styling to match the reference application's metric presentation. Adjust text colors, icon colors (currently emerald), background treatments, and trend indicator styling to align with the reference color scheme."
+          "description": "Set the initial view state to 'homepage-view' as the default starting state. Ensure the view hierarchy respects this default before checking session storage or other persistence mechanisms. Validate that no conditional logic bypasses this default during initial render."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Redesign dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match reference application's content structure and visual presentation",
+      "summary": "Re-bind 'Start Journey' button to properly trigger login portal overlay",
       "acceptanceCriteria": [
-        "Each card component's content and layout matches its counterpart in the reference",
-        "Card interactions and animations align with reference behavior",
-        "Data visualization components match the reference style"
+        "'Start Journey' button click transitions view from 'homepage-view' to 'login'",
+        "Login overlay displays correctly after button click",
+        "No console errors during view transition"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/dashboard/NeuralIngestInput.tsx",
+          "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Redesign the NeuralIngestInput card to match the reference application's equivalent input component. Update the card's internal layout, input field styling, button placement, and visual feedback mechanisms. Adjust spacing, typography, and interactive states (hover, focus, loading) to align with the reference design while maintaining the existing URL verification functionality."
-        },
-        {
-          "path": "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-          "operation": "modify",
-          "description": "Redesign the SynopsisEngineCard to match the reference application's equivalent status/loading component. Update the loading spinner styling, message presentation, and overall card layout to match the reference design. Adjust typography, icon styling, and animation effects to align with the reference aesthetic."
-        },
-        {
-          "path": "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-          "operation": "modify",
-          "description": "Redesign the SpectralAnalysisCard canvas visualization to match the reference application's equivalent data visualization component. Update the canvas drawing style, wave form appearance, color scheme (currently using emerald gradient), animation parameters, and card wrapper styling to align with the reference design."
-        },
-        {
-          "path": "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-          "operation": "modify",
-          "description": "Redesign the individual metric cards within KPIMetricsRow to match the reference application's metric presentation style. Update chart visualizations (bar chart for threats, radial gauge for health score), metric value formatting, label styling, and icon treatments to align with the reference design."
+          "description": "Verify and re-bind the 'Start Journey' button click handler to properly invoke the onShowLogin callback prop, ensuring it transitions the view state to 'login' correctly. Test that the handler properly communicates with App.tsx's view management."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Update DashboardLayout sidebar navigation to match reference application's navigation structure, icons, and visual styling",
+      "summary": "Repair localStorage persistence for User Name and Subscription Tier",
       "acceptanceCriteria": [
-        "Sidebar navigation structure matches the reference",
-        "Navigation icons and labels align with reference design",
-        "Active state styling matches the reference application"
+        "User name is correctly saved to localStorage on authentication",
+        "Subscription tier is correctly saved to localStorage on tier selection or initialization",
+        "Values persist across page refreshes",
+        "Values are correctly retrieved during session restoration"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "path": "frontend/src/utils/localStorageAuth.ts",
           "operation": "modify",
-          "description": "Redesign the sidebar navigation section to match the reference application's navigation structure and styling. Update navigation item arrangement, icon selections, label text formatting, spacing between items, and active state indicators. Adjust sidebar width, background styling, and hover effects to align with the reference design. Update the mobile menu implementation to match the reference's mobile navigation behavior. Maintain existing routing functionality and subscription tier-based feature gating while applying the new visual style."
+          "description": "Review and repair all localStorage.setItem and localStorage.getItem calls for AXON_MASTER_USER key. Ensure user name and subscription tier are correctly saved during authentication flow and properly retrieved during session restoration. Verify encryption/decryption logic preserves data integrity."
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Ensure localStorage persistence calls are correctly invoked after successful authentication. Verify that user name from profile setup and subscription tier are both saved via localStorageAuth utility functions."
+        },
+        {
+          "path": "frontend/src/hooks/useSubscriptionTier.ts",
+          "operation": "modify",
+          "description": "Verify localStorage sync for subscription tier changes. Ensure tier updates trigger localStorage persistence and that the hook correctly reads persisted values on initialization."
         }
       ]
     },
     {
       "id": "REQ-5",
-      "summary": "Adjust responsive behavior and mobile layout to match reference application's screen size handling and breakpoints",
+      "summary": "Ensure dashboard view remains hidden when user is not logged in",
       "acceptanceCriteria": [
-        "Responsive breakpoints match the reference application",
-        "Mobile layout and stacking order align with reference",
-        "Touch interactions work consistently with reference"
+        "Dashboard only renders when user authentication state is valid",
+        "Unauthenticated users see homepage or login view, never dashboard",
+        "No store access errors occur when user is not logged in"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add conditional check that prevents dashboard view rendering if authentication state is invalid. Ensure the view logic validates session state before allowing transition to 'dashboard'. If validation fails, redirect to 'homepage-view' or 'login'."
+        },
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Add early return or authentication guard at the top of the component. Prevent rendering and store access if user authentication is not confirmed. Show loading state or redirect to login if unauthenticated."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Re-inject LiveSpectralAnalysis component into Command Center dashboard",
+      "acceptanceCriteria": [
+        "LiveSpectralAnalysis component is present in the Command Center dashboard",
+        "Component only renders after store validation succeeds",
+        "Spectral animation displays correctly",
+        "Component respects subscription tier access controls"
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/CommandCenter.tsx",
           "operation": "modify",
-          "description": "Update responsive breakpoint classes and mobile-specific layout adjustments to match the reference application's behavior. Modify grid column configurations for different screen sizes (sm, md, lg, xl breakpoints), adjust card stacking order on mobile, and ensure proper spacing at all breakpoints to align with the reference design."
+          "description": "Re-inject the LiveSpectralAnalysis component into the Command Center layout after store validation succeeds. Use the existing subscription tier hook to conditionally render based on tier. Place the component in the dashboard grid where it appeared in previous stable versions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Re-inject AssetShieldCard component into Command Center dashboard",
+      "acceptanceCriteria": [
+        "AssetShieldCard component is present in the Command Center dashboard",
+        "Component only renders after store validation succeeds",
+        "Animated counter displays protected assets value correctly",
+        "Component respects subscription tier access controls"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CommandCenter.tsx",
+          "operation": "modify",
+          "description": "Re-inject the AssetShieldCard component into the Command Center layout after store validation succeeds. Ensure the animated counter initializes correctly and displays the protected assets value. Place alongside LiveSpectralAnalysis in the dashboard grid."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Maintain high-end dark theme with glassmorphic UI styling throughout restored components",
+      "acceptanceCriteria": [
+        "Dark theme colors remain consistent across all restored components",
+        "Glassmorphic effects (backdrop blur, transparency) are present",
+        "Scanline overlays and tactical aesthetics are preserved",
+        "Visual consistency matches previous stable version"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review and ensure global CSS variables, glassmorphic effects, scanlines, and tactical UI styling are properly defined and not overridden. Verify dark theme consistency across the application."
         },
         {
-          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "path": "frontend/src/components/dashboard/LiveSpectralAnalysis.tsx",
           "operation": "modify",
-          "description": "Update responsive behavior for sidebar collapse/expansion, mobile menu transitions, and touch interactions to match the reference application. Adjust breakpoint-specific styling and ensure mobile navigation patterns align with the reference design."
+          "description": "Ensure the component maintains glassmorphic card styling, dark theme colors, gradient effects, and scanline overlays consistent with the tactical aesthetic from previous stable versions."
         },
         {
-          "path": "frontend/tailwind.config.js",
+          "path": "frontend/src/components/dashboard/AssetShieldCard.tsx",
           "operation": "modify",
-          "description": "Review and adjust responsive breakpoint definitions if needed to match the reference application's screen size thresholds. Ensure breakpoint values align with the reference design system."
+          "description": "Verify the component uses glassmorphic styling with backdrop blur, dark theme colors, and gradient accents matching the high-end tactical UI aesthetic from previous stable versions."
         }
       ]
     }

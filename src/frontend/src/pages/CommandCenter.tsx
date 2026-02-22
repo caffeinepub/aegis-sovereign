@@ -1,12 +1,38 @@
+import { useEffect } from 'react';
 import Overview from '@/components/dashboard/Overview';
 import KPIMetricsRow from '@/components/dashboard/KPIMetricsRow';
 import NeuralIngestInput from '@/components/dashboard/NeuralIngestInput';
 import SynopsisEngineCard from '@/components/dashboard/SynopsisEngineCard';
-import SpectralAnalysisCard from '@/components/dashboard/SpectralAnalysisCard';
+import LiveSpectralAnalysis from '@/components/dashboard/LiveSpectralAnalysis';
+import AssetShieldCard from '@/components/dashboard/AssetShieldCard';
 import { useSubscriptionTier } from '@/hooks/useSubscriptionTier';
+import { isSessionActive } from '@/utils/localStorageAuth';
 
 export default function CommandCenter() {
   const { canAccessSpectralAnalysis } = useSubscriptionTier();
+
+  // Validate session before rendering
+  useEffect(() => {
+    if (!isSessionActive()) {
+      console.warn('Unauthorized access to Command Center - no active session');
+      // Redirect handled by parent component
+      return;
+    }
+
+    // Dispatch dashboard initialization event
+    window.dispatchEvent(new Event('dashboard-initialized'));
+  }, []);
+
+  // Early return if no session (prevents store access errors)
+  if (!isSessionActive()) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 p-4 md:p-6 lg:p-8">
@@ -26,7 +52,13 @@ export default function CommandCenter() {
 
           {/* Right Column - KPI Metrics (spans 8 columns on large screens) */}
           <div className="lg:col-span-8">
-            <KPIMetricsRow />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Asset Shield Card - Re-injected */}
+              <AssetShieldCard />
+              
+              {/* Other KPI Metrics */}
+              <KPIMetricsRow />
+            </div>
           </div>
         </div>
 
@@ -38,8 +70,10 @@ export default function CommandCenter() {
         {/* Bottom Row - Synopsis and Spectral Analysis */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <SynopsisEngineCard />
+          
+          {/* Live Spectral Analysis - Re-injected with tier gating */}
           {canAccessSpectralAnalysis ? (
-            <SpectralAnalysisCard />
+            <LiveSpectralAnalysis />
           ) : (
             <div className="bg-white/60 backdrop-blur-sm border-2 border-dashed border-slate-300 rounded-2xl p-12 flex items-center justify-center">
               <div className="text-center">

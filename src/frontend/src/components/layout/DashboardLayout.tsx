@@ -13,6 +13,7 @@ import {
   Lock as LockIcon,
   Users,
   CreditCard,
+  Crown,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -93,8 +94,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   };
 
   const getTierBadgeColor = () => {
-    if (tier === 'shield') return 'bg-gradient-to-r from-blue-600 to-indigo-600';
-    if (tier === 'core') return 'bg-gradient-to-r from-emerald-600 to-teal-600';
+    if (tier === 'shield') return 'bg-gradient-to-r from-emerald-600 to-teal-600';
+    if (tier === 'core') return 'bg-gradient-to-r from-blue-600 to-indigo-600';
     return 'bg-gradient-to-r from-slate-500 to-slate-600';
   };
 
@@ -106,11 +107,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <p className="text-xs text-slate-400 mt-1 font-medium">SOVEREIGN</p>
       </div>
 
-      {/* User Profile Section */}
+      {/* User Profile Section with Sovereign Badge */}
       <div className="p-6 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-11 w-11 border-2 border-blue-500 shadow-lg">
-            <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold text-sm">
+        <div className="flex items-center gap-3 mb-3">
+          <Avatar className="h-11 w-11 border-2 border-emerald-500 shadow-lg">
+            <AvatarFallback className="bg-gradient-to-br from-emerald-600 to-teal-600 text-white font-bold text-sm">
               {getInitials(userName)}
             </AvatarFallback>
           </Avatar>
@@ -120,6 +121,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {tier === 'free' ? 'FREE' : tier === 'core' ? 'CORE' : 'SHIELD'}
             </Badge>
           </div>
+        </div>
+        {/* Sovereign Badge */}
+        <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-emerald-600/20 to-teal-600/20 border border-emerald-500/30 rounded-lg">
+          <Crown className="h-4 w-4 text-emerald-400" />
+          <span className="text-sm font-bold text-emerald-400">Sovereign: {userName}</span>
         </div>
       </div>
 
@@ -135,7 +141,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               onClick={() => handleNavClick(item)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-left ${
                 isActive
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                  ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30'
                   : isLocked
                   ? 'text-slate-500 cursor-not-allowed'
                   : 'text-slate-300 hover:bg-white/10 hover:text-white'
@@ -175,8 +181,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-slate-900 border-b border-white/10 p-4 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Avatar className="h-9 w-9 border-2 border-blue-500">
-              <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold">
+            <Avatar className="h-9 w-9 border-2 border-emerald-500">
+              <AvatarFallback className="bg-gradient-to-br from-emerald-600 to-teal-600 text-white text-xs font-bold">
                 {getInitials(userName)}
               </AvatarFallback>
             </Avatar>

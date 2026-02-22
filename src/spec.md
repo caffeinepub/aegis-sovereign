@@ -1,13 +1,16 @@
 # Specification
 
 ## Summary
-**Goal:** Redesign the CommandCenter dashboard to match the layout, visual style, and component structure of the reference application.
+**Goal:** Fix store initialization error and restore missing dashboard components (Spectral Analysis and Asset Shield).
 
 **Planned changes:**
-- Transform CommandCenter page layout to match reference application's grid structure and card arrangements
-- Update color scheme, card backgrounds, text colors, and accent colors to match reference aesthetic
-- Redesign dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match reference content structure and presentation
-- Update DashboardLayout sidebar navigation structure, icons, and styling to match reference
-- Adjust responsive behavior and mobile layout to align with reference application's breakpoints
+- Add null-check guard in global state store initialization with default values (free tier, empty user profile)
+- Force-reset application entry point to 'homepage-view' in App.tsx
+- Re-bind 'Start Journey' button to properly trigger login portal overlay
+- Repair localStorage persistence for User Name and Subscription Tier
+- Add conditional check to hide dashboard when user is not logged in
+- Re-inject LiveSpectralAnalysis component into Command Center dashboard
+- Re-inject AssetShieldCard component into Command Center dashboard
+- Maintain high-end dark theme with glassmorphic UI, scanlines, and tactical aesthetics
 
-**User-visible outcome:** The dashboard will have a completely redesigned visual appearance matching the reference application, with updated layout, colors, card designs, and navigation while maintaining all existing functionality.
+**User-visible outcome:** Users can successfully load the application without store errors, click 'Start Journey' to access login, and after authentication see the restored Command Center dashboard with working Spectral Analysis and Asset Shield components in the dark glassmorphic theme.

@@ -1,86 +1,109 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T14:29:38.057Z",
+  "generatedAt": "2026-02-22T17:46:38.916Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 8,
+    "implemented": 7,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Transform the CommandCenter page to match the layout and visual style of the reference application at https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6, including grid structure, card arrangements, and spacing",
+        "summary": "Add null-check guard in the global state store initialization. If '__store' is null or undefined, immediately re-initialize it with default values: subscription tier set to 'free' and an empty user profile object.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/CommandCenter.tsx",
-          "frontend/src/components/dashboard/Overview.tsx",
-          "frontend/src/components/dashboard/KPIMetricsRow.tsx"
+          "frontend/src/hooks/useSubscriptionTier.ts",
+          "frontend/src/utils/localStorageAuth.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/CommandCenter.tsx",
-          "frontend/src/components/dashboard/Overview.tsx",
-          "frontend/src/components/dashboard/KPIMetricsRow.tsx"
+          "frontend/src/hooks/useSubscriptionTier.ts",
+          "frontend/src/utils/localStorageAuth.ts"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Update color scheme and visual theming to match the reference application's aesthetic, including card backgrounds, text colors, accent colors, and overall color palette",
+        "summary": "Force-reset the application view to 'homepage-view' as the primary entry point in App.tsx. Ensure the view hierarchy respects this as the default starting state.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/components/layout/BentoCard.tsx",
-          "frontend/src/components/common/MetricCard.tsx"
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/layout/BentoCard.tsx",
-          "frontend/src/components/common/MetricCard.tsx"
+          "frontend/src/App.tsx"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Redesign or replace existing dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match the content structure and visual presentation of equivalent cards in the reference application",
-        "status": "implemented",
+        "summary": "Re-bind the 'Start Journey' button on the homepage to properly trigger the login portal overlay. Verify the click handler transitions the view state to 'login' correctly.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-          "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-          "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-          "frontend/src/components/dashboard/KPIMetricsRow.tsx"
+          "frontend/src/pages/LandingPage.tsx"
         ],
-        "matchedFiles": [
-          "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-          "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-          "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-          "frontend/src/components/dashboard/KPIMetricsRow.tsx"
-        ]
+        "matchedFiles": []
       },
       {
         "id": "REQ-4",
-        "summary": "Update the DashboardLayout sidebar navigation to match the reference application's navigation structure, including menu items, icons, and visual styling",
+        "summary": "Repair localStorage persistence for User Name and Subscription Tier. Ensure localStorage calls correctly save and retrieve these values during authentication flow and session restoration.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/layout/DashboardLayout.tsx"
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/hooks/useSubscriptionTier.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/layout/DashboardLayout.tsx"
+          "frontend/src/utils/localStorageAuth.ts",
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/hooks/useSubscriptionTier.ts"
         ]
       },
       {
         "id": "REQ-5",
-        "summary": "Adjust responsive behavior and mobile layout to match how the reference application handles different screen sizes and breakpoints",
+        "summary": "Ensure the dashboard view remains hidden when a user is not logged in. Add a conditional check that prevents dashboard rendering if authentication state is invalid, rather than attempting to render and crashing the store.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/CommandCenter.tsx",
-          "frontend/src/components/layout/DashboardLayout.tsx",
-          "frontend/tailwind.config.js"
+          "frontend/src/App.tsx",
+          "frontend/src/pages/CommandCenter.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/CommandCenter.tsx",
-          "frontend/src/components/layout/DashboardLayout.tsx"
+          "frontend/src/App.tsx",
+          "frontend/src/pages/CommandCenter.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Re-inject the Spectral Analysis component (LiveSpectralAnalysis) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CommandCenter.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CommandCenter.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Re-inject the Asset Shield component (AssetShieldCard) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CommandCenter.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CommandCenter.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Maintain the high-end dark theme with glassmorphic UI styling from previous stable versions throughout the dashboard and component restoration. Preserve scanlines, gradients, and tactical aesthetics.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/src/components/dashboard/LiveSpectralAnalysis.tsx",
+          "frontend/src/components/dashboard/AssetShieldCard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/dashboard/AssetShieldCard.tsx"
         ]
       }
     ]
@@ -90,16 +113,12 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/common/MetricCard.tsx",
-    "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-    "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-    "frontend/src/components/dashboard/Overview.tsx",
-    "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-    "frontend/src/components/dashboard/SynopsisEngineCard.tsx",
-    "frontend/src/components/layout/BentoCard.tsx",
-    "frontend/src/components/layout/DashboardLayout.tsx",
-    "frontend/src/index.css",
+    "frontend/src/App.tsx",
+    "frontend/src/components/dashboard/AssetShieldCard.tsx",
+    "frontend/src/hooks/useSubscriptionTier.ts",
     "frontend/src/pages/CommandCenter.tsx",
+    "frontend/src/pages/LoginPage.tsx",
+    "frontend/src/utils/localStorageAuth.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

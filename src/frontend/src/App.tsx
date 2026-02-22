@@ -1,177 +1,98 @@
-import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet } from '@tanstack/react-router';
+import { StrictMode, useState, useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from 'next-themes';
+import ErrorBoundary from '@/components/errors/ErrorBoundary';
 import { TelemetryProvider } from '@/contexts/TelemetryContext';
 import { GhostModeProvider } from '@/contexts/GhostModeContext';
-import ErrorBoundary from './components/errors/ErrorBoundary';
-import LoginPage from './pages/LoginPage';
-import DashboardLayout from './components/layout/DashboardLayout';
-import CommandCenter from './pages/CommandCenter';
-import NeuralLab from './pages/NeuralLab';
-import SentinelProtocol from './pages/SentinelProtocol';
-import DeviceSync from './pages/DeviceSync';
-import AnalyticsVault from './pages/AnalyticsVault';
-import TeamManagementPage from './pages/TeamManagementPage';
-import Subscriptions from './pages/Subscriptions';
-import AdminPanel from './pages/AdminPanel';
-import TacticalRemote from './pages/TacticalRemote';
-import MobileBiometric from './pages/MobileBiometric';
-import RoleProtectedRoute from './components/auth/RoleProtectedRoute';
+import { initializeStorage } from '@/utils/localStorageAuth';
 
-// Root route with Outlet
-const rootRoute = createRootRoute({
-  component: () => (
-    <TelemetryProvider>
-      <GhostModeProvider>
-        <ErrorBoundary>
-          <Toaster />
-          <Outlet />
-        </ErrorBoundary>
-      </GhostModeProvider>
-    </TelemetryProvider>
-  ),
-});
+// Pages
+import LandingPage from '@/pages/LandingPage';
+import LoginPage from '@/pages/LoginPage';
+import UnifiedDashboard from '@/pages/UnifiedDashboard';
 
-// Login route
-const loginRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/login',
-  component: LoginPage,
-});
-
-// Mobile routes
-const remoteRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/remote',
-  component: TacticalRemote,
-});
-
-const mobileBiometricRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/mobile-biometric',
-  component: MobileBiometric,
-});
-
-// Dashboard routes
-const commandCenterRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/command-center',
-  component: () => (
-    <DashboardLayout>
-      <CommandCenter />
-    </DashboardLayout>
-  ),
-});
-
-const neuralLabRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/neural-lab',
-  component: () => (
-    <DashboardLayout>
-      <NeuralLab />
-    </DashboardLayout>
-  ),
-});
-
-const sentinelRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/sentinel',
-  component: () => (
-    <DashboardLayout>
-      <SentinelProtocol />
-    </DashboardLayout>
-  ),
-});
-
-const deviceSyncRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/device-sync',
-  component: () => (
-    <DashboardLayout>
-      <DeviceSync />
-    </DashboardLayout>
-  ),
-});
-
-const analyticsVaultRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/analytics-vault',
-  component: () => (
-    <DashboardLayout>
-      <AnalyticsVault />
-    </DashboardLayout>
-  ),
-});
-
-const teamManagementRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/team-management',
-  component: () => (
-    <DashboardLayout>
-      <TeamManagementPage />
-    </DashboardLayout>
-  ),
-});
-
-const subscriptionsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/subscriptions',
-  component: () => (
-    <DashboardLayout>
-      <Subscriptions />
-    </DashboardLayout>
-  ),
-});
-
-const adminRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dashboard/admin',
-  component: () => (
-    <DashboardLayout>
-      <RoleProtectedRoute requiredRole="admin">
-        <AdminPanel />
-      </RoleProtectedRoute>
-    </DashboardLayout>
-  ),
-});
-
-// Index route redirects to command center
-const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/',
-  component: () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = '/command-center';
-    }
-    return null;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+    },
   },
 });
 
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  loginRoute,
-  remoteRoute,
-  mobileBiometricRoute,
-  commandCenterRoute,
-  neuralLabRoute,
-  sentinelRoute,
-  deviceSyncRoute,
-  analyticsVaultRoute,
-  teamManagementRoute,
-  subscriptionsRoute,
-  adminRoute,
-]);
-
-const router = createRouter({ 
-  routeTree,
-  defaultPreload: 'intent',
-});
-
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
+type ViewType = 'homepage-view' | 'login' | 'dashboard';
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  // Force-reset to 'homepage-view' as primary entry point
+  const [currentView, setCurrentView] = useState<ViewType>('homepage-view');
+
+  // Initialize storage and view on mount
+  useEffect(() => {
+    // Initialize localStorage with default values
+    initializeStorage();
+    
+    // Check if user is already logged in
+    try {
+      const session = localStorage.getItem('AXON_SESSION');
+      if (session === 'ACTIVE') {
+        setCurrentView('dashboard');
+      } else {
+        // Force homepage as default
+        setCurrentView('homepage-view');
+      }
+    } catch (error) {
+      console.error('Error checking session:', error);
+      setCurrentView('homepage-view');
+    }
+  }, []);
+
+  const handleShowLogin = () => {
+    setCurrentView('login');
+  };
+
+  const handleLoginSuccess = () => {
+    setCurrentView('dashboard');
+  };
+
+  const handleLogout = () => {
+    // Clear all session data
+    try {
+      localStorage.removeItem('AXON_SESSION');
+      localStorage.removeItem('AXON_CURRENT_USER');
+      sessionStorage.clear();
+    } catch (error) {
+      console.error('Error clearing session:', error);
+    }
+    setCurrentView('homepage-view');
+  };
+
+  const handleForceDashboard = () => {
+    setCurrentView('dashboard');
+  };
+
+  return (
+    <StrictMode>
+      <ErrorBoundary>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <QueryClientProvider client={queryClient}>
+            <TelemetryProvider>
+              <GhostModeProvider>
+                <div id="homepage-view" style={{ display: currentView === 'homepage-view' ? 'block' : 'none' }}>
+                  <LandingPage onShowLogin={handleShowLogin} />
+                </div>
+                <div id="login-view" style={{ display: currentView === 'login' ? 'block' : 'none' }}>
+                  <LoginPage onLoginSuccess={handleLoginSuccess} onForceDashboard={handleForceDashboard} />
+                </div>
+                <div id="dashboard-view" style={{ display: currentView === 'dashboard' ? 'block' : 'none' }}>
+                  <UnifiedDashboard onLogout={handleLogout} />
+                </div>
+                <Toaster />
+              </GhostModeProvider>
+            </TelemetryProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
+    </StrictMode>
+  );
 }

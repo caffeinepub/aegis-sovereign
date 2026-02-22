@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 import { useGetCallerUserProfile, useSaveCallerUserProfile } from '@/hooks/useQueries';
-import ThreeBackground from '@/components/auth/ThreeBackground';
-import AuthPanel from '@/components/auth/AuthPanel';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
 
-export default function LoginPage() {
-  const navigate = useNavigate();
+interface LoginPageProps {
+  onLoginSuccess: () => void;
+  onForceDashboard: () => void;
+}
+
+export default function LoginPage({ onLoginSuccess, onForceDashboard }: LoginPageProps) {
   const { login, loginStatus, identity, isInitializing } = useInternetIdentity();
   const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
   const saveProfileMutation = useSaveCallerUserProfile();
@@ -27,12 +28,18 @@ export default function LoginPage() {
     if (isAuthenticated && !profileLoading && isFetched) {
       if (userProfile === null) {
         setShowProfileSetup(true);
-      } else {
-        // User has profile, navigate to dashboard
-        navigate({ to: '/command-center' });
+      } else if (userProfile) {
+        // User has profile, set session and navigate to dashboard
+        localStorage.setItem('AXON_SESSION', 'ACTIVE');
+        localStorage.setItem('AXON_USER_NAME', userProfile.name);
+        // Initialize subscription tier if not present
+        if (!localStorage.getItem('AXON_SUBSCRIPTION_TIER')) {
+          localStorage.setItem('AXON_SUBSCRIPTION_TIER', 'free');
+        }
+        onLoginSuccess();
       }
     }
-  }, [isAuthenticated, userProfile, profileLoading, isFetched, navigate]);
+  }, [isAuthenticated, userProfile, profileLoading, isFetched, onLoginSuccess]);
 
   const handleLogin = async () => {
     try {
@@ -59,8 +66,13 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       await saveProfileMutation.mutateAsync({ name: fullName.trim() });
+      // Store name in localStorage for dashboard
+      localStorage.setItem('AXON_USER_NAME', fullName.trim());
+      localStorage.setItem('AXON_SESSION', 'ACTIVE');
+      // Initialize subscription tier
+      localStorage.setItem('AXON_SUBSCRIPTION_TIER', 'free');
       toast.success('Profile created successfully!', { duration: 2000 });
-      navigate({ to: '/command-center' });
+      onLoginSuccess();
     } catch (error) {
       console.error('Profile setup error:', error);
       toast.error('Failed to create profile. Please try again.', { duration: 3000 });
@@ -69,59 +81,63 @@ export default function LoginPage() {
     }
   };
 
-  // Show loading while initializing
-  if (isInitializing || (isAuthenticated && profileLoading)) {
+  // Show loading state while initializing
+  if (isInitializing) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden bg-gradient-to-br from-[#001529] via-[#002140] to-[#001529]">
-        <div className="text-center space-y-6">
-          <Loader2 className="h-16 w-16 text-[#10b981] animate-spin mx-auto" />
-          <p className="text-2xl font-bold text-white">Initializing Sovereign Identity...</p>
+      <div className="min-h-screen bg-gradient-to-br from-[#0a0118] via-[#1a0b2e] to-[#0a0118] flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 animate-spin text-cyan-400 mx-auto mb-4" />
+          <p className="text-white/70">Initializing authentication...</p>
         </div>
       </div>
     );
   }
 
-  // Show profile setup if needed
-  if (showProfileSetup) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
-        <ThreeBackground />
-        <AuthPanel shake={false} onLogoClick={() => {}}>
-          <div className="max-w-md mx-auto space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Welcome to AXON</h2>
-              <p className="text-white/70">Please set up your profile to continue</p>
-            </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0118] via-[#1a0b2e] to-[#0a0118] flex items-center justify-center p-6">
+      <div className="w-full max-w-md">
+        {/* Glassmorphic Login Card */}
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+          {/* Logo */}
+          <div className="text-center mb-8">
+            <img 
+              src="/assets/generated/axon-logo.dim_400x120.png" 
+              alt="AXON" 
+              className="h-12 mx-auto mb-4"
+            />
+            <h1 className="text-2xl font-bold text-white mb-2">
+              {showProfileSetup ? 'Complete Your Profile' : 'Welcome to AXON'}
+            </h1>
+            <p className="text-white/60">
+              {showProfileSetup ? 'Tell us your name to continue' : 'Secure your digital sovereignty'}
+            </p>
+          </div>
 
-            <div className="space-y-4">
+          {showProfileSetup ? (
+            /* Profile Setup Form */
+            <div className="space-y-6">
               <div>
-                <Label htmlFor="fullname" className="text-white/90 mb-2 block">
+                <Label htmlFor="fullName" className="text-white/90 mb-2 block">
                   Full Name
                 </Label>
                 <Input
-                  id="fullname"
+                  id="fullName"
                   type="text"
+                  placeholder="Enter your full name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Enter your full name"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
                   disabled={isSubmitting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleProfileSetup();
-                    }
-                  }}
                 />
               </div>
-
               <Button
                 onClick={handleProfileSetup}
-                className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-6"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !fullName.trim()}
+                className="w-full bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white font-semibold py-6 rounded-xl"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                     Creating Profile...
                   </>
                 ) : (
@@ -129,45 +145,42 @@ export default function LoginPage() {
                 )}
               </Button>
             </div>
-          </div>
-        </AuthPanel>
-      </div>
-    );
-  }
+          ) : (
+            /* Login Button */
+            <div className="space-y-6">
+              <Button
+                onClick={handleLogin}
+                disabled={loginStatus === 'logging-in'}
+                className="w-full bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white font-semibold py-6 rounded-xl"
+              >
+                {loginStatus === 'logging-in' ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Connecting...
+                  </>
+                ) : (
+                  'Sign In with Internet Identity'
+                )}
+              </Button>
 
-  // Show login screen
-  return (
-    <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
-      <ThreeBackground />
-      <AuthPanel shake={false} onLogoClick={() => {}}>
-        <div className="max-w-md mx-auto space-y-6">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
-            <p className="text-white/70">Secure authentication with Internet Identity</p>
-          </div>
+              <p className="text-center text-white/50 text-sm">
+                Secure authentication powered by Internet Computer
+              </p>
+            </div>
+          )}
 
-          <div className="space-y-4">
+          {/* Dev Force Dashboard Button */}
+          <div className="mt-8 pt-6 border-t border-white/10">
             <Button
-              onClick={handleLogin}
-              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-6"
-              disabled={loginStatus === 'logging-in'}
+              onClick={onForceDashboard}
+              variant="outline"
+              className="w-full border-white/20 text-white/70 hover:bg-white/10 hover:text-white"
             >
-              {loginStatus === 'logging-in' ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Connecting...
-                </>
-              ) : (
-                'Login with Internet Identity'
-              )}
+              Force Dashboard (Dev)
             </Button>
-
-            <p className="text-xs text-white/50 text-center">
-              Powered by Internet Computer's decentralized authentication
-            </p>
           </div>
         </div>
-      </AuthPanel>
+      </div>
     </div>
   );
 }

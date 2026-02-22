@@ -1,111 +1,172 @@
 {
   "kind": "build_request",
-  "title": "Redesign Dashboard to Match Reference Application",
-  "projectName": "AXON Sovereign",
+  "title": "Fix store initialization error and restore dashboard components",
+  "projectName": "AXON Remote",
   "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Transform the CommandCenter page to match the layout and visual style of the reference application at https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6, including grid structure, card arrangements, and spacing",
+      "text": "Add null-check guard in the global state store initialization. If '__store' is null or undefined, immediately re-initialize it with default values: subscription tier set to 'free' and an empty user profile object.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-4"
         ],
         "quotes": [
-          "https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6\nMake like this"
+          "Ensure the global state store is initialized with default values BEFORE any component attempts to render",
+          "Add a null-check guard: If '__store' is null, re-initialize it with the default 'Free' tier and empty user profile"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard layout matches the reference application's grid structure",
-        "Card components are arranged in the same visual hierarchy as the reference",
-        "Spacing and proportions align with the reference design"
+        "Store initialization includes explicit null check before any component render",
+        "Default tier is 'free' when store is re-initialized",
+        "User profile defaults to empty object structure",
+        "No '__store' null reference errors occur during app initialization"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update color scheme and visual theming to match the reference application's aesthetic, including card backgrounds, text colors, accent colors, and overall color palette",
+      "text": "Force-reset the application view to 'homepage-view' as the primary entry point in App.tsx. Ensure the view hierarchy respects this as the default starting state.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-4"
         ],
         "quotes": [
-          "https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6\nMake like this"
+          "Force-reset the view to 'homepage-view' as the primary entry point"
         ]
       },
       "acceptanceCriteria": [
-        "Color scheme matches the reference application",
-        "Card styling and backgrounds align with reference design",
-        "Text hierarchy and typography match the reference"
+        "App.tsx initializes with 'homepage-view' as the default view",
+        "No other view attempts to render before homepage is ready",
+        "View state correctly persists and transitions to login/dashboard when appropriate"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Redesign or replace existing dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match the content structure and visual presentation of equivalent cards in the reference application",
+      "text": "Re-bind the 'Start Journey' button on the homepage to properly trigger the login portal overlay. Verify the click handler transitions the view state to 'login' correctly.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-4"
         ],
         "quotes": [
-          "https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6\nMake like this"
+          "Re-bind the 'Start Journey' button to trigger the login portal overlay properly"
         ]
       },
       "acceptanceCriteria": [
-        "Each card component's content and layout matches its counterpart in the reference",
-        "Card interactions and animations align with reference behavior",
-        "Data visualization components match the reference style"
+        "'Start Journey' button click transitions view from 'homepage-view' to 'login'",
+        "Login overlay displays correctly after button click",
+        "No console errors during view transition"
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Update the DashboardLayout sidebar navigation to match the reference application's navigation structure, including menu items, icons, and visual styling",
+      "text": "Repair localStorage persistence for User Name and Subscription Tier. Ensure localStorage calls correctly save and retrieve these values during authentication flow and session restoration.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-4"
         ],
         "quotes": [
-          "https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6\nMake like this"
+          "Re-link the 'localStorage' calls for the User Name and Subscription Tier"
         ]
       },
       "acceptanceCriteria": [
-        "Sidebar navigation structure matches the reference",
-        "Navigation icons and labels align with reference design",
-        "Active state styling matches the reference application"
+        "User name is correctly saved to localStorage on authentication",
+        "Subscription tier is correctly saved to localStorage on tier selection or initialization",
+        "Values persist across page refreshes",
+        "Values are correctly retrieved during session restoration"
       ]
     },
     {
       "id": "REQ-5",
-      "text": "Adjust responsive behavior and mobile layout to match how the reference application handles different screen sizes and breakpoints",
+      "text": "Ensure the dashboard view remains hidden when a user is not logged in. Add a conditional check that prevents dashboard rendering if authentication state is invalid, rather than attempting to render and crashing the store.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-4"
         ],
         "quotes": [
-          "https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6\nMake like this"
+          "Ensure that if a user is not logged in, the dashboard remains hidden rather than crashing the store"
         ]
       },
       "acceptanceCriteria": [
-        "Responsive breakpoints match the reference application",
-        "Mobile layout and stacking order align with reference",
-        "Touch interactions work consistently with reference"
+        "Dashboard only renders when user authentication state is valid",
+        "Unauthenticated users see homepage or login view, never dashboard",
+        "No store access errors occur when user is not logged in"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Re-inject the Spectral Analysis component (LiveSpectralAnalysis) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Re-inject the Spectral Analysis and Asset Shield components once the store is validated"
+        ]
+      },
+      "acceptanceCriteria": [
+        "LiveSpectralAnalysis component is present in the Command Center dashboard",
+        "Component only renders after store validation succeeds",
+        "Spectral animation displays correctly",
+        "Component respects subscription tier access controls"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Re-inject the Asset Shield component (AssetShieldCard) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Re-inject the Spectral Analysis and Asset Shield components once the store is validated"
+        ]
+      },
+      "acceptanceCriteria": [
+        "AssetShieldCard component is present in the Command Center dashboard",
+        "Component only renders after store validation succeeds",
+        "Animated counter displays protected assets value correctly",
+        "Component respects subscription tier access controls"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Maintain the high-end dark theme with glassmorphic UI styling from previous stable versions throughout the dashboard and component restoration. Preserve scanlines, gradients, and tactical aesthetics.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Maintain the high-end dark theme and glassmorphic UI from previous stable versions"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dark theme colors remain consistent across all restored components",
+        "Glassmorphic effects (backdrop blur, transparency) are present",
+        "Scanline overlays and tactical aesthetics are preserved",
+        "Visual consistency matches previous stable version"
       ]
     }
   ],
   "constraints": [
-    "Preserve existing backend functionality and API contracts",
-    "Maintain Internet Identity authentication flow",
-    "Keep all existing hooks and context providers functional",
-    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+    "Do not modify the backend main.mo file",
+    "Do not change subscription tier pricing or feature definitions",
+    "Preserve existing authentication flow using Internet Identity",
+    "Maintain localStorage encryption methods in frontend/src/utils/localStorageAuth.ts"
   ],
   "nonGoals": [
-    "Adding new backend features or data models",
-    "Changing authentication mechanisms",
-    "Modifying subscription tier logic or feature gating",
-    "Adding new third-party dependencies beyond what's needed for UI matching"
+    "Adding new subscription tiers",
+    "Modifying backend API endpoints",
+    "Changing authentication provider",
+    "Redesigning the visual theme or color scheme",
+    "Adding new dashboard components beyond restoration"
   ],
   "imageRequirements": {
     "required": [],

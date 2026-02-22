@@ -2,12 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-transform-the-commandcenter-page-to-match-the-layout-and-visual-style-of-the-reference-application-at-https-ai-studio-apps-a97f3825-5282-4ea0-bd66-c18737521df6-including-grid-structure-card-arrangements-and-spacing",
-      "featureTitle": "Transform the CommandCenter page to match the layout and visual style of the reference application at https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6, including grid structure, card arrangements, and spacing",
+      "featureId": "feature-add-null-check-guard-in-the-global-state-store-initialization-if-store-is-null-or-undefined-immediately-re-initialize-it-with-default-values-subscription-tier-set-to-free-and-an-empty-user-profile-object",
+      "featureTitle": "Add null-check guard in the global state store initialization. If '__store' is null or undefined, immediately re-initialize it with default values: subscription tier set to 'free' and an empty user profile object.",
       "files": [
-        "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-        "frontend/src/components/dashboard/Overview.tsx",
-        "frontend/src/pages/CommandCenter.tsx"
+        "frontend/src/hooks/useSubscriptionTier.ts",
+        "frontend/src/utils/localStorageAuth.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -25,12 +24,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-color-scheme-and-visual-theming-to-match-the-reference-application-s-aesthetic-including-card-backgrounds-text-colors-accent-colors-and-overall-color-palette",
-      "featureTitle": "Update color scheme and visual theming to match the reference application's aesthetic, including card backgrounds, text colors, accent colors, and overall color palette",
+      "featureId": "feature-force-reset-the-application-view-to-homepage-view-as-the-primary-entry-point-in-app-tsx-ensure-the-view-hierarchy-respects-this-as-the-default-starting-state",
+      "featureTitle": "Force-reset the application view to 'homepage-view' as the primary entry point in App.tsx. Ensure the view hierarchy respects this as the default starting state.",
       "files": [
-        "frontend/src/components/common/MetricCard.tsx",
-        "frontend/src/components/layout/BentoCard.tsx",
-        "frontend/src/index.css"
+        "frontend/src/App.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -48,34 +45,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-redesign-or-replace-existing-dashboard-cards-kpimetricsrow-neuralingestinput-synopsisenginecard-spectralanalysiscard-to-match-the-content-structure-and-visual-presentation-of-equivalent-cards-in-the-reference-application",
-      "featureTitle": "Redesign or replace existing dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match the content structure and visual presentation of equivalent cards in the reference application",
+      "featureId": "feature-repair-localstorage-persistence-for-user-name-and-subscription-tier-ensure-localstorage-calls-correctly-save-and-retrieve-these-values-during-authentication-flow-and-session-restoration",
+      "featureTitle": "Repair localStorage persistence for User Name and Subscription Tier. Ensure localStorage calls correctly save and retrieve these values during authentication flow and session restoration.",
       "files": [
-        "frontend/src/components/dashboard/KPIMetricsRow.tsx",
-        "frontend/src/components/dashboard/NeuralIngestInput.tsx",
-        "frontend/src/components/dashboard/SpectralAnalysisCard.tsx",
-        "frontend/src/components/dashboard/SynopsisEngineCard.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "qr-code@1.0.0",
-        "camera@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-dashboardlayout-sidebar-navigation-to-match-the-reference-application-s-navigation-structure-including-menu-items-icons-and-visual-styling",
-      "featureTitle": "Update the DashboardLayout sidebar navigation to match the reference application's navigation structure, including menu items, icons, and visual styling",
-      "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx"
+        "frontend/src/hooks/useSubscriptionTier.ts",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/utils/localStorageAuth.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -93,10 +68,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-adjust-responsive-behavior-and-mobile-layout-to-match-how-the-reference-application-handles-different-screen-sizes-and-breakpoints",
-      "featureTitle": "Adjust responsive behavior and mobile layout to match how the reference application handles different screen sizes and breakpoints",
+      "featureId": "feature-ensure-the-dashboard-view-remains-hidden-when-a-user-is-not-logged-in-add-a-conditional-check-that-prevents-dashboard-rendering-if-authentication-state-is-invalid-rather-than-attempting-to-render-and-crashing-the-store",
+      "featureTitle": "Ensure the dashboard view remains hidden when a user is not logged in. Add a conditional check that prevents dashboard rendering if authentication state is invalid, rather than attempting to render and crashing the store.",
       "files": [
-        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/App.tsx",
         "frontend/src/pages/CommandCenter.tsx"
       ],
       "components": [
@@ -111,6 +86,69 @@
       ],
       "testIds": [
         "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-re-inject-the-spectral-analysis-component-livespectralanalysis-into-the-dashboard-once-the-store-is-validated-and-initialized-ensure-it-renders-in-the-command-center-layout-as-before",
+      "featureTitle": "Re-inject the Spectral Analysis component (LiveSpectralAnalysis) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+      "files": [
+        "frontend/src/pages/CommandCenter.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "qr-code@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-re-inject-the-asset-shield-component-assetshieldcard-into-the-dashboard-once-the-store-is-validated-and-initialized-ensure-it-renders-in-the-command-center-layout-as-before",
+      "featureTitle": "Re-inject the Asset Shield component (AssetShieldCard) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+      "files": [
+        "frontend/src/pages/CommandCenter.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "qr-code@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-maintain-the-high-end-dark-theme-with-glassmorphic-ui-styling-from-previous-stable-versions-throughout-the-dashboard-and-component-restoration-preserve-scanlines-gradients-and-tactical-aesthetics",
+      "featureTitle": "Maintain the high-end dark theme with glassmorphic UI styling from previous stable versions throughout the dashboard and component restoration. Preserve scanlines, gradients, and tactical aesthetics.",
+      "files": [
+        "frontend/src/components/dashboard/AssetShieldCard.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "qr-code@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
       ],
       "confidence": "high"
     }

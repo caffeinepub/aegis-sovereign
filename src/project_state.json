@@ -1,61 +1,87 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Building a dashboard application similar to the reference at ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6",
-  "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "summary": "A dashboard application with user authentication, subscription tiers, and feature components including Spectral Analysis and Asset Shield",
+  "architectural_notes": [
+    "Global state store must initialize with default values before component rendering",
+    "Homepage view serves as primary entry point with 'Start Journey' button triggering login overlay",
+    "LocalStorage persistence for user name and subscription tier data",
+    "Dashboard visibility conditional on user login state",
+    "High-end dark theme with glassmorphic UI design pattern"
+  ],
+  "known_issues": [
+    "Store initialization error: 'Cannot read properties of null (reading __store)' - requires null-check guard and default tier initialization"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-transform-the-commandcenter-page-to-match-the-layout-and-visual-style-of-the-reference-application-at-https-ai-studio-apps-a97f3825-5282-4ea0-bd66-c18737521df6-including-grid-structure-card-arrangements-and-spacing",
-      "title": "Transform the CommandCenter page to match the layout and visual style of the reference application at https://ai.studio/apps/a97f3825-5282-4ea0-bd66-c18737521df6, including grid structure, card arrangements, and spacing",
+      "id": "feature-add-null-check-guard-in-the-global-state-store-initialization-if-store-is-null-or-undefined-immediately-re-initialize-it-with-default-values-subscription-tier-set-to-free-and-an-empty-user-profile-object",
+      "title": "Add null-check guard in the global state store initialization. If '__store' is null or undefined, immediately re-initialize it with default values: subscription tier set to 'free' and an empty user profile object.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-color-scheme-and-visual-theming-to-match-the-reference-application-s-aesthetic-including-card-backgrounds-text-colors-accent-colors-and-overall-color-palette",
-      "title": "Update color scheme and visual theming to match the reference application's aesthetic, including card backgrounds, text colors, accent colors, and overall color palette",
+      "id": "feature-force-reset-the-application-view-to-homepage-view-as-the-primary-entry-point-in-app-tsx-ensure-the-view-hierarchy-respects-this-as-the-default-starting-state",
+      "title": "Force-reset the application view to 'homepage-view' as the primary entry point in App.tsx. Ensure the view hierarchy respects this as the default starting state.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-redesign-or-replace-existing-dashboard-cards-kpimetricsrow-neuralingestinput-synopsisenginecard-spectralanalysiscard-to-match-the-content-structure-and-visual-presentation-of-equivalent-cards-in-the-reference-application",
-      "title": "Redesign or replace existing dashboard cards (KPIMetricsRow, NeuralIngestInput, SynopsisEngineCard, SpectralAnalysisCard) to match the content structure and visual presentation of equivalent cards in the reference application",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-dashboardlayout-sidebar-navigation-to-match-the-reference-application-s-navigation-structure-including-menu-items-icons-and-visual-styling",
-      "title": "Update the DashboardLayout sidebar navigation to match the reference application's navigation structure, including menu items, icons, and visual styling",
+      "id": "feature-repair-localstorage-persistence-for-user-name-and-subscription-tier-ensure-localstorage-calls-correctly-save-and-retrieve-these-values-during-authentication-flow-and-session-restoration",
+      "title": "Repair localStorage persistence for User Name and Subscription Tier. Ensure localStorage calls correctly save and retrieve these values during authentication flow and session restoration.",
       "reqIds": [
         "REQ-4"
       ],
       "version": 1
     },
     {
-      "id": "feature-adjust-responsive-behavior-and-mobile-layout-to-match-how-the-reference-application-handles-different-screen-sizes-and-breakpoints",
-      "title": "Adjust responsive behavior and mobile layout to match how the reference application handles different screen sizes and breakpoints",
+      "id": "feature-ensure-the-dashboard-view-remains-hidden-when-a-user-is-not-logged-in-add-a-conditional-check-that-prevents-dashboard-rendering-if-authentication-state-is-invalid-rather-than-attempting-to-render-and-crashing-the-store",
+      "title": "Ensure the dashboard view remains hidden when a user is not logged in. Add a conditional check that prevents dashboard rendering if authentication state is invalid, rather than attempting to render and crashing the store.",
       "reqIds": [
         "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-re-inject-the-spectral-analysis-component-livespectralanalysis-into-the-dashboard-once-the-store-is-validated-and-initialized-ensure-it-renders-in-the-command-center-layout-as-before",
+      "title": "Re-inject the Spectral Analysis component (LiveSpectralAnalysis) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-re-inject-the-asset-shield-component-assetshieldcard-into-the-dashboard-once-the-store-is-validated-and-initialized-ensure-it-renders-in-the-command-center-layout-as-before",
+      "title": "Re-inject the Asset Shield component (AssetShieldCard) into the dashboard once the store is validated and initialized. Ensure it renders in the Command Center layout as before.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-maintain-the-high-end-dark-theme-with-glassmorphic-ui-styling-from-previous-stable-versions-throughout-the-dashboard-and-component-restoration-preserve-scanlines-gradients-and-tactical-aesthetics",
+      "title": "Maintain the high-end dark theme with glassmorphic UI styling from previous stable versions throughout the dashboard and component restoration. Preserve scanlines, gradients, and tactical aesthetics.",
+      "reqIds": [
+        "REQ-8"
       ],
       "version": 1
     }
   ],
   "new_feature_requests": [
     {
-      "id": "AR-1",
-      "summary": "Create dashboard similar to reference application",
-      "reqIds": [],
+      "id": "AR-3",
+      "summary": "Re-bind the 'Start Journey' button on the homepage to properly trigger the login portal overlay. Verify the click handler transitions the view state to 'login' correctly.",
+      "reqIds": [
+        "REQ-3"
+      ],
       "status": "pending"
     }
   ],
-  "projectName": "AXON Sovereign",
+  "projectName": "AXON Remote",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

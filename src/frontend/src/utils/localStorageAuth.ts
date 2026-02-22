@@ -21,6 +21,12 @@ export function initializeStorage(): void {
     if (!users) {
       localStorage.setItem(USERS_KEY, JSON.stringify([]));
     }
+    
+    // Initialize subscription tier if not present
+    const tier = localStorage.getItem('AXON_SUBSCRIPTION_TIER');
+    if (!tier) {
+      localStorage.setItem('AXON_SUBSCRIPTION_TIER', 'free');
+    }
   } catch (error) {
     console.error('Error initializing storage:', error);
   }
@@ -30,6 +36,7 @@ export function initializeStorage(): void {
 // Note: This is basic obfuscation, not cryptographically secure
 function encrypt(data: string): string {
   try {
+    if (!data) return '';
     const salt = ENCRYPTION_KEY;
     const combined = salt + data;
     return btoa(combined);
@@ -42,6 +49,7 @@ function encrypt(data: string): string {
 // Simple decryption
 function decrypt(encryptedData: string): string {
   try {
+    if (!encryptedData) return '';
     const combined = atob(encryptedData);
     const salt = ENCRYPTION_KEY;
     return combined.substring(salt.length);
@@ -58,11 +66,13 @@ export function getUsers(): AxonUser[] {
     if (!users) return [];
     
     const encryptedUsers = JSON.parse(users);
+    if (!Array.isArray(encryptedUsers)) return [];
+    
     return encryptedUsers.map((encUser: any) => ({
-      fullName: decrypt(encUser.fullName),
-      email: decrypt(encUser.email),
-      password: decrypt(encUser.password),
-      createdAt: encUser.createdAt,
+      fullName: decrypt(encUser.fullName || ''),
+      email: decrypt(encUser.email || ''),
+      password: decrypt(encUser.password || ''),
+      createdAt: encUser.createdAt || Date.now(),
       plan: encUser.plan || 'free',
     }));
   } catch (error) {
@@ -74,6 +84,11 @@ export function getUsers(): AxonUser[] {
 // Register a new user with encryption and default FREE plan
 export function registerUser(fullName: string, email: string, password: string): boolean {
   try {
+    if (!fullName || !email || !password) {
+      console.error('Invalid registration data');
+      return false;
+    }
+    
     const users = getUsers();
     
     // Check if user already exists
@@ -92,6 +107,12 @@ export function registerUser(fullName: string, email: string, password: string):
 
     // Store in AXON_MASTER_USER key as JSON
     localStorage.setItem(MASTER_USER_KEY, JSON.stringify(userData));
+    
+    // Store user name for dashboard
+    localStorage.setItem('AXON_USER_NAME', fullName);
+    
+    // Initialize subscription tier
+    localStorage.setItem('AXON_SUBSCRIPTION_TIER', 'free');
 
     // Also store in encrypted AXON_USERS array for compatibility
     const encryptedUser = {
@@ -117,6 +138,11 @@ export function registerUser(fullName: string, email: string, password: string):
 // Validate login credentials by checking AXON_MASTER_USER
 export function signInUser(emailOrUsername: string, password: string): AxonUser | null {
   try {
+    if (!emailOrUsername || !password) {
+      console.error('Invalid login credentials');
+      return null;
+    }
+    
     // Check AXON_MASTER_USER first
     const masterUserData = localStorage.getItem(MASTER_USER_KEY);
     if (masterUserData) {
@@ -126,6 +152,10 @@ export function signInUser(emailOrUsername: string, password: string): AxonUser 
         localStorage.setItem(SESSION_KEY, 'ACTIVE');
         // Store current user email for retrieval
         localStorage.setItem(CURRENT_USER_KEY, user.email);
+        // Store user name for dashboard
+        localStorage.setItem('AXON_USER_NAME', user.fullName);
+        // Sync subscription tier
+        localStorage.setItem('AXON_SUBSCRIPTION_TIER', user.plan);
         return user;
       }
     }
@@ -141,6 +171,10 @@ export function signInUser(emailOrUsername: string, password: string): AxonUser 
       localStorage.setItem(SESSION_KEY, 'ACTIVE');
       // Store current user email for retrieval
       localStorage.setItem(CURRENT_USER_KEY, user.email);
+      // Store user name for dashboard
+      localStorage.setItem('AXON_USER_NAME', user.fullName);
+      // Sync subscription tier
+      localStorage.setItem('AXON_SUBSCRIPTION_TIER', user.plan);
       // Also store in AXON_MASTER_USER for consistency
       localStorage.setItem(MASTER_USER_KEY, JSON.stringify(user));
       return user;
@@ -169,7 +203,15 @@ export function getCurrentUser(): AxonUser | null {
     // Try AXON_MASTER_USER first
     const masterUserData = localStorage.getItem(MASTER_USER_KEY);
     if (masterUserData) {
-      return JSON.parse(masterUserData);
+      const user = JSON.parse(masterUserData);
+      // Ensure user has all required fields with defaults
+      return {
+        fullName: user.fullName || '',
+        email: user.email || '',
+        password: user.password || '',
+        createdAt: user.createdAt || Date.now(),
+        plan: user.plan || 'free',
+      };
     }
 
     // Fallback to email lookup
@@ -187,6 +229,11 @@ export function getCurrentUser(): AxonUser | null {
 // Update user's subscription plan
 export function updateUserPlan(email: string, plan: 'free' | 'core' | 'shield'): boolean {
   try {
+    if (!email || !plan) {
+      console.error('Invalid plan update data');
+      return false;
+    }
+    
     // Update AXON_MASTER_USER
     const masterUserData = localStorage.getItem(MASTER_USER_KEY);
     if (masterUserData) {
@@ -194,6 +241,8 @@ export function updateUserPlan(email: string, plan: 'free' | 'core' | 'shield'):
       if (user.email.toLowerCase() === email.toLowerCase()) {
         user.plan = plan;
         localStorage.setItem(MASTER_USER_KEY, JSON.stringify(user));
+        // Sync subscription tier
+        localStorage.setItem('AXON_SUBSCRIPTION_TIER', plan);
       }
     }
 
@@ -234,6 +283,10 @@ export function masterBypass(): void {
     // Set session active
     localStorage.setItem(SESSION_KEY, 'ACTIVE');
     localStorage.setItem(CURRENT_USER_KEY, masterUser.email);
+    // Store user name for dashboard
+    localStorage.setItem('AXON_USER_NAME', masterUser.fullName);
+    // Set subscription tier
+    localStorage.setItem('AXON_SUBSCRIPTION_TIER', 'shield');
   } catch (error) {
     console.error('Error in master bypass:', error);
   }
@@ -249,6 +302,8 @@ export function setSession(user: AxonUser, rememberMe: boolean = false): void {
   try {
     localStorage.setItem(SESSION_KEY, 'ACTIVE');
     localStorage.setItem(CURRENT_USER_KEY, user.email);
+    localStorage.setItem('AXON_USER_NAME', user.fullName);
+    localStorage.setItem('AXON_SUBSCRIPTION_TIER', user.plan);
   } catch (error) {
     console.error('Error setting session:', error);
   }
